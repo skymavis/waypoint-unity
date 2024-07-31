@@ -2,12 +2,12 @@ using System.Threading.Tasks;
 using SM.ID.Utils;
 using TMPro;
 using UnityEngine;
-using System.Numerics;
 
 public class ID : MonoBehaviour
 {
-    static readonly string AppId = "axie";
-    static readonly string DeeplinkSchema = "axie";
+    // AppId and DeeplinkSchema are registered with Sky Mavis
+    static readonly string AppId = "${YOUR_APP_ID}";
+    static readonly string DeeplinkSchema = "${YOUR_DEEPLINK_SCHEMA}";
 
     public GameObject popupPanel;
     public TMP_Text text;
@@ -74,11 +74,12 @@ public class ID : MonoBehaviour
         popupPanel.SetActive(true);
     }
 
+
     public async void OnAuthorizeClicked()
     {
         _responseId = SM.MavisId.OnAuthorize();
         string responseData = await WaitForMavisIdResponse(_responseId);
-        Debug.Log(responseData);
+        Debug.Log("Authorize response in Unity: " + responseData);
     }
 
     public async void OnPersonalSignClicked()
@@ -87,7 +88,7 @@ public class ID : MonoBehaviour
 
         _responseId = SM.MavisId.OnPersonalSign(message);
         string responseData = await WaitForMavisIdResponse(_responseId);
-        Debug.Log(responseData);
+        Debug.Log("Personal sign response in Unity : " + responseData);
     }
 
     public async void OnSignTypedDataClicked()
@@ -105,7 +106,7 @@ public class ID : MonoBehaviour
 
         _responseId = SM.MavisId.SendTransaction(receiverAddress, value);
         string responseData = await WaitForMavisIdResponse(_responseId);
-        Debug.Log(responseData);
+        Debug.Log("Send response data in Unity : " + responseData);
     }
 
     public async void OnApproveErc20Clicked()
@@ -121,7 +122,7 @@ public class ID : MonoBehaviour
             Debug.Log("Approve data : " + data);
             _responseId = SM.MavisId.OnCallContract(contractAddress, data);
             string responseData = await WaitForMavisIdResponse(_responseId);
-            Debug.Log(responseData);
+            Debug.Log("Approve AXS response data in Unity : " + responseData);
 
         }
         catch (System.Exception e)
@@ -131,32 +132,32 @@ public class ID : MonoBehaviour
 
     }
 
-    public async void OnSwapRonToAxsClicked()
+
+    public async void OnSwapRonToAxs()
     {
         string katanaAddress = "0xDa44546C0715ae78D454fE8B84f0235081584Fe0";
         string ronAddress = "0xa959726154953bae111746e265e6d754f48570e6";
         string axsAddress = "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d";
         string walletAddress = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63";
-        string readableAbi = "function swapExactRONForTokens(uint256 _amountOutMin, address[] _path, address _to, uint256 _deadline)";
+        string readableAbi = "function swapExactRONForTokens(uint256 _amountOutMin, address[] _path, address _to, uint256 _deadline) payable";
 
-        var value = "1000000000000000000";
+        // 0.1 Ron
+        string value = "100000000000000000";
 
-        var swapParams = new
+        object swapParams = new
         {
-            // 0.1 Ron
-            _amountOutMin = "0",
+            _amountOutMin = 0,
             _path = new string[] { ronAddress, axsAddress },
             _to = walletAddress,
-            _deadline = "1814031305"
+            _deadline = 19140313050
         };
 
         try
         {
-            var data = ABI.EncodeFunctionData(readableAbi, swapParams);
+            string data = ABI.EncodeFunctionData(readableAbi, swapParams);
             _responseId = SM.MavisId.OnCallContract(katanaAddress, data, value);
-            string responseData = await WaitForMavisIdResponse(_responseId);
-            Debug.Log(responseData);
-
+            var responseData = await WaitForMavisIdResponse(_responseId);
+            Debug.Log("Swap response data in Unity : " + responseData);
         }
         catch (System.Exception e)
         {
@@ -167,9 +168,8 @@ public class ID : MonoBehaviour
 
     public async void onClickAtiaBlessing()
     {
-        string state = "1960c859-c81c-49d3-9789-b1e7c043a88c";
 
-        string walletAddress = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63";
+        string walletAddress = "0x6b190089ed7f75fe17b3b0a17f6ebd69f72c3f63";
         string atiaShrineContractAddress = "0xd5c5afefad9ea288acbaaebeacec5225dd3d6d2b";
 
         string readableAbi = "function activateStreak(address to)";
@@ -179,9 +179,9 @@ public class ID : MonoBehaviour
         try
         {
             var data = ABI.EncodeFunctionData(readableAbi, values);
-            _responseId = SM.MavisId.OnCallContract(state, atiaShrineContractAddress, data);
+            _responseId = SM.MavisId.OnCallContract(atiaShrineContractAddress, data);
             string responseData = await WaitForMavisIdResponse(_responseId);
-            Debug.Log(responseData);
+            Debug.Log("Atia blessing response data in Unity " + responseData);
 
         }
         catch (System.Exception e)
@@ -211,7 +211,7 @@ public class ID : MonoBehaviour
             }
         }
 #else
-        SM.MavisId.Init(AppId, DeeplinkSchema);
+        SM.MavisId.Init(AppId, DeeplinkSchema, true);
 #endif
     }
 
@@ -306,6 +306,34 @@ public class ID : MonoBehaviour
         Debug.Log("Data : " + data);
         Debug.Log($"Is same with expected result : {data == expectedResult}");
     }
+    [UnityEditor.MenuItem("MyMenu/Encode Swap abis")]
+    static void EncodeSwapAbi()
+    {
+        string ronAddress = "0xa959726154953bae111746e265e6d754f48570e6";
+        string axsAddress = "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d";
+        string walletAddress = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63";
+        string readableAbi = "function swapExactRONForTokens(uint256 _amountOutMin, address[] _path, address _to, uint256 _deadline) payable";
+        var swapParams = new
+        {
+            // 0.1 Ron
+            _amountOutMin = 0,
+            _path = new string[] { ronAddress, axsAddress },
+            _to = walletAddress,
+            _deadline = 19140313050
+        };
+
+        try
+        {
+            var data = ABI.EncodeFunctionData(readableAbi, swapParams);
+            Debug.Log("Encoded Function Data " + data);
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Error in call contract : " + e.Message);
+        }
+
+    }
+
     [UnityEditor.MenuItem("MyMenu/ParseABI")]
     static void ParseABI()
     {
@@ -360,4 +388,3 @@ public class ID : MonoBehaviour
     }
 #endif
 }
-

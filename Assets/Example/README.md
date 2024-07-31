@@ -4,8 +4,8 @@ Mavis ID SDK example using Unity for Android, iOS and desktop games.
 
 ## Prerequisites
 
-- `Unity` : >= `2020.4.48f1`
-- `iOS` : >= `12.0`
+- `Unity` : >= `2020.3.48f1`
+- `iOS` : >= `13.0`
 - `Android` : >= `Android API level 24`
 - `Desktop` : >= `.Net 3.1`
 
