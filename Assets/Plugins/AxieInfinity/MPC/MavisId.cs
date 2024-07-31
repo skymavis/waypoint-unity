@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using SM.ID.Utils;
 using UnityEngine;
 using UnityEngine.Events;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 #if UNITY_IOS
@@ -18,8 +17,9 @@ namespace SM
         [DllImport("__Internal")]
         private static extern void initClient(string address, string clientId, string chainRpc, int chainId);
 
+
         [DllImport("__Internal")]
-        private static extern void authorize(string state, string redirect);
+        private static extern void authorize(string state, string redirects);
 
         [DllImport("__Internal")]
         private static extern void sendTransaction(string state, string redirect, string to, string value);
@@ -87,7 +87,7 @@ namespace SM
             _isInitialized = true;
             _deeplink = $"{deeplinkSchema}://open";
 
-            string endpoint = "https://id.skymavis.com/";
+            string endpoint = "https://id.skymavis.com";
             string rpcUrl = "https://api.roninchain.com/rpc";
             int chainId = 2020;
             if (isTestnet)
@@ -95,7 +95,7 @@ namespace SM
                 rpcUrl = "https://saigon-testnet.roninchain.com/rpc";
                 chainId = 2021;
             }
-          
+
 #if UNITY_ANDROID
             AndroidJavaObject clientObj = new AndroidJavaObject("com.skymavis.sdk.id.Client", endpoint, appId, rpcUrl, chainId);
             _client = clientObj;

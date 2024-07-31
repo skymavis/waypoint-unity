@@ -15,9 +15,8 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "axie://open” Testing Only -->
-                <data android:scheme="axie" android:host="open" />
-
+                <!-- Accepts URIs that begin with "com.skymavis://open” Testing Only -->
+                <data android:scheme="com.skymavis" android:host="open" />
             </intent-filter>
         </activity>
     </application>

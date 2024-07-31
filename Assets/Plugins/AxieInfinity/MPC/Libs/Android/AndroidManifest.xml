@@ -14,12 +14,10 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                // Testing only
-                <data android:scheme="slack" android:host="open" />
-
+                <!-- Testing only -->
+                <data android:scheme="com.skymavis" android:host="open" />
             </intent-filter>
             <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
-            
         </activity>
     </application>
 </manifest>

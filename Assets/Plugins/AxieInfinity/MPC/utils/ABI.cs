@@ -9,18 +9,18 @@ using Newtonsoft.Json;
 
 namespace SM.ID.Utils
 {
+    [Serializable]
     public class AbiParameter
     {
-        public string type { get; set; }
-        public string name { get; set; }
-        public string internalType { get; set; }
-        public List<AbiParameter> components { get; set; }
-        public List<AbiParameter> inputs { get; set; }
-
+        public string type;
+        public string name;
+        public string internalType;
+        public List<AbiParameter> components;
+        public List<AbiParameter> inputs;
         public AbiParameter Clone()
         {
-            var serialized = JsonConvert.SerializeObject(this);
-            return JsonConvert.DeserializeObject<AbiParameter>(serialized);
+            var serializeObject = JsonConvert.SerializeObject(this);
+            return JsonConvert.DeserializeObject<AbiParameter>(serializeObject);
         }
     }
 
@@ -44,7 +44,7 @@ namespace SM.ID.Utils
         private static PreparedParam EncodeAddress(string value)
         {
             var encoded = value.ToLower().RemoveHexPrefix().PadHexLeft(32);
-            return new PreparedParam { dynamic= false, encoded = encoded  };
+            return new PreparedParam { dynamic = false, encoded = encoded };
 
         }
 
@@ -141,13 +141,14 @@ namespace SM.ID.Utils
                 if (preparedParam.dynamic) dynamicChild = true;
                 preparedParams.Add(preparedParam);
             }
-            if(dynamic || dynamicChild)
+            if (dynamic || dynamicChild)
             {
                 var data = EncodePreparedParam(preparedParams);
                 if (dynamic)
                 {
                     var length2 = EncodeNumber(preparedParams.Count, false, 32);
-                    return new PreparedParam {
+                    return new PreparedParam
+                    {
                         dynamic = true,
                         encoded = preparedParams.Count > 0 ? length2.encoded + data : length2.encoded,
                     };
@@ -191,7 +192,7 @@ namespace SM.ID.Utils
             {
                 preparedParams.ForEach(x => encoded += x.encoded.RemoveHexPrefix());
             }
-           
+
             return new PreparedParam { dynamic = dynamic, encoded = encoded };
         }
 
@@ -215,7 +216,7 @@ namespace SM.ID.Utils
                     value = value.PadHexRight(size * 32);
                 }
                 string paddedBytesSize = HexUtils.NumberToHex(bytesSize).PadHexLeft(32);
-                
+
                 return new PreparedParam { dynamic = true, encoded = paddedBytesSize + value };
             }
             if (bytesSize != Int32.Parse(paramSize))
@@ -269,7 +270,9 @@ namespace SM.ID.Utils
                     staticParams.Add(EncodeNumber(staticSize + dynamicSize, false, 32).encoded);
                     dynamicParams.Add(preparedParam.encoded);
                     dynamicSize += preparedParam.encoded.Length / 2;
-                } else {
+                }
+                else
+                {
                     staticParams.Add(preparedParam.encoded);
                 }
             }
@@ -284,8 +287,8 @@ namespace SM.ID.Utils
         private static PreparedParam InternalEncodeInput(object obj, int index, AbiParameter input)
         {
             string inputType = input.type;
-
             var valType = obj.GetType();
+
             if (valType.IsArray)
             {
                 var collection = obj as object[];
@@ -380,9 +383,9 @@ namespace SM.ID.Utils
                 else if (parts[0] == "tuple" && parts.Length == 3)
                 {
                     var tupleParams = ParseParameters(parts[1]);
-                    if(parts[2].Contains("[]"))
-                        return new AbiParameter { type = "tuple[]", components = tupleParams, name = parts[2].Remove(0,3) };
-                    return new AbiParameter { type = "tuple", components = tupleParams, name = parts[2].Remove(0,1) };
+                    if (parts[2].Contains("[]"))
+                        return new AbiParameter { type = "tuple[]", components = tupleParams, name = parts[2].Remove(0, 3) };
+                    return new AbiParameter { type = "tuple", components = tupleParams, name = parts[2].Remove(0, 1) };
                 }
                 else
                 {
@@ -431,28 +434,13 @@ namespace SM.ID.Utils
 
         public static string EncodeFunctionData(string readableAbi, object values)
         {
-            var abiItems = ABI.ParseAbi(readableAbi);
+            AbiParameter abiItems = ParseAbi(readableAbi);
             var data = EncodeAbiParameters(abiItems, values);
             string funcNormalized = FormatAbiItem(abiItems, false);
             var sig = EncodeFunctionName(funcNormalized).Substring(0, 8);
 
             if (data == "") return "0x";
             return "0x" + sig + data.RemoveHexPrefix();
-        }
-
-        private static string EncodeFunctionData(AbiParameter abiItems, object values)
-        {
-            var data = EncodeAbiParameters(abiItems, values);
-            var sig = EncodeFunctionName(FormatAbiParam(abiItems, false)).Substring(0, 8);
-
-            if (data == "") return "0x";
-            return "0x" + sig + data.RemoveHexPrefix();
-        }
-
-        public static string EncodeAbiParameters(string readableAbi, object values)
-        {
-            var abiItems = ABI.ParseAbi(readableAbi);
-            return EncodeAbiParameters(abiItems, values);
         }
 
         private static string EncodeAbiParameters(AbiParameter abiParameter, object values)
@@ -462,12 +450,11 @@ namespace SM.ID.Utils
             {
                 throw new System.ArgumentException();
             }
-
             List<PreparedParam> preparedParams = new List<PreparedParam>();
             bool dynamic = false;
             for (int i = 0; i < inputs.Count; i++)
             {
-                var input = inputs[i];
+                AbiParameter input = inputs[i];
                 var valType = values.GetType();
                 if (valType.IsArray)
                 {
@@ -480,6 +467,7 @@ namespace SM.ID.Utils
                     var fields = Reflector.Reflect(valType);
                     string inputName = $"<{input.name}>i__Field";
                     var field = fields.FirstOrDefault(x => x.Name == inputName);
+                    string fieldValues = string.Join(", ", fields.Select(f => f.GetValue(values).ToString()));
                     if (field == null)
                     {
                         throw new System.ArgumentException();
@@ -503,6 +491,7 @@ namespace SM.ID.Utils
 
         public static AbiParameter ParseAbi(string abiString)
         {
+
             string type;
             if (abiString.Contains("function")) type = "function";
             else if (abiString.Contains("event")) type = "event";
@@ -515,8 +504,8 @@ namespace SM.ID.Utils
             if (!match.Success) throw new ArgumentException("Invalid ABI format");
             string name = match.Groups["name"].Value;
             string parameters = match.Groups["parameters"].Value;
-            var inputs = ParseParameters(parameters);
-            var AbiObj = new AbiParameter
+            List<AbiParameter> inputs = ParseParameters(parameters);
+            AbiParameter AbiObj = new AbiParameter
             {
                 name = name,
                 type = type,
