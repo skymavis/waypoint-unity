@@ -165,7 +165,74 @@ public async void OnApproveErc20Clicked()
 }
 ```
 
+## Utilities
+
+The SM.ID.Utils namespace provides utility functions for easier wallet interactions. The following are some common tasks.
+
+### Encode function data
+
+Encodes function data for smart contract interactions.
+
+```csharp
+string EncodeFunctionData(string ABI, object values)
+```
+
+Example: swap tokens on Katana.
+
+```csharp
+using SM.ID.Utils;
+
+public async void OnSwapRonToAxsClicked()
+{
+    string katanaAddress = "0xDa44546C0715ae78D454fE8B84f0235081584Fe0";
+    string readableAbi = "function swapExactRONForTokens(uint256 _amountOutMin, address[] _path, address _to, uint256 _deadline)";
+    var swapParams = new { _amountOutMin = "0", _path = new string[] { "0xa959726154953bae111746e265e6d754f48570e6", "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d" }, _to = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63", _deadline = "1814031305" };
+    var data = ABI.EncodeFunctionData(readableAbi, swapParams);
+    string responseData = await SM.MavisId.OnCallContract(katanaAddress, data, "1000000000000000000");
+    Debug.Log(responseData);
+}
+```
+
+### Read smart contract data
+
+The Skynet class allows reading data from smart contracts using the [Skynet REST API](https://docs.skymavis.com/api/ronin-rest/skynet-rest-api).
+
+Initialize Skynet:
+
+```csharp
+class Skynet(ApiKey, ownerAddress, NftContractAddresses, ERC20ContractAddresses);
+```
+
+Example: get total NFTs of address.
+
+```csharp
+var skynet = new Skynet(SKYNET_API_KEY, RONIN_WALLET_ADDRESS, new string[] { Constants.Mainnet.ERC721.AxieContractAddress }, new string[] { Constants.Mainnet.ERC20.AXSContractAddress });
+var response = await skynet.GetTotalNFTs();
+Debug.Log("Total NFTs: " + response);
+```
+
+### Make RPC calls
+
+Executes an RPC call to a smart contract.
+
+```csharp
+Task<string> CallRPC(string contractAddress, string data)
+```
+
+Example: check allowance.
+
+```csharp
+var skynet = new Skynet(SKYNET_API_KEY, RONIN_WALLET_ADDRESS, new string[] { Constants.Mainnet.ERC721.AxieContractAddress }, new string[] { Constants.Mainnet.ERC20.AXSContractAddress });
+var allowanceOfABI = @"{""constant"":true,""inputs"":[{""internalType"":""address"",""name"":""_owner"",""type"":""address""},{""internalType"":""address"",""name"":""_spender"",""type"":""address""}],""name"":""allowance"",""outputs"":[{""internalType"":""uint256"",""name"":""_value"",""type"":""uint256""}],""payable"":false,""stateMutability"":""view"",""type"":""function""}";
+var args = new object[] { "0x2d62c27ce2e9e66bb8a667ce1b60f7cb02fa9810", Constants.Mainnet.KatanaAddress };
+var data = ABI.EncodeFunctionData(allowanceOfABI, args);
+var result = await skynet.CallRPC(Constants.Mainnet.ERC20.AXSContractAddress, data);
+BigInteger weiValue = BigInteger.Parse(result.Substring(2), System.Globalization.NumberStyles.HexNumber);
+decimal formattedValue = (decimal)weiValue / BigInteger.Pow(10, 18);
+Debug.Log("Formatted Ether balance: " + formattedValue);
+```
+
 ## Documentation
 
 * For more information, see the [Mavis ID Unity SDK](https://docs.skymavis.com/mavis/mavis-id/guides/unity-sdk) integration guide.
-* For complete examples, see the [playground source code](https://github.com/axieinfinity/mavis-id-unity/blob/main/Assets/Example/ID.cs).
+* For detailed examples, see the [playground source code](https://github.com/axieinfinity/mavis-id-unity/blob/main/Assets/Example/ID.cs).
