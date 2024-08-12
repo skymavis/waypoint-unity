@@ -1,105 +1,101 @@
 # Mavis ID Unity SDK
 
-The [Mavis ID](https://id.skymavis.com) lets developers use features such as player authorization, account creation, and in-app wallet interaction in mobile and desktop games.
+The Mavis ID Unity SDK lets developers integrate Mavis ID into Unity games deployed to mobile platforms (Android and iOS) and desktop platforms (Windows and macOS). After the integration, users can sign in to your game with Mavis ID and set up a Web3 wallet to interact with the blockchain to send and receive tokens, sign messages, and more.
 
-#### Features:
+Mobile games use the Mavis ID SDK to interact with the Mavis ID service through a native WebView. Desktop games distributed through Mavis Hub use the Mavis ID SDK to interact with the Mavis ID service through the Mavis Hub client.
 
-- Creating a wallet without requiring web3/crypto knowledge or downloading an external app
-- Recover & access the wallet on different devices with a simple passphrase
-- Perform on-chain actions like minting NFTs, sending transactions & signing messages
-- Gas sponsoring
+## Features
 
-Integration guide: [Integrate Mavis ID into a Unity game](https://docs.skymavis.com/mavis/mavis-id/guides/integrate-unity).
+* Authorize users: sign in to your app with Mavis ID.
+* Send transactions: transfer tokens to other addresses.
+* Sign messages: sign plain text messages.
+* Sign typed data: sign structured data according to the EIP-712 standard.
+* Call contracts: execute custom transactions on smart contracts.
+
+## Prerequisites
+
+General requirements:
+
+* [Unity v2020.3.48f1 or later](https://unity.com/download)
+
+Desktop requirements:
+
+* A game distributed through [Mavis Hub](https://hub.skymavis.com).
+* [.Net v3.1](https://dotnet.microsoft.com/en-us/download/dotnet/3.1) or later.
+
+Mobile requirements:
+
+* An app created in the [Developer Console](https://developers.skymavis.com/console/applications/).
+* Permission to use Mavis ID. Request in **Developer Console > your app > App Permission > Sky Mavis Account (OAuth 2.0) > Request Access**.
+* A client ID that you can find in **Developer Console > Products > ID Service > Client ID**.
+* A redirect URI registered in **Developer Console > Products > ID Service > Redirect URI**.
+
+* To deploy to Android, [Android API level 24](https://developer.android.com/about/versions/nougat) or later.
+* To deploy to iOS, [iOS 13.0](https://developer.apple.com/ios/) or later.
 
 ## Installation
 
 1. Download the latest `ID.unitypackage` release from this repository.
 2. Import the file by selecting the Unity menu option **Assets > Import package > Custom Package** and importing `ID.unitypackage`.
+3. In Unity Editor, go to **Build Settings**, then choose the platform you are deploying, then click **Switch Platform**.
+4. Configure [platform-specific settings](https://docs.skymavis.com/mavis/mavis-id/guides/unity-sdk#step-2-install-the-sdk).
 
-## Prerequisites
+## Initialization
 
 ### Mobile
 
-- Register your application with Sky Mavis to get `YOUR_APP_ID` and `YOUR_DEEP_LINK_SCHEMA`
-- Request permission to use Mavis ID
-- Go to Developer Console > your app > App Permission > Mavis ID > Request Access
-
-[Head to the detail guide](https://docs.skymavis.com/comming-soon) to acquired `YOUR_APP_ID` and `YOUR_DEEP_LINK_SCHEMA`
-
-`Android` : Settings in Unity as described in the [Customize platform-specific settings](https://docs.skymavis.com/mavis/mavis-id/guides/integrate-unity#customize-platform-specific-settings) section in the integration guide.
-
-### Initialization
-
-- Initialize SDK for desktop and mobile
-
 ```csharp
-    public async void OnInitialized()
-    {
-#if UNITY_STANDALONE
-        string sessionId = GetArg("-sessionId");
-        string idPort = GetArg("-hubPort");
-        if (!string.IsNullOrEmpty(idPort) && int.TryParse(idPort, out var port))
-        {
-            SM.MavisId.Init(sessionId, port);
-            float startSec = Time.realtimeSinceStartup;
-            while (!SM.MavisId.IsConnected && Time.realtimeSinceStartup - startSec <= 15) await Task.Yield();
-            if (SM.MavisId.IsConnected)
-            {
-                Debug.Log("Connected to MH Overlay");
-            }
-            else
-            {
-                Debug.LogError("Can't connect to MH Overlay");
-            }
-        }
-#else
-        SM.MavisId.Init(AppId, DeeplinkSchema);
-#endif
-    }
+void Start()
+{
+    // Client ID registered in the Mavis ID settings in the Developer Console
+    string appId = "${YOUR_CLIENT_ID}";
+    // Redirect URI registered in the Mavis ID settings in the Developer Console
+    string deeplinkSchema = "mydapp";
+    // Initializion on the Ronin mainnet
+    SM.MavisId.Init(appId, deeplinkSchema, isTestnet: false);
+}
 ```
 
-### Authorize
+### Desktop
 
-- This example demonstrates how to authorize a user when an authorization button is clicked for `Mobile` only.
+```csharp
+void Start()
+{
+    // Session ID and port number provided by Mavis Hub
+    string sessionId = "${SESSION_ID}";
+    int port = ${PORT_NUMBER};
+    // Initialize the Mavis ID Unity SDK
+    SM.MavisId.Init(sessionId, port);
+}
+```
+
+## Usage
+
+### Authorize users
+
+**Note:** Not required for Windows and macOS games distributed through Mavis Hub.
+
+Authorizes a user with an existing Mavis ID account, returning an ID token and the user's wallet address. If the user does not have an account, they will be prompted to create one.
 
 ```csharp
 public async void OnAuthorizeClicked()
-    {
-        _responseId = SM.MavisId.OnAuthorize();
-        string responseData = await WaitForMavisIdResponse(_responseId);
-        Debug.Log(responseData);
-    }
-```
-
-The response consists of a deep link with appended parameters that contain the authorization details. Successful authorization provides details such as `method`, `version`, `type` of response, and a JSON Web Token (JWT) containing user data.
-
-## Usage examples
-
-### Sign a message
-
-This example demonstrates how to sign a simple message using the user's MPC wallet.
-
-```csharp
-public async void OnPersonalSignClicked()
 {
-    string message = "Hello world";
-
-    _responseId = SM.MavisId.OnPersonalSign(message);
+    _responseId = SM.MavisId.OnAuthorize();
     string responseData = await WaitForMavisIdResponse(_responseId);
     Debug.Log(responseData);
 }
 ```
 
-The response consists of a deep link with appended parameters that indicate the outcome of the signing request. For successful signings, the response includes a signed message hash.
+### Send transactions
 
-### Send a transaction
-
-This example demonstrates how to send a transaction to transfer 1 RON to the specified address.
+Transfers 1 RON to another address, returning a transaction hash.
 
 ```csharp
 public async void OnSendTransactionClicked()
 {
+    // Recipient address
     string receiverAddress = "0xD36deD8E1927dCDD76Bfe0CC95a5C1D65c0a807a";
+    // Value in wei (1 RON = 10^18 wei)
     string value = "100000000000000000";
 
     _responseId = SM.MavisId.SendTransaction(receiverAddress, value);
@@ -108,41 +104,153 @@ public async void OnSendTransactionClicked()
 }
 ```
 
-The response consists of a deep link with appended parameters that indicate the outcome of the transaction. Successful transactions provide a transaction hash, which can be verified on the blockchain for additional details.
+### Sign messages
 
-### Call a contract
+Signs a plain text message, returning a signature in hex format.
 
-This example demonstrates how to send a transaction to approve the specified contract's right to spend 0.1 AXS.
+```csharp
+public async void OnPersonalSignClicked()
+{
+    // Message to sign
+    string message = "I accept the terms and conditions.";
+
+    _responseId = SM.MavisId.OnPersonalSign(message);
+    string responseData = await WaitForMavisIdResponse(_responseId);
+    Debug.Log(responseData);
+}
+```
+
+### Sign typed data
+
+Signs [EIP-712](https://eips.ethereum.org/EIPS/eip-712) typed data for an order on Axie Marketplace, returning a signature in hex format.
+
+```csharp
+public void OnSignTypedDataClicked()
+// JSON struct that specifies the EIP-712 typed structured data
+{
+    string typedData = @"{""types"":{""Asset"":[{""name"":""erc"",""type"":""uint8""},{""name"":""addr"",""type"":""address""},{""name"":""id"",""type"":""uint256""},{""name"":""quantity"",""type"":""uint256""}],""Order"":[{""name"":""maker"",""type"":""address""},{""name"":""kind"",""type"":""uint8""},{""name"":""assets"",""type"":""Asset[]""},{""name"":""expiredAt"",""type"":""uint256""},{""name"":""paymentToken"",""type"":""address""},{""name"":""startedAt"",""type"":""uint256""},{""name"":""basePrice"",""type"":""uint256""},{""name"":""endedAt"",""type"":""uint256""},{""name"":""endedPrice"",""type"":""uint256""},{""name"":""expectedState"",""type"":""uint256""},{""name"":""nonce"",""type"":""uint256""},{""name"":""marketFeePercentage"",""type"":""uint256""}],""EIP712Domain"":[{""name"":""name"",""type"":""string""},{""name"":""version"",""type"":""string""},{""name"":""chainId"",""type"":""uint256""},{""name"":""verifyingContract"",""type"":""address""}]}, ""domain"":{""name"":""MarketGateway"",""version"":""1"",""chainId"":2021,""verifyingContract"":""0xfff9ce5f71ca6178d3beecedb61e7eff1602950e""},""primaryType"":""Order"",""message"":{""maker"":""0xd761024b4ef3336becd6e802884d0b986c29b35a"",""kind"":""1"",""assets"":[{""erc"":""1"",""addr"":""0x32950db2a7164ae833121501c797d79e7b79d74c"",""id"":""2730069"",""quantity"":""0""}],""expiredAt"":""1721709637"",""paymentToken"":""0xc99a6a985ed2cac1ef41640596c5a5f9f4e19ef5"",""startedAt"":""1705984837"",""basePrice"":""500000000000000000"",""endedAt"":""0"",""endedPrice"":""0"",""expectedState"":""0"",""nonce"":""0"",""marketFeePercentage"":""425""}}";
+    _responseId = SM.MavisId.OnSignTypeData(typedData);
+    string responseData = await WaitForMavisIdResponse(_responseId);
+    Debug.Log(responseData);
+}
+```
+
+### Call contracts
+
+Allows another contract to spend 1 AXS on user's behalf, returning a transaction hash.
 
 ```csharp
 public async void OnApproveErc20Clicked()
+{
+    // Address of the smart contract to interact with
+    string contractAddress = "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d";
+
+    string readableAbi = "function approve(address _spender, uint256 _value)";
+    // Approve 1 AXS
+    var approveParams = new { _spender = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63", _value = 1000000000000000000 };
+    try
     {
-        string contractAddress = "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d";
-
-        string readableAbi = "function approve(address _spender, uint256 _value)";
-        // Approve 1 AXS
-        var approveParams = new { _spender = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63", _value = 1000000000000000000 };
-        try
-        {
-            var data = ABI.EncodeFunctionData(readableAbi, approveParams);
-            Debug.Log("Approve data : " + data);
-            _responseId = SM.MavisId.OnCallContract(contractAddress, data);
-            string responseData = await WaitForMavisIdResponse(_responseId);
-            Debug.Log(responseData);
-
-        }
-        catch (System.Exception e)
-        {
-            Debug.Log("Error in call contract : " + e.Message);
-        }
+        // Transaction data to be sent to the smart contract
+        var data = ABI.EncodeFunctionData(readableAbi, approveParams);
+        Debug.Log("Approve data: " + data);
+        _responseId = SM.MavisId.OnCallContract(contractAddress, data);
+        string responseData = await WaitForMavisIdResponse(_responseId);
+        Debug.Log(responseData);
 
     }
+    catch (System.Exception e)
+    {
+        Debug.Log("Error in call contract: " + e.Message);
+    }
+}
 ```
 
-The response consists of a deep link with appended parameters that indicate the outcome of the transaction. Successful transactions provide a transaction hash, which can be verified on the blockchain for additional details.
+## Utilities
 
-[Head to the playground source code](https://github.com/axieinfinity/mavis-id-unity/blob/main/Assets/Example/ID.cs) for full use-cases
+### Encode function data
+
+Swaps tokens on the [Katana](https://app.roninchain.com/swap) decentralized exchange: 
+
+```csharp
+using SM.ID.Utils;
+
+public async void OnSwapRonToAxsClicked()
+{
+    // Contract addresses
+    string katanaAddress = "0xDa44546C0715ae78D454fE8B84f0235081584Fe0";
+    string ronAddress = "0xa959726154953bae111746e265e6d754f48570e6";
+    string axsAddress = "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d";
+    // Wallet address
+    string walletAddress = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63";
+    // Readable ABI string for the function
+    string readableAbi = "function swapExactRONForTokens(uint256 _amountOutMin, address[] _path, address _to, uint256 _deadline)";
+
+    // Values to pass as parameters to the called function
+    var value = "1000000000000000000";
+
+    var swapParams = new
+    {
+        // 0.1 RON
+        _amountOutMin = "0",
+        _path = new string[] { ronAddress, axsAddress },
+        _to = walletAddress,
+        _deadline = "1814031305"
+    };
+
+    try
+    {
+        // Encode the function data using the ABI utility in SM.ID.Utils
+        var data = ABI.EncodeFunctionData(readableAbi, swapParams);
+        // Send the transaction to the Katana contract using SM.MavisId namespace
+        _responseId = SM.MavisId.OnCallContract(katanaAddress, data, value);
+        // Wait for the response
+        string responseData = await WaitForMavisIdResponse(_responseId);
+        Debug.Log(responseData);
+    }
+    catch (System.Exception e)
+    {
+        Debug.Log("Error in call contract: " + e.Message);
+    }
+}
+```
+
+### Read smart contract data
+
+Fetches the total NFTs of the specified address using the [Skynet REST API](https://docs.skymavis.com/api/ronin-rest/skynet-rest-api):
+
+```csharp
+var skynet = new Skynet(SKYNET_API_KEY, RONIN_WALLET_ADDRESS, new string[] { Constants.Mainnet.ERC721.AxieContractAddress }, new string[] { Constants.Mainnet.ERC20.AXSContractAddress });
+var response = await skynet.GetTotalNFTs();
+Debug.Log("Total NFTs: " + response);
+```
+
+### Make RPC calls
+
+Checks how many AXS tokens the user has allowed the Katana contract to spend, using the [Skynet REST API](https://docs.skymavis.com/api/ronin-rest/skynet-rest-api): 
+
+```csharp
+using SM.ID.Utils;
+
+// Initialize Skynet
+var skynet = InitializeSkynet();
+// ABI for the allowance function
+var allowanceOfABI = @"{""constant"":true,""inputs"":[{""internalType"":""address"",""name"":""_owner"",""type"":""address""},{""internalType"":""address"",""name"":""_spender"",""type"":""address""}],""name"":""allowance"",""outputs"":[{""internalType"":""uint256"",""name"":""_value"",""type"":""uint256""}],""payable"":false,""stateMutability"":""view"",""type"":""function""}";
+// Assign values for the ABI parameters
+var args = new object[] { "0x2d62c27ce2e9e66bb8a667ce1b60f7cb02fa9810", Constants.Mainnet.KatanaAddress };
+// Encode the function data using the EncodeFunctionData utility in SM.ID.Utils
+var data = ABI.EncodeFunctionData(allowanceOfABI, args); 
+// Execute the RPC call to check how many AXS tokens the user has allowed the Katana contract to spend
+var result = await skynet.CallRPC(Constants.Mainnet.ERC20.AXSContractAddress, data);
+// Process the result: remove the "0x" prefix, parse the hex string to a BigInteger, and format the value by dividing by 10^18 to get the Ether balance
+result = result.StartsWith("0x") ? result.Substring(2) : result;
+BigInteger weiValue = BigInteger.Parse(result, System.Globalization.NumberStyles.HexNumber);
+BigInteger divisor = BigInteger.Pow(10, 18);
+decimal formatedValue = (decimal)weiValue / (decimal)divisor;
+
+Debug.Log("Formatted Ether balance: " + formatedValue);
+```
 
 ## Documentation
 
-For information on configuration, usage, and response handling, see [Integrate Mavis ID into a Unity game](https://docs.skymavis.com/mavis/mavis-id/guides/integrate-unity).
+* For more information, see the [Mavis ID Unity SDK](https://docs.skymavis.com/mavis/mavis-id/guides/unity-sdk) integration guide.
+* For detailed examples, see the [playground source code](https://github.com/axieinfinity/mavis-id-unity/blob/main/Assets/Example/ID.cs).
