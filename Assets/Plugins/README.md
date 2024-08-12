@@ -1,16 +1,16 @@
 # Mavis ID Unity SDK
 
-The Mavis ID Unity SDK lets developers integrate Mavis ID into Unity games for Android, iOS, and desktop platforms (games distributed through Mavis Hub). After the integration, users can sign in to your game with Mavis ID and set up a Web3 wallet to interact with the blockchain to send and receive tokens, sign messages, and more. 
+The Mavis ID Unity SDK lets developers integrate Mavis ID into Unity games deployed to mobile platforms (Android and iOS) and desktop platforms (Windows and macOS). After the integration, users can sign in to your game with Mavis ID and set up a Web3 wallet to interact with the blockchain to send and receive tokens, sign messages, and more.
 
-Players on mobile interact with Mavis ID through a WebView within the game environment. Desktop users playing games through Mavis Hub see an overlay within the Mavis Hub client.
+Mobile games use the Mavis ID SDK to interact with the Mavis ID service through a native WebView. Desktop games distributed through Mavis Hub use the Mavis ID SDK to interact with the Mavis ID service through the Mavis Hub client.
 
 ## Features
 
-* User authorization: sign in to your app with Mavis ID.
-* Transaction sending: transfer tokens to other addresses.
-* Message signing: sign plain text messages.
-* Typed data signing: sign structured data according to the EIP-712 standard.
-* Contract calls: execute custom transactions on smart contracts.
+* Authorize users: sign in to your app with Mavis ID.
+* Send transactions: transfer tokens to other addresses.
+* Sign messages: sign plain text messages.
+* Sign typed data: sign structured data according to the EIP-712 standard.
+* Call contracts: execute custom transactions on smart contracts.
 
 ## Prerequisites
 
@@ -31,7 +31,7 @@ Mobile requirements:
 * A redirect URI registered in **Developer Console > Products > ID Service > Redirect URI**.
 
 * To deploy to Android, [Android API level 24](https://developer.android.com/about/versions/nougat) or later.
-* To deploy to iOS, [iOS 12.0](https://developer.apple.com/ios/) or later.
+* To deploy to iOS, [iOS 13.0](https://developer.apple.com/ios/) or later.
 
 ## Installation
 
@@ -48,10 +48,10 @@ Mobile requirements:
 void Start()
 {
     // Client ID registered in the Mavis ID settings in the Developer Console
-    string appId = "cbabcb00-9c99-404b-a6e4-c76b3b59f0d8";
+    string appId = "${YOUR_CLIENT_ID}";
     // Redirect URI registered in the Mavis ID settings in the Developer Console
     string deeplinkSchema = "mydapp";
-    // Initialize the Mavis ID Unity SDK on the Ronin mainnet
+    // Initializion on the Ronin mainnet
     SM.MavisId.Init(appId, deeplinkSchema, isTestnet: false);
 }
 ```
@@ -62,8 +62,8 @@ void Start()
 void Start()
 {
     // Session ID and port number provided by Mavis Hub
-    string sessionId = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
-    int port = 4001;
+    string sessionId = "${SESSION_ID}";
+    int port = ${PORT_NUMBER};
     // Initialize the Mavis ID Unity SDK
     SM.MavisId.Init(sessionId, port);
 }
@@ -73,7 +73,7 @@ void Start()
 
 ### Authorize users
 
-**Note:** Not required for Windows/macOS games distributed through Mavis Hub.
+**Note:** Not required for Windows and macOS games distributed through Mavis Hub.
 
 Authorizes a user with an existing Mavis ID account, returning an ID token and the user's wallet address. If the user does not have an account, they will be prompted to create one.
 
@@ -167,43 +167,56 @@ public async void OnApproveErc20Clicked()
 
 ## Utilities
 
-The SM.ID.Utils namespace provides utility functions for easier wallet interactions. The following are some common tasks.
-
 ### Encode function data
 
-Encodes function data for smart contract interactions.
-
-```csharp
-string EncodeFunctionData(string ABI, object values)
-```
-
-Example: swap tokens on Katana.
+Swaps tokens on the [Katana](https://app.roninchain.com/swap) decentralized exchange: 
 
 ```csharp
 using SM.ID.Utils;
 
 public async void OnSwapRonToAxsClicked()
 {
+    // Contract addresses
     string katanaAddress = "0xDa44546C0715ae78D454fE8B84f0235081584Fe0";
+    string ronAddress = "0xa959726154953bae111746e265e6d754f48570e6";
+    string axsAddress = "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d";
+    // Wallet address
+    string walletAddress = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63";
+    // Readable ABI string for the function
     string readableAbi = "function swapExactRONForTokens(uint256 _amountOutMin, address[] _path, address _to, uint256 _deadline)";
-    var swapParams = new { _amountOutMin = "0", _path = new string[] { "0xa959726154953bae111746e265e6d754f48570e6", "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d" }, _to = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63", _deadline = "1814031305" };
-    var data = ABI.EncodeFunctionData(readableAbi, swapParams);
-    string responseData = await SM.MavisId.OnCallContract(katanaAddress, data, "1000000000000000000");
-    Debug.Log(responseData);
+
+    // Values to pass as parameters to the called function
+    var value = "1000000000000000000";
+
+    var swapParams = new
+    {
+        // 0.1 RON
+        _amountOutMin = "0",
+        _path = new string[] { ronAddress, axsAddress },
+        _to = walletAddress,
+        _deadline = "1814031305"
+    };
+
+    try
+    {
+        // Encode the function data using the ABI utility in SM.ID.Utils
+        var data = ABI.EncodeFunctionData(readableAbi, swapParams);
+        // Send the transaction to the Katana contract using SM.MavisId namespace
+        _responseId = SM.MavisId.OnCallContract(katanaAddress, data, value);
+        // Wait for the response
+        string responseData = await WaitForMavisIdResponse(_responseId);
+        Debug.Log(responseData);
+    }
+    catch (System.Exception e)
+    {
+        Debug.Log("Error in call contract: " + e.Message);
+    }
 }
 ```
 
 ### Read smart contract data
 
-The Skynet class allows reading data from smart contracts using the [Skynet REST API](https://docs.skymavis.com/api/ronin-rest/skynet-rest-api).
-
-Initialize Skynet:
-
-```csharp
-class Skynet(ApiKey, ownerAddress, NftContractAddresses, ERC20ContractAddresses);
-```
-
-Example: get total NFTs of address.
+Fetches the total NFTs of the specified address using the [Skynet REST API](https://docs.skymavis.com/api/ronin-rest/skynet-rest-api):
 
 ```csharp
 var skynet = new Skynet(SKYNET_API_KEY, RONIN_WALLET_ADDRESS, new string[] { Constants.Mainnet.ERC721.AxieContractAddress }, new string[] { Constants.Mainnet.ERC20.AXSContractAddress });
@@ -213,23 +226,28 @@ Debug.Log("Total NFTs: " + response);
 
 ### Make RPC calls
 
-Executes an RPC call to a smart contract.
+Checks how many AXS tokens the user has allowed the Katana contract to spend, using the [Skynet REST API](https://docs.skymavis.com/api/ronin-rest/skynet-rest-api): 
 
 ```csharp
-Task<string> CallRPC(string contractAddress, string data)
-```
+using SM.ID.Utils;
 
-Example: check allowance.
-
-```csharp
-var skynet = new Skynet(SKYNET_API_KEY, RONIN_WALLET_ADDRESS, new string[] { Constants.Mainnet.ERC721.AxieContractAddress }, new string[] { Constants.Mainnet.ERC20.AXSContractAddress });
+// Initialize Skynet
+var skynet = InitializeSkynet();
+// ABI for the allowance function
 var allowanceOfABI = @"{""constant"":true,""inputs"":[{""internalType"":""address"",""name"":""_owner"",""type"":""address""},{""internalType"":""address"",""name"":""_spender"",""type"":""address""}],""name"":""allowance"",""outputs"":[{""internalType"":""uint256"",""name"":""_value"",""type"":""uint256""}],""payable"":false,""stateMutability"":""view"",""type"":""function""}";
+// Assign values for the ABI parameters
 var args = new object[] { "0x2d62c27ce2e9e66bb8a667ce1b60f7cb02fa9810", Constants.Mainnet.KatanaAddress };
-var data = ABI.EncodeFunctionData(allowanceOfABI, args);
+// Encode the function data using the EncodeFunctionData utility in SM.ID.Utils
+var data = ABI.EncodeFunctionData(allowanceOfABI, args); 
+// Execute the RPC call to check how many AXS tokens the user has allowed the Katana contract to spend
 var result = await skynet.CallRPC(Constants.Mainnet.ERC20.AXSContractAddress, data);
-BigInteger weiValue = BigInteger.Parse(result.Substring(2), System.Globalization.NumberStyles.HexNumber);
-decimal formattedValue = (decimal)weiValue / BigInteger.Pow(10, 18);
-Debug.Log("Formatted Ether balance: " + formattedValue);
+// Process the result: remove the "0x" prefix, parse the hex string to a BigInteger, and format the value by dividing by 10^18 to get the Ether balance
+result = result.StartsWith("0x") ? result.Substring(2) : result;
+BigInteger weiValue = BigInteger.Parse(result, System.Globalization.NumberStyles.HexNumber);
+BigInteger divisor = BigInteger.Pow(10, 18);
+decimal formatedValue = (decimal)weiValue / (decimal)divisor;
+
+Debug.Log("Formatted Ether balance: " + formatedValue);
 ```
 
 ## Documentation
