@@ -88,7 +88,7 @@ public async void OnAuthorizeClicked()
 
 ### Send transactions
 
-Transfers 1 RON to another address, returning a transaction hash.
+Transfers 0.1 RON to another address, returning a transaction hash.
 
 ```csharp
 public async void OnSendTransactionClicked()
