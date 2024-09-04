@@ -1,6 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
-using SM.ID.Utils;
+using SkyMavis.Utils;
 using System.Collections.Generic;
 using System.Text.Json;
 
@@ -8,7 +8,7 @@ namespace IDTest
 {
     class Program
     {
-        
+
 
         static void Main(string[] args)
         {
@@ -79,7 +79,7 @@ namespace IDTest
             return data;
         }
 
-        static string SwapRonToAxs ()
+        static string SwapRonToAxs()
         {
 
             var swapABI = @"
@@ -120,7 +120,7 @@ namespace IDTest
                     ""type"": ""function""
                 }";
 
-           
+
             var swapParams = new
             {
                 // 0.1 Ron

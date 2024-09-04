@@ -1,4 +1,4 @@
-namespace SM.ID.Types
+namespace SkyMavis.Types
 {
 
     public class OverlayError

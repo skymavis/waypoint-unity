@@ -9,7 +9,7 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace SM.ID
+namespace SkyMavis
 {
     internal class UnityThread : MonoBehaviour
     {

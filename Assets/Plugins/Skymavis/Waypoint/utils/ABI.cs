@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
-namespace SM.ID.Utils
+namespace SkyMavis.Utils
 {
     [Serializable]
     public class AbiParameter

@@ -2,16 +2,16 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SM.ID.Types;
+using SkyMavis.Types;
 using UnityEngine.Events;
 using UnityEngine;
 using WebSocketSharp;
 
-namespace SM.ID
+namespace SkyMavis
 {
     internal static partial class Overlay
     {
-        private class OverlayHook: MonoBehaviour
+        private class OverlayHook : MonoBehaviour
         {
             public UnityAction onUpdate;
             public UnityAction onDestroy;
@@ -112,7 +112,8 @@ namespace SM.ID
             _socket.OnMessage += (sender, args) =>
             {
                 GotPong();
-                UnityThread.executeInUpdate(() => {
+                UnityThread.executeInUpdate(() =>
+                {
                     if (args.IsText)
                     {
                         if (!string.IsNullOrEmpty(args.Data))
@@ -130,7 +131,7 @@ namespace SM.ID
                 });
 
             };
-         
+
             // Open connection
             Log("socket Connecting...");
             _isTerminated = false;
@@ -153,9 +154,9 @@ namespace SM.ID
                     Connect();
                 }
             }
-            else if(_isConnected)
+            else if (_isConnected)
             {
-                if(NowUtcMS - _lastPingTimeMS > PING_INTERVAL_MS)
+                if (NowUtcMS - _lastPingTimeMS > PING_INTERVAL_MS)
                 {
                     _lastPingTimeMS = NowUtcMS;
                     _socket.PingAsync((b) => { if (b) GotPong(); });
@@ -186,7 +187,7 @@ namespace SM.ID
             {
                 OnDataResponsed?.Invoke(text);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 var error = new OverlayError { code = -1, message = "invalid Overlay response" };
                 LogError(error, "[Overlay] On response: ");
@@ -228,7 +229,7 @@ namespace SM.ID
             Log(jData, $"[Overlay] On request: ");
             long startRequestTimeMs = NowUtcMS;
             _lastPingTimeMS = startRequestTimeMs;
-           
+
             _socket.SendAsync(jData, b =>
             {
                 if (!b)
@@ -236,7 +237,7 @@ namespace SM.ID
                     UnityThread.executeInUpdate(() => Log("SendAsync error"));
                 }
             });
-          
+
         }
 
         private static void ThrowIfNotInitialized()

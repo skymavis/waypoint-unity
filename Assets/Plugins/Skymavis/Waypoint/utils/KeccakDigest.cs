@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 
-namespace SM.ID.Utils
+namespace SkyMavis.Utils
 {
     internal class KeccakDigest
     {

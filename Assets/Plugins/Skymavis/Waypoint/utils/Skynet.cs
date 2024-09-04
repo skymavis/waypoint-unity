@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-namespace SM.ID.Utils
+namespace SkyMavis.Utils
 {
 
     public class Paging

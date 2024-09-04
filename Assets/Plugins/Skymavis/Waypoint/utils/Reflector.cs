@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace SM.ID.Utils
+namespace SkyMavis.Utils
 {
     public static class Reflector
     {

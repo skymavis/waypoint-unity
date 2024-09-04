@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SM.ID.Utils;
+using SkyMavis.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 using Newtonsoft.Json.Linq;
@@ -8,9 +8,9 @@ using Newtonsoft.Json.Linq;
 using System.Runtime.InteropServices;
 #endif
 
-namespace SM
+namespace SkyMavis
 {
-    public static class MavisId
+    public static class Waypoint
     {
 #if UNITY_IOS
         // iOS function
@@ -65,7 +65,7 @@ namespace SM
             get
             {
 #if UNITY_STANDALONE
-                return ID.Overlay.IsConnected;
+                return Overlay.IsConnected;
 #else
                 return true;
 #endif
@@ -77,11 +77,11 @@ namespace SM
         {
             if (_isInitialized) return;
             _isInitialized = true;
-            ID.Overlay.Initialize(sessionID, port);
-            ID.Overlay.OnDataResponsed += OnOverlayResponse;
+            Overlay.Initialize(sessionID, port);
+            Overlay.OnDataResponsed += OnOverlayResponse;
         }
 #else
-        public static void Init(string appId, string deeplinkSchema, bool isTestnet = false)
+        public static void Init(string clientId, string deeplinkSchema, bool isTestnet = false)
         {
             if (_isInitialized) return;
             _isInitialized = true;
@@ -97,10 +97,10 @@ namespace SM
             }
 
 #if UNITY_ANDROID
-            AndroidJavaObject clientObj = new AndroidJavaObject("com.skymavis.sdk.id.Client", endpoint, appId, rpcUrl, chainId);
+            AndroidJavaObject clientObj = new AndroidJavaObject("com.skymavis.sdk.id.Client", endpoint, clientId, rpcUrl, chainId);
             _client = clientObj;
 #elif UNITY_IOS
-            initClient(endpoint, appId, rpcUrl, chainId);
+            initClient(endpoint, clientId, rpcUrl, chainId);
 #endif
             Application.deepLinkActivated += OnDeepLinkActivated;
         }
@@ -116,7 +116,7 @@ namespace SM
 #elif UNITY_IOS
             authorize(state, _deeplink);
 #else
-            ID.Overlay.GetIDToken(state);
+            Overlay.GetIDToken(state);
 #endif
             return state;
         }
@@ -130,7 +130,7 @@ namespace SM
 #elif UNITY_IOS
             personalSign(state, _deeplink, message);
 #else
-            ID.Overlay.PersonalSign(state, message);
+            Overlay.PersonalSign(state, message);
 #endif
             return state;
         }
@@ -145,7 +145,7 @@ namespace SM
 #elif UNITY_IOS
             signTypeData(state, _deeplink, typedData);
 #else
-            ID.Overlay.SignTypedData(state, typedData);
+            SkyMavis.Overlay.SignTypedData(state, typedData);
 #endif
             return state;
         }
@@ -160,7 +160,7 @@ namespace SM
 #elif UNITY_IOS
             sendTransaction(state, _deeplink, receiverAddress, value);
 #else
-            ID.Overlay.SendNativeToken(state, receiverAddress, value);
+            Overlay.SendNativeToken(state, receiverAddress, value);
 #endif
             return state;
         }
@@ -177,7 +177,7 @@ namespace SM
             callContract(state, _deeplink, contractAddress, data, value);
 #else
 
-            ID.Overlay.SendTransaction(state, contractAddress, value, data);
+            Overlay.SendTransaction(state, contractAddress, value, data);
 #endif
             return state;
         }
@@ -187,7 +187,7 @@ namespace SM
 
 #if UNITY_STANDALONE
             string state = GenerateRandomState();
-            ID.Overlay.GetIDToken(state);
+            Overlay.GetIDToken(state);
             return state;
 #else
             throw new System.NotImplementedException();

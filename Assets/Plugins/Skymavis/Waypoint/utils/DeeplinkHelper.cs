@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SM.ID.Utils
+namespace SkyMavis.Utils
 {
     internal static class DeeplinkHelper
     {

@@ -1,8 +1,8 @@
 #if UNITY_STANDALONE
-using SM.ID.Types;
+using SkyMavis.Types;
 using UnityEngine.Events;
 
-namespace SM.ID
+namespace SkyMavis
 {
     internal static partial class Overlay
     {

@@ -1,13 +1,13 @@
 using System.Threading.Tasks;
-using SM.ID.Utils;
+using SkyMavis.Utils;
 using TMPro;
 using UnityEngine;
 
-public class ID : MonoBehaviour
+public class WaypointExample : MonoBehaviour
 {
-    // AppId and DeeplinkSchema are registered with Sky Mavis
-    static readonly string AppId = "${YOUR_APP_ID}";
-    static readonly string DeeplinkSchema = "${YOUR_DEEPLINK_SCHEMA}";
+    // ClientId and DeeplinkSchema are registered with Sky Mavis
+    static readonly string ClientId = "71c2f8ff-0ebe-419d-acd3-c8ebd6d9e676";
+    static readonly string DeeplinkSchema = "mydapp";
 
     public GameObject popupPanel;
     public TMP_Text text;
@@ -49,9 +49,9 @@ public class ID : MonoBehaviour
         string responseData = null;
         string currentId = id;
         void dataCallback(string state, string data) { if (currentId == state) responseData = data; }
-        SM.MavisId.BindOnResponse(dataCallback);
+        SkyMavis.Waypoint.BindOnResponse(dataCallback);
         while (string.IsNullOrEmpty(responseData) && currentId == _responseId) await Task.Yield();
-        SM.MavisId.UnBindOnResponse(dataCallback);
+        SkyMavis.Waypoint.UnBindOnResponse(dataCallback);
         return responseData;
     }
 
@@ -77,7 +77,7 @@ public class ID : MonoBehaviour
 
     public async void OnAuthorizeClicked()
     {
-        _responseId = SM.MavisId.OnAuthorize();
+        _responseId = SkyMavis.Waypoint.OnAuthorize();
         string responseData = await WaitForMavisIdResponse(_responseId);
         Debug.Log("Authorize response in Unity: " + responseData);
     }
@@ -86,7 +86,7 @@ public class ID : MonoBehaviour
     {
         string message = "Hello world";
 
-        _responseId = SM.MavisId.OnPersonalSign(message);
+        _responseId = SkyMavis.Waypoint.OnPersonalSign(message);
         string responseData = await WaitForMavisIdResponse(_responseId);
         Debug.Log("Personal sign response in Unity : " + responseData);
     }
@@ -95,7 +95,7 @@ public class ID : MonoBehaviour
     {
 
         string typedData = @"{""types"":{""Asset"":[{""name"":""erc"",""type"":""uint8""},{""name"":""addr"",""type"":""address""},{""name"":""id"",""type"":""uint256""},{""name"":""quantity"",""type"":""uint256""}],""Order"":[{""name"":""maker"",""type"":""address""},{""name"":""kind"",""type"":""uint8""},{""name"":""assets"",""type"":""Asset[]""},{""name"":""expiredAt"",""type"":""uint256""},{""name"":""paymentToken"",""type"":""address""},{""name"":""startedAt"",""type"":""uint256""},{""name"":""basePrice"",""type"":""uint256""},{""name"":""endedAt"",""type"":""uint256""},{""name"":""endedPrice"",""type"":""uint256""},{""name"":""expectedState"",""type"":""uint256""},{""name"":""nonce"",""type"":""uint256""},{""name"":""marketFeePercentage"",""type"":""uint256""}],""EIP712Domain"":[{""name"":""name"",""type"":""string""},{""name"":""version"",""type"":""string""},{""name"":""chainId"",""type"":""uint256""},{""name"":""verifyingContract"",""type"":""address""}]}, ""domain"":{""name"":""MarketGateway"",""version"":""1"",""chainId"":2021,""verifyingContract"":""0xfff9ce5f71ca6178d3beecedb61e7eff1602950e""},""primaryType"":""Order"",""message"":{""maker"":""0xd761024b4ef3336becd6e802884d0b986c29b35a"",""kind"":""1"",""assets"":[{""erc"":""1"",""addr"":""0x32950db2a7164ae833121501c797d79e7b79d74c"",""id"":""2730069"",""quantity"":""0""}],""expiredAt"":""1721709637"",""paymentToken"":""0xc99a6a985ed2cac1ef41640596c5a5f9f4e19ef5"",""startedAt"":""1705984837"",""basePrice"":""500000000000000000"",""endedAt"":""0"",""endedPrice"":""0"",""expectedState"":""0"",""nonce"":""0"",""marketFeePercentage"":""425""}}";
-        _responseId = SM.MavisId.OnSignTypeData(typedData);
+        _responseId = SkyMavis.Waypoint.OnSignTypeData(typedData);
         string responseData = await WaitForMavisIdResponse(_responseId);
         Debug.Log(responseData);
     }
@@ -104,7 +104,7 @@ public class ID : MonoBehaviour
         string receiverAddress = "0xD36deD8E1927dCDD76Bfe0CC95a5C1D65c0a807a";
         string value = "100000000000000000";
 
-        _responseId = SM.MavisId.SendTransaction(receiverAddress, value);
+        _responseId = SkyMavis.Waypoint.SendTransaction(receiverAddress, value);
         string responseData = await WaitForMavisIdResponse(_responseId);
         Debug.Log("Send response data in Unity : " + responseData);
     }
@@ -120,7 +120,7 @@ public class ID : MonoBehaviour
         {
             var data = ABI.EncodeFunctionData(readableAbi, approveParams);
             Debug.Log("Approve data : " + data);
-            _responseId = SM.MavisId.OnCallContract(contractAddress, data);
+            _responseId = SkyMavis.Waypoint.OnCallContract(contractAddress, data);
             string responseData = await WaitForMavisIdResponse(_responseId);
             Debug.Log("Approve AXS response data in Unity : " + responseData);
 
@@ -155,7 +155,7 @@ public class ID : MonoBehaviour
         try
         {
             string data = ABI.EncodeFunctionData(readableAbi, swapParams);
-            _responseId = SM.MavisId.OnCallContract(katanaAddress, data, value);
+            _responseId = SkyMavis.Waypoint.OnCallContract(katanaAddress, data, value);
             var responseData = await WaitForMavisIdResponse(_responseId);
             Debug.Log("Swap response data in Unity : " + responseData);
         }
@@ -179,7 +179,7 @@ public class ID : MonoBehaviour
         try
         {
             var data = ABI.EncodeFunctionData(readableAbi, values);
-            _responseId = SM.MavisId.OnCallContract(atiaShrineContractAddress, data);
+            _responseId = SkyMavis.Waypoint.OnCallContract(atiaShrineContractAddress, data);
             string responseData = await WaitForMavisIdResponse(_responseId);
             Debug.Log("Atia blessing response data in Unity " + responseData);
 
@@ -198,10 +198,10 @@ public class ID : MonoBehaviour
         string idPort = GetArg("-hubPort");
         if (!string.IsNullOrEmpty(idPort) && int.TryParse(idPort, out var port))
         {
-            SM.MavisId.Init(sessionId, port);
+            SkyMavis.Waypoint.Init(sessionId, port);
             float startSec = Time.realtimeSinceStartup;
-            while (!SM.MavisId.IsConnected && Time.realtimeSinceStartup - startSec <= 15) await Task.Yield();
-            if (SM.MavisId.IsConnected)
+            while (!SkyMavis.Waypoint.IsConnected && Time.realtimeSinceStartup - startSec <= 15) await Task.Yield();
+            if (SkyMavis.Waypoint.IsConnected)
             {
                 Debug.Log("Connected to MH Overlay");
             }
@@ -211,13 +211,13 @@ public class ID : MonoBehaviour
             }
         }
 #else
-        SM.MavisId.Init(AppId, DeeplinkSchema, true);
+        SkyMavis.Waypoint.Init(ClientId, DeeplinkSchema, true);
 #endif
     }
 
     public void OnGetIDTokenClicked()
     {
-        SM.MavisId.OnGetIDToken();
+        SkyMavis.Waypoint.OnGetIDToken();
     }
 
 #if UNITY_EDITOR

@@ -6,32 +6,32 @@ Mobile games use the Mavis ID SDK to interact with the Mavis ID service through 
 
 ## Features
 
-* Authorize users: sign in to your app with Mavis ID.
-* Send transactions: transfer tokens to other addresses.
-* Sign messages: sign plain text messages.
-* Sign typed data: sign structured data according to the EIP-712 standard.
-* Call contracts: execute custom transactions on smart contracts.
+- Authorize users: sign in to your app with Mavis ID.
+- Send transactions: transfer tokens to other addresses.
+- Sign messages: sign plain text messages.
+- Sign typed data: sign structured data according to the EIP-712 standard.
+- Call contracts: execute custom transactions on smart contracts.
 
 ## Prerequisites
 
 General requirements:
 
-* [Unity v2020.3.48f1 or later](https://unity.com/download)
+- [Unity v2020.3.48f1 or later](https://unity.com/download)
 
 Desktop requirements:
 
-* A game distributed through [Mavis Hub](https://hub.skymavis.com).
-* [.Net v3.1](https://dotnet.microsoft.com/en-us/download/dotnet/3.1) or later.
+- A game distributed through [Mavis Hub](https://hub.skymavis.com).
+- [.Net v3.1](https://dotnet.microsoft.com/en-us/download/dotnet/3.1) or later.
 
 Mobile requirements:
 
-* An app created in the [Developer Console](https://developers.skymavis.com/console/applications/).
-* Permission to use Mavis ID. Request in **Developer Console > your app > App Permission > Sky Mavis Account (OAuth 2.0) > Request Access**.
-* A client ID that you can find in **Developer Console > Products > ID Service > Client ID**.
-* A redirect URI registered in **Developer Console > Products > ID Service > Redirect URI**.
+- An app created in the [Developer Console](https://developers.skymavis.com/console/applications/).
+- Permission to use Mavis ID. Request in **Developer Console > your app > App Permission > Sky Mavis Account (OAuth 2.0) > Request Access**.
+- A client ID that you can find in **Developer Console > Products > ID Service > Client ID**.
+- A redirect URI registered in **Developer Console > Products > ID Service > Redirect URI**.
 
-* To deploy to Android, [Android API level 24](https://developer.android.com/about/versions/nougat) or later.
-* To deploy to iOS, [iOS 13.0](https://developer.apple.com/ios/) or later.
+- To deploy to Android, [Android API level 24](https://developer.android.com/about/versions/nougat) or later.
+- To deploy to iOS, [iOS 13.0](https://developer.apple.com/ios/) or later.
 
 ## Installation
 
@@ -169,10 +169,10 @@ public async void OnApproveErc20Clicked()
 
 ### Encode function data
 
-Swaps tokens on the [Katana](https://app.roninchain.com/swap) decentralized exchange: 
+Swaps tokens on the [Katana](https://app.roninchain.com/swap) decentralized exchange:
 
 ```csharp
-using SM.ID.Utils;
+using SkyMavis.Utils;
 
 public async void OnSwapRonToAxsClicked()
 {
@@ -199,7 +199,7 @@ public async void OnSwapRonToAxsClicked()
 
     try
     {
-        // Encode the function data using the ABI utility in SM.ID.Utils
+        // Encode the function data using the ABI utility in SkyMavis.Utils
         var data = ABI.EncodeFunctionData(readableAbi, swapParams);
         // Send the transaction to the Katana contract using SM.MavisId namespace
         _responseId = SM.MavisId.OnCallContract(katanaAddress, data, value);
@@ -226,10 +226,10 @@ Debug.Log("Total NFTs: " + response);
 
 ### Make RPC calls
 
-Checks how many AXS tokens the user has allowed the Katana contract to spend, using the [Skynet REST API](https://docs.skymavis.com/api/ronin-rest/skynet-rest-api): 
+Checks how many AXS tokens the user has allowed the Katana contract to spend, using the [Skynet REST API](https://docs.skymavis.com/api/ronin-rest/skynet-rest-api):
 
 ```csharp
-using SM.ID.Utils;
+using SkyMavis.Utils;
 
 // Initialize Skynet
 var skynet = InitializeSkynet();
@@ -237,8 +237,8 @@ var skynet = InitializeSkynet();
 var allowanceOfABI = @"{""constant"":true,""inputs"":[{""internalType"":""address"",""name"":""_owner"",""type"":""address""},{""internalType"":""address"",""name"":""_spender"",""type"":""address""}],""name"":""allowance"",""outputs"":[{""internalType"":""uint256"",""name"":""_value"",""type"":""uint256""}],""payable"":false,""stateMutability"":""view"",""type"":""function""}";
 // Assign values for the ABI parameters
 var args = new object[] { "0x2d62c27ce2e9e66bb8a667ce1b60f7cb02fa9810", Constants.Mainnet.KatanaAddress };
-// Encode the function data using the EncodeFunctionData utility in SM.ID.Utils
-var data = ABI.EncodeFunctionData(allowanceOfABI, args); 
+// Encode the function data using the EncodeFunctionData utility in SkyMavis.Utils
+var data = ABI.EncodeFunctionData(allowanceOfABI, args);
 // Execute the RPC call to check how many AXS tokens the user has allowed the Katana contract to spend
 var result = await skynet.CallRPC(Constants.Mainnet.ERC20.AXSContractAddress, data);
 // Process the result: remove the "0x" prefix, parse the hex string to a BigInteger, and format the value by dividing by 10^18 to get the Ether balance
@@ -252,5 +252,5 @@ Debug.Log("Formatted Ether balance: " + formatedValue);
 
 ## Documentation
 
-* For more information, see the [Mavis ID Unity SDK](https://docs.skymavis.com/mavis/mavis-id/guides/unity-sdk) integration guide.
-* For detailed examples, see the [playground source code](https://github.com/axieinfinity/mavis-id-unity/blob/main/Assets/Example/ID.cs).
+- For more information, see the [Mavis ID Unity SDK](https://docs.skymavis.com/mavis/mavis-id/guides/unity-sdk) integration guide.
+- For detailed examples, see the [playground source code](https://github.com/axieinfinity/mavis-id-unity/blob/main/Assets/Example/ID.cs).
