@@ -6,8 +6,8 @@ using UnityEngine;
 public class WaypointExample : MonoBehaviour
 {
     // ClientId and DeeplinkSchema are registered with Sky Mavis
-    static readonly string ClientId = "71c2f8ff-0ebe-419d-acd3-c8ebd6d9e676";
-    static readonly string DeeplinkSchema = "mydapp";
+    static readonly string ClientId = "{YOUR_CLIENT_ID}";
+    static readonly string DeeplinkSchema = "{YOUR_DEEPLINK_SCHEMA}";
 
     public GameObject popupPanel;
     public TMP_Text text;

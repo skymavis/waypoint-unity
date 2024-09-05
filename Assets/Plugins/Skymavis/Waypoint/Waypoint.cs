@@ -15,7 +15,7 @@ namespace SkyMavis
 #if UNITY_IOS
         // iOS function
         [DllImport("__Internal")]
-        private static extern void initClient(string address, string clientId, string chainRpc, int chainId);
+        private static extern void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId);
 
 
         [DllImport("__Internal")]
@@ -28,7 +28,7 @@ namespace SkyMavis
         private static extern void personalSign(string state, string redirect, string message);
 
         [DllImport("__Internal")]
-        private static extern void signTypeData(string state, string redirect, string typedData);
+        private static extern void signTypedData(string state, string redirect, string typedData);
 
         [DllImport("__Internal")]
         private static extern void callContract(string state, string redirect, string contractAddress, string data, string value = "0x0");
@@ -143,7 +143,7 @@ namespace SkyMavis
             AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
             _client.Call("signTypeData", context, _deeplink, state, typedData);
 #elif UNITY_IOS
-            signTypeData(state, _deeplink, typedData);
+            signTypedData(state, _deeplink, typedData);
 #else
             SkyMavis.Overlay.SignTypedData(state, typedData);
 #endif

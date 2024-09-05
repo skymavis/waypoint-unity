@@ -4,88 +4,88 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/id-Swift.h</key>
+		<key>Headers/waypoint-Swift.h</key>
 		<data>
-		7s8ZvoH+E6fq0dJq/CLoBjjq530=
+		9XPEbqcLn2izE3TI2BTBXbmoe8E=
 		</data>
-		<key>Headers/id.h</key>
+		<key>Headers/waypoint.h</key>
 		<data>
-		+fZzJiXPzrOjjJ7jisjzaRlpLoM=
+		1mbMCLxrnTG6hMM4hAZXeF1Anbg=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		eov4MtQQdmfm1W+/MPhgKvdSisA=
-		</data>
-		<key>Modules/id.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
-		<data>
-		2EdOcGL2fRWZIR+z1jWBgMLyVRE=
-		</data>
-		<key>Modules/id.swiftmodule/arm64-apple-ios.abi.json</key>
-		<data>
-		FSPnLbho3G+LL9smI3XgVOqBIQ4=
-		</data>
-		<key>Modules/id.swiftmodule/arm64-apple-ios.swiftdoc</key>
-		<data>
-		7wcDaIW1SI7KX1zPrPdTvSKCZeY=
-		</data>
-		<key>Modules/id.swiftmodule/arm64-apple-ios.swiftmodule</key>
-		<data>
-		nP5c+Py+b2PqOxcBs1Xn1iCVIwI=
+		DVryjFnTWrfa28jwDpoukQh5Zj8=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		pecn3pBnx8uLoxXqgHUU1TjtNMg=
+		D5JZyrzYQiYdft+B9ZMfyqr9Ftg=
+		</data>
+		<key>Modules/waypoint.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
+		<data>
+		wo5WLTdXzZffNTa2GRrAs1HWm5M=
+		</data>
+		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.abi.json</key>
+		<data>
+		FSPnLbho3G+LL9smI3XgVOqBIQ4=
+		</data>
+		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftdoc</key>
+		<data>
+		QdaRpn+fEM6cA9xlgMEdfRn8GKU=
+		</data>
+		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftmodule</key>
+		<data>
+		5rdjo5X0GLusceBha5GBORQIwus=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/id-Swift.h</key>
+		<key>Headers/waypoint-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			PdWoEFQohK+uLSjCYeAPVo+5v8ul2ReOHHC7ZUaqL3w=
+			xaF2k2NVmGaR60L0sZR/9gLmtYuKP8h5u2J7ojdY4mA=
 			</data>
 		</dict>
-		<key>Headers/id.h</key>
+		<key>Headers/waypoint.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IUqx8iSCB/NdptMfPx++jz6z/0Bv0QrtGeCNUFwLV44=
+			xnPtWTCvkeDQGWagZJS5bkqXKRsmLbA2Xp6kuLAKE9E=
 			</data>
 		</dict>
-		<key>Modules/id.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
+		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9QoeN87ZIz1R+PBGLtvatk90Xgo2oPngIdNzD/rwqBY=
+			bvTKXDZh1ePaKekdXexavyp3hZ55cppW9ZV302uNVtY=
 			</data>
 		</dict>
-		<key>Modules/id.swiftmodule/arm64-apple-ios.abi.json</key>
+		<key>Modules/waypoint.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+8XT6a47yMIn83OAJru7I0Pa0mfwLvm9gtuyg8y4G9Y=
+			</data>
+		</dict>
+		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			KnRdWE4y6t4QM5zi5JDptPdHFgJy1Tku+7GLkZS2aNM=
 			</data>
 		</dict>
-		<key>Modules/id.swiftmodule/arm64-apple-ios.swiftdoc</key>
+		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8xzlIbYhjH7jEauozaPiokZd2gJwTXwqsFkoTRoEW6s=
+			7elhskp5XD+19SpErHh8hmti4abNZE8q0UdQqDMUXl4=
 			</data>
 		</dict>
-		<key>Modules/id.swiftmodule/arm64-apple-ios.swiftmodule</key>
+		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6AMlx4D7MlkEUq/yVs8HIlonMgK7KhUKpj/3KC+jZxE=
-			</data>
-		</dict>
-		<key>Modules/module.modulemap</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			tPFUz7kapmSrqSwBtKJK/nP+BZDo7V2gUJgdydqN7IU=
+			xf3sCTEjjCrX+StClSx6KnppRVoo2WKR/hbVT8BdQh0=
 			</data>
 		</dict>
 	</dict>
