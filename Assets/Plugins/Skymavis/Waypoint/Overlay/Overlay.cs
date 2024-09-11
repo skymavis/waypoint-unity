@@ -106,7 +106,8 @@ namespace SkyMavis
         /// <returns></returns>
         public static void PersonalSign(
             string state,
-            string message
+            string message,
+            string from = null
         )
         {
             ThrowIfNotInitialized();
@@ -118,7 +119,8 @@ namespace SkyMavis
                 {
                     Method = "personal_sign",
                     Params = message,
-                }
+                },
+                from
             );
         }
 
@@ -130,7 +132,8 @@ namespace SkyMavis
         /// <returns></returns>
         public static void SignTypedData(
             string state,
-            string typedData
+            string typedData,
+            string from = null
         )
         {
             ThrowIfNotInitialized();
@@ -142,7 +145,8 @@ namespace SkyMavis
                 {
                     Method = "eth_signTypedData_v4",
                     Params = typedData,
-                }
+                },
+                from
             );
         }
 
@@ -161,6 +165,7 @@ namespace SkyMavis
             string state,
             string receiverAddress,
             string value,
+            string from = null,
             string gas = null,
             string gasPrice = null,
             string maxFeePerGas = null,
@@ -172,6 +177,7 @@ namespace SkyMavis
                 receiverAddress,
                 value,
                 "",
+                from,
                 gas,
                 gasPrice,
                 maxFeePerGas,
@@ -196,6 +202,7 @@ namespace SkyMavis
             string receiverAddress,
             string value,
             string calldata,
+            string from = null,
             string gas = null,
             string gasPrice = null,
             string maxFeePerGas = null,
@@ -220,7 +227,8 @@ namespace SkyMavis
                         maxFeePerGas = maxFeePerGas,
                         maxPriorityFeePerGas = maxPriorityFeePerGas
                     }
-                }
+                },
+                from
             );
         }
 
@@ -232,7 +240,8 @@ namespace SkyMavis
         /// <returns></returns>
         public static void ReadContract(
             string state,
-            InteractWithContractRequest request
+            InteractWithContractRequest request,
+            string from = null
         )
         {
             ThrowIfNotInitialized();
@@ -240,7 +249,8 @@ namespace SkyMavis
             RequestToOverlay(
                 "provider:contract:read:request",
                 state,
-                request
+                request,
+                from
             );
         }
 
@@ -253,7 +263,8 @@ namespace SkyMavis
         /// <returns></returns>
         public static void WriteContract(
             string state,
-            string data
+            string data,
+            string from = null
         )
         {
             ThrowIfNotInitialized();
@@ -261,7 +272,8 @@ namespace SkyMavis
             RequestToOverlay(
                 "provider:contract:write:request",
                 state,
-                request
+                request,
+                from
             );
         }
 

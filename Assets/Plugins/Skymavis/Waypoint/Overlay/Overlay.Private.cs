@@ -198,7 +198,7 @@ namespace SkyMavis
         {
         }
 
-        private static void RequestToOverlay<T>(string eventName, string state, T requestData)
+        private static void RequestToOverlay<T>(string eventName, string state, T requestData, string from = null)
         {
             ThrowIfNotConnected();
 
@@ -208,6 +208,10 @@ namespace SkyMavis
                 new JProperty("state", state),
                 new JProperty("data", JObject.FromObject(requestData))
             };
+            if (from != null)
+            {
+                jRequest.Add(new JProperty("from", from));
+            }
             SendToOverlay(jRequest.ToString());
         }
 
