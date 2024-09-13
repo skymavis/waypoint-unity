@@ -6,11 +6,9 @@ Mobile games use the Waypoint SDK to interact with the Waypoint service through 
 
 ## Features
 
-- Authorize users: sign in to your app with Waypoint.
-- Send transactions: transfer tokens to other addresses.
-- Sign messages: sign plain text messages.
-- Sign typed data: sign structured data according to the EIP-712 standard.
-- Call contracts: execute custom transactions on smart contracts.
+- Authorize users: let users sign in to your app with Ronin Waypoint to connect their keyless wallet and an optional EOA wallet.
+- Send transactions: transfer RON, ERC-20 tokens, and make contract calls for in-game transactions.
+- Sign messages and typed data: prove ownership of a wallet or sign structured data.
 
 ## Prerequisites
 
@@ -28,7 +26,7 @@ Mobile requirements:
 - An app created in the [Developer Console](https://developers.skymavis.com/console/applications/).
 - Permission to use Waypoint. Request in **Developer Console > your app > App Permission > Sky Mavis Account (OAuth 2.0) > Request Access**.
 - A client ID that you can find in **Developer Console > Products > Waypoint Service > Client ID**.
-- A redirect URI registered in **Developer Console > Products > ID Service > Redirect URI**.
+- A redirect URI registered in **Developer Console > Products > Wayoint Service > Redirect URI**.
 
 - To deploy to Android, [Android API level 24](https://developer.android.com/about/versions/nougat) or later.
 - To deploy to iOS, [iOS 13.0](https://developer.apple.com/ios/) or later.
@@ -50,6 +48,7 @@ void Start()
     // Client ID registered in the Waypoint settings in the Developer Console
     string clientId = "${YOUR_CLIENT_ID}";
     // Redirect URI registered in the Waypoint settings in the Developer Console
+
     string deeplinkSchema = "${YOUR_DEEPLINK_SCHEMA}";
     // Initializion on the Ronin mainnet
     SkyMavis.Waypoint.Init(ClientId, DeeplinkSchema);
@@ -82,7 +81,7 @@ public async void OnAuthorizeClicked()
 {
     _responseId = SkyMavis.Waypoint.OnAuthorize();
     string responseData = await WaitForMavisIdResponse(_responseId);
-    Debug.Log(responseData);
+    Debug.Log("Authorize response: " + responseData);
 }
 ```
 
@@ -93,14 +92,12 @@ Transfers 0.1 RON to another address, returning a transaction hash.
 ```csharp
 public async void OnSendTransactionClicked()
 {
-    // Recipient address
     string receiverAddress = "0xD36deD8E1927dCDD76Bfe0CC95a5C1D65c0a807a";
-    // Value in wei (1 RON = 10^18 wei)
     string value = "100000000000000000";
 
     _responseId = SkyMavis.Waypoint.SendTransaction(receiverAddress, value);
     string responseData = await WaitForMavisIdResponse(_responseId);
-    Debug.Log(responseData);
+    Debug.Log("Send response: " + responseData);
 }
 ```
 
@@ -110,14 +107,13 @@ Signs a plain text message, returning a signature in hex format.
 
 ```csharp
 public async void OnPersonalSignClicked()
-{
-    // Message to sign
-    string message = "I accept the terms and conditions.";
+    {
+        string message = "I accept the terms and conditions.";
 
-    _responseId = SkyMavis.Waypoint.OnPersonalSign(message);
-    string responseData = await WaitForMavisIdResponse(_responseId);
-    Debug.Log(responseData);
-}
+        _responseId = SkyMavis.Waypoint.OnPersonalSign(message);
+        string responseData = await WaitForMavisIdResponse(_responseId);
+        Debug.Log("Personal sign response: " + responseData);
+    }
 ```
 
 ### Sign typed data
@@ -125,14 +121,16 @@ public async void OnPersonalSignClicked()
 Signs [EIP-712](https://eips.ethereum.org/EIPS/eip-712) typed data for an order on Axie Marketplace, returning a signature in hex format.
 
 ```csharp
-public void OnSignTypedDataClicked()
-// JSON struct that specifies the EIP-712 typed structured data
-{
-    string typedData = @"{""types"":{""Asset"":[{""name"":""erc"",""type"":""uint8""},{""name"":""addr"",""type"":""address""},{""name"":""id"",""type"":""uint256""},{""name"":""quantity"",""type"":""uint256""}],""Order"":[{""name"":""maker"",""type"":""address""},{""name"":""kind"",""type"":""uint8""},{""name"":""assets"",""type"":""Asset[]""},{""name"":""expiredAt"",""type"":""uint256""},{""name"":""paymentToken"",""type"":""address""},{""name"":""startedAt"",""type"":""uint256""},{""name"":""basePrice"",""type"":""uint256""},{""name"":""endedAt"",""type"":""uint256""},{""name"":""endedPrice"",""type"":""uint256""},{""name"":""expectedState"",""type"":""uint256""},{""name"":""nonce"",""type"":""uint256""},{""name"":""marketFeePercentage"",""type"":""uint256""}],""EIP712Domain"":[{""name"":""name"",""type"":""string""},{""name"":""version"",""type"":""string""},{""name"":""chainId"",""type"":""uint256""},{""name"":""verifyingContract"",""type"":""address""}]}, ""domain"":{""name"":""MarketGateway"",""version"":""1"",""chainId"":2021,""verifyingContract"":""0xfff9ce5f71ca6178d3beecedb61e7eff1602950e""},""primaryType"":""Order"",""message"":{""maker"":""0xd761024b4ef3336becd6e802884d0b986c29b35a"",""kind"":""1"",""assets"":[{""erc"":""1"",""addr"":""0x32950db2a7164ae833121501c797d79e7b79d74c"",""id"":""2730069"",""quantity"":""0""}],""expiredAt"":""1721709637"",""paymentToken"":""0xc99a6a985ed2cac1ef41640596c5a5f9f4e19ef5"",""startedAt"":""1705984837"",""basePrice"":""500000000000000000"",""endedAt"":""0"",""endedPrice"":""0"",""expectedState"":""0"",""nonce"":""0"",""marketFeePercentage"":""425""}}";
-    _responseId = SkyMavis.Waypoint.OnSignTypedData(typedData);
-    string responseData = await WaitForMavisIdResponse(_responseId);
-    Debug.Log(responseData);
-}
+    public async void OnSignTypedDataClicked()
+    {
+        // JSON struct that specifies the EIP-712 typed structured data
+        string typedData = @"{""types"":{""Asset"":[{""name"":""erc"",""type"":""uint8""},{""name"":""addr"",""type"":""address""},{""name"":""id"",""type"":""uint256""},{""name"":""quantity"",""type"":""uint256""}],""Order"":[{""name"":""maker"",""type"":""address""},{""name"":""kind"",""type"":""uint8""},{""name"":""assets"",""type"":""Asset[]""},{""name"":""expiredAt"",""type"":""uint256""},{""name"":""paymentToken"",""type"":""address""},{""name"":""startedAt"",""type"":""uint256""},{""name"":""basePrice"",""type"":""uint256""},{""name"":""endedAt"",""type"":""uint256""},{""name"":""endedPrice"",""type"":""uint256""},{""name"":""expectedState"",""type"":""uint256""},{""name"":""nonce"",""type"":""uint256""},{""name"":""marketFeePercentage"",""type"":""uint256""}],""EIP712Domain"":[{""name"":""name"",""type"":""string""},{""name"":""version"",""type"":""string""},{""name"":""chainId"",""type"":""uint256""},{""name"":""verifyingContract"",""type"":""address""}]}, ""domain"":{""name"":""MarketGateway"",""version"":""1"",""chainId"":2021,""verifyingContract"":""0xfff9ce5f71ca6178d3beecedb61e7eff1602950e""},""primaryType"":""Order"",""message"":{""maker"":""0xd761024b4ef3336becd6e802884d0b986c29b35a"",""kind"":""1"",""assets"":[{""erc"":""1"",""addr"":""0x32950db2a7164ae833121501c797d79e7b79d74c"",""id"":""2730069"",""quantity"":""0""}],""expiredAt"":""1721709637"",""paymentToken"":""0xc99a6a985ed2cac1ef41640596c5a5f9f4e19ef5"",""startedAt"":""1705984837"",""basePrice"":""500000000000000000"",""endedAt"":""0"",""endedPrice"":""0"",""expectedState"":""0"",""nonce"":""0"",""marketFeePercentage"":""425""}}";
+
+        _responseId = SkyMavis.Waypoint.OnSignTypeData(typedData);
+        string responseData = await WaitForMavisIdResponse(_responseId);
+        Debug.Log("Sign typed data response: " + responseData);
+    }
+
 ```
 
 ### Call contracts
@@ -141,28 +139,27 @@ Allows another contract to spend 1 AXS on user's behalf, returning a transaction
 
 ```csharp
 public async void OnApproveErc20Clicked()
-{
-    // Address of the smart contract to interact with
-    string contractAddress = "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d";
-
-    string readableAbi = "function approve(address _spender, uint256 _value)";
-    // Approve 1 AXS
-    var approveParams = new { _spender = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63", _value = 1000000000000000000 };
-    try
     {
-        // Transaction data to be sent to the smart contract
-        var data = ABI.EncodeFunctionData(readableAbi, approveParams);
-        Debug.Log("Approve data: " + data);
-        _responseId = SkyMavis.Waypoint.OnCallContract(contractAddress, data);
-        string responseData = await WaitForMavisIdResponse(_responseId);
-        Debug.Log(responseData);
+        string contractAddress = "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d";
+
+        string readableAbi = "function approve(address _spender, uint256 _value)";
+        // Approve 1 AXS
+        var approveParams = new { _spender = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63", _value = 1000000000000000000 };
+        try
+        {
+            var data = ABI.EncodeFunctionData(readableAbi, approveParams);
+            Debug.Log("Approve data : " + data);
+            _responseId = SkyMavis.Waypoint.OnCallContract(contractAddress, data);
+            string responseData = await WaitForMavisIdResponse(_responseId);
+            Debug.Log("Approve AXS response data in Unity : " + responseData);
+
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Error in call contract : " + e.Message);
+        }
 
     }
-    catch (System.Exception e)
-    {
-        Debug.Log("Error in call contract: " + e.Message);
-    }
-}
 ```
 
 ## Utilities
@@ -174,44 +171,38 @@ Swaps tokens on the [Katana](https://app.roninchain.com/swap) decentralized exch
 ```csharp
 using SkyMavis.Utils;
 
-public async void OnSwapRonToAxsClicked()
-{
-    // Contract addresses
-    string katanaAddress = "0xDa44546C0715ae78D454fE8B84f0235081584Fe0";
-    string ronAddress = "0xa959726154953bae111746e265e6d754f48570e6";
-    string axsAddress = "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d";
-    // Wallet address
-    string walletAddress = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63";
-    // Readable ABI string for the function
-    string readableAbi = "function swapExactRONForTokens(uint256 _amountOutMin, address[] _path, address _to, uint256 _deadline)";
-
-    // Values to pass as parameters to the called function
-    var value = "1000000000000000000";
-
-    var swapParams = new
+public async void OnSwapRonToAxs()
     {
-        // 0.1 RON
-        _amountOutMin = "0",
-        _path = new string[] { ronAddress, axsAddress },
-        _to = walletAddress,
-        _deadline = "1814031305"
-    };
+        string katanaAddress = "0xDa44546C0715ae78D454fE8B84f0235081584Fe0";
+        string ronAddress = "0xa959726154953bae111746e265e6d754f48570e6";
+        string axsAddress = "0x3c4e17b9056272ce1b49f6900d8cfd6171a1869d";
+        string walletAddress = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63";
+        string readableAbi = "function swapExactRONForTokens(uint256 _amountOutMin, address[] _path, address _to, uint256 _deadline) payable";
 
-    try
-    {
-        // Encode the function data using the ABI utility in SkyMavis.Utils
-        var data = ABI.EncodeFunctionData(readableAbi, swapParams);
-        // Send the transaction to the Katana contract using SkyMavis.Waypoint namespace
-        _responseId = SkyMavis.Waypoint.OnCallContract(katanaAddress, data, value);
-        // Wait for the response
-        string responseData = await WaitForMavisIdResponse(_responseId);
-        Debug.Log(responseData);
+        // 0.1 Ron
+        string value = "100000000000000000";
+
+        object swapParams = new
+        {
+            _amountOutMin = 0,
+            _path = new string[] { ronAddress, axsAddress },
+            _to = walletAddress,
+            _deadline = 19140313050
+        };
+
+        try
+        {
+            string data = ABI.EncodeFunctionData(readableAbi, swapParams);
+            _responseId = SkyMavis.Waypoint.OnCallContract(katanaAddress, data, value);
+            var responseData = await WaitForMavisIdResponse(_responseId);
+            Debug.Log("Swap response data in Unity : " + responseData);
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Error in call contract : " + e.Message);
+        }
+
     }
-    catch (System.Exception e)
-    {
-        Debug.Log("Error in call contract: " + e.Message);
-    }
-}
 ```
 
 ### Read smart contract data
