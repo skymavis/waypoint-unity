@@ -17,7 +17,6 @@ namespace SkyMavis
         [DllImport("__Internal")]
         private static extern void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId);
 
-
         [DllImport("__Internal")]
         private static extern void authorize(string state, string redirects);
 
@@ -87,7 +86,7 @@ namespace SkyMavis
             _isInitialized = true;
             _deeplink = $"{deeplinkSchema}://open";
 
-            string endpoint = "https://id.skymavis.com";
+            string endpoint = "https://waypoint.roninchain.com";
             string rpcUrl = "https://api.roninchain.com/rpc";
             int chainId = 2020;
             if (isTestnet)

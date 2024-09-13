@@ -61,7 +61,7 @@ public class WaypointExample : MonoBehaviour
     {
         _responseId = SkyMavis.Waypoint.OnAuthorize();
         string responseData = await WaitForMavisIdResponse(_responseId);
-        Debug.Log("Authorize response in Unity: " + responseData);
+        Debug.Log("Authorize response : " + responseData);
     }
 
     public async void OnPersonalSignClicked()

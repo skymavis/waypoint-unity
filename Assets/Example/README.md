@@ -1,6 +1,6 @@
 # SDK Playground
 
-Mavis ID SDK example using Unity for Android, iOS and desktop games.
+Ronin Waypoint SDK example using Unity for Android, iOS and desktop games.
 
 ## Prerequisites
 
