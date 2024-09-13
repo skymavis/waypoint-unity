@@ -1,8 +1,8 @@
-# Waypoint Unity SDK
+# Ronin Waypoint Unity SDK
 
-The Waypoint Unity SDK lets developers integrate Waypoint into Unity games deployed to mobile platforms (Android and iOS) and desktop platforms (Windows and macOS). After the integration, users can sign in to your game with Waypoint and set up a Web3 wallet to interact with the blockchain to send and receive tokens, sign messages, and more.
+The Ronin Waypoint Unity SDK lets developers integrate the account and wallet features of the Ronin Waypoint service into Unity games deployed to mobile platforms (Android and iOS) and desktop platforms (Windows and macOS). After the integration, users can sign in to your game with their Ronin Waypoint account and connect their keyless wallet for instant in-game transactions.
 
-Mobile games use the Waypoint SDK to interact with the Waypoint service through a native WebView. Desktop games distributed through Mavis Hub use the Waypoint SDK to interact with the Waypoint service through the Mavis Hub client.
+On mobile platforms, users interact with Ronin Waypoint through a native WebView. As for desktop platforms, Ronin Waypoint is accessed through an overlay window provided by the Mavis Hub client. Whenever the implementation differs between platforms, this guide specifies the platform-specific steps.
 
 ## Features
 
@@ -45,9 +45,9 @@ Mobile requirements:
 ```csharp
 void Start()
 {
-    // Client ID registered in the Waypoint settings in the Developer Console
+    // Client ID registered in the Ronin Waypoint settings in the Developer Console
     string clientId = "${YOUR_CLIENT_ID}";
-    // Redirect URI registered in the Waypoint settings in the Developer Console
+    // Redirect URI registered in the Ronin Waypoint settings in the Developer Console
 
     string deeplinkSchema = "${YOUR_DEEPLINK_SCHEMA}";
     // Initializion on the Ronin mainnet
@@ -68,13 +68,13 @@ void Start()
 }
 ```
 
-## Usage
+## Usage example
 
-### Authorize users
+### Authorize a user
 
 **Note:** Not required for Windows and macOS games distributed through Mavis Hub.
 
-Authorizes a user with an existing Waypoint account, returning an ID token and the user's wallet address. If the user does not have an account, they will be prompted to create one.
+Initializes the authorization process, allowing a user to sign in or sign up for a Ronin Waypoint account, and connect their wallet. Returns an authorization response containing an ID token and the user's keyless wallet address.
 
 ```csharp
 public async void OnAuthorizeClicked()
@@ -85,7 +85,7 @@ public async void OnAuthorizeClicked()
 }
 ```
 
-### Send transactions
+### Send a transaction
 
 Transfers 0.1 RON to another address, returning a transaction hash.
 
@@ -101,7 +101,7 @@ public async void OnSendTransactionClicked()
 }
 ```
 
-### Sign messages
+### Sign a message
 
 Signs a plain text message, returning a signature in hex format.
 
@@ -133,7 +133,7 @@ Signs [EIP-712](https://eips.ethereum.org/EIPS/eip-712) typed data for an order 
 
 ```
 
-### Call contracts
+### Call a contract
 
 Allows another contract to spend 1 AXS on user's behalf, returning a transaction hash.
 
@@ -215,7 +215,7 @@ var response = await skynet.GetTotalNFTs();
 Debug.Log("Total NFTs: " + response);
 ```
 
-### Make RPC calls
+### Make an RPC call
 
 Checks how many AXS tokens the user has allowed the Katana contract to spend, using the [Skynet REST API](https://docs.skymavis.com/api/ronin-rest/skynet-rest-api):
 
@@ -243,5 +243,5 @@ Debug.Log("Formatted Ether balance: " + formatedValue);
 
 ## Documentation
 
-- For more information, see the [Waypoint Unity SDK](https://docs.skymavis.com/mavis/mavis-id/guides/unity-sdk) integration guide.
-- For detailed examples, see the [playground source code](https://github.com/axieinfinity/mavis-id-unity/blob/main/Assets/Example/ID.cs).
+- For more information, see the [Ronin Waypoint Unity SDK](https://docs.skymavis.com/mavis/ronin-waypoint/reference/unity-sdk) integration guide.
+- For detailed examples, see the [playground source code](https://github.com/axieinfinity/waypoint-unity/blob/main/Assets/Example/ID.cs).
