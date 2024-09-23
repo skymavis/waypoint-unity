@@ -148,7 +148,6 @@ namespace SkyMavis
 #if UNITY_ANDROID
             AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            _client.Call("signTypedData", context, _deeplink, state, typedData);
             if (from != null)
             {
                 _client.Call("signTypedData", context, state, _deeplink, typedData, from);
