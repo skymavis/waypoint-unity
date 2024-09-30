@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using SkyMavis.Utils;
 using TMPro;
@@ -174,6 +175,43 @@ public class WaypointExample : MonoBehaviour
 
     }
 
+    public async void onClickAuthAsGuest()
+    {
+
+        string credential = "credentialU2";
+        string authDate = "1727686970";
+        string hash = "38ede5cec00794eac1a43d9bdb6f0740d49b993c46f3459016f4657fbdb890b5";
+        string scope = "wallet";
+        try
+        {
+            _responseId = SkyMavis.Waypoint.OnAuthAsGuest(credential, authDate, hash, scope);
+            string responseData = await WaitForMavisIdResponse(_responseId);
+            Debug.Log("Auth as guest response data in Unity " + responseData);
+
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Error in Auth as guest: " + e.Message);
+        }
+
+    }
+
+    public async void OnRegisterGuestAccount()
+    {
+        try
+        {
+            _responseId = SkyMavis.Waypoint.OnRegisterGuestAccount();
+            string responseData = await WaitForMavisIdResponse(_responseId);
+            Debug.Log("Register guest account response data in Unity " + responseData);
+
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Error in register guest account : " + e.Message);
+        }
+
+    }
+
     public async void OnInitialized()
     {
 #if UNITY_STANDALONE
@@ -194,7 +232,10 @@ public class WaypointExample : MonoBehaviour
             }
         }
 #else
-        SkyMavis.Waypoint.Init(ClientId, DeeplinkSchema, true);
+
+        string rpcUrl = "https://saigon-testnet.roninchain.com/rpc";
+        int chainId = 2021;
+        SkyMavis.Waypoint.Init(ClientId, DeeplinkSchema, rpcUrl, chainId);
 #endif
     }
 
