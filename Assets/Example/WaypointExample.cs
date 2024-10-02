@@ -10,6 +10,7 @@ public class WaypointExample : MonoBehaviour
     static readonly string ClientId = "${YOUR_CLIENT_ID}";
     static readonly string DeeplinkSchema = "${YOUR_DEEPLINK_SCHEMA}";
 
+
     public GameObject popupPanel;
     public TMP_Text text;
     public string _responseId;
@@ -27,7 +28,7 @@ public class WaypointExample : MonoBehaviour
         return null;
     }
 
-    public async Task<string> WaitForMavisIdResponse(string id)
+    public async Task<string> WaitForWaypointResponse(string id)
     {
         string responseData = null;
         string currentId = id;
@@ -61,7 +62,7 @@ public class WaypointExample : MonoBehaviour
     public async void OnAuthorizeClicked()
     {
         _responseId = SkyMavis.Waypoint.OnAuthorize();
-        string responseData = await WaitForMavisIdResponse(_responseId);
+        string responseData = await WaitForWaypointResponse(_responseId);
         Debug.Log("Authorize response : " + responseData);
     }
 
@@ -70,8 +71,8 @@ public class WaypointExample : MonoBehaviour
         string message = "Hello Axie Infinity";
 
         _responseId = SkyMavis.Waypoint.OnPersonalSign(message);
-        string responseData = await WaitForMavisIdResponse(_responseId);
-        Debug.Log("Personal sign response in Unity : " + responseData);
+        string responseData = await WaitForWaypointResponse(_responseId);
+        Debug.Log("Personal sign response: " + responseData);
     }
 
     public async void OnSignTypedDataClicked()
@@ -80,8 +81,8 @@ public class WaypointExample : MonoBehaviour
         string typedData = @"{""types"":{""Asset"":[{""name"":""erc"",""type"":""uint8""},{""name"":""addr"",""type"":""address""},{""name"":""id"",""type"":""uint256""},{""name"":""quantity"",""type"":""uint256""}],""Order"":[{""name"":""maker"",""type"":""address""},{""name"":""kind"",""type"":""uint8""},{""name"":""assets"",""type"":""Asset[]""},{""name"":""expiredAt"",""type"":""uint256""},{""name"":""paymentToken"",""type"":""address""},{""name"":""startedAt"",""type"":""uint256""},{""name"":""basePrice"",""type"":""uint256""},{""name"":""endedAt"",""type"":""uint256""},{""name"":""endedPrice"",""type"":""uint256""},{""name"":""expectedState"",""type"":""uint256""},{""name"":""nonce"",""type"":""uint256""},{""name"":""marketFeePercentage"",""type"":""uint256""}],""EIP712Domain"":[{""name"":""name"",""type"":""string""},{""name"":""version"",""type"":""string""},{""name"":""chainId"",""type"":""uint256""},{""name"":""verifyingContract"",""type"":""address""}]}, ""domain"":{""name"":""MarketGateway"",""version"":""1"",""chainId"":2021,""verifyingContract"":""0xfff9ce5f71ca6178d3beecedb61e7eff1602950e""},""primaryType"":""Order"",""message"":{""maker"":""0xd761024b4ef3336becd6e802884d0b986c29b35a"",""kind"":""1"",""assets"":[{""erc"":""1"",""addr"":""0x32950db2a7164ae833121501c797d79e7b79d74c"",""id"":""2730069"",""quantity"":""0""}],""expiredAt"":""1721709637"",""paymentToken"":""0xc99a6a985ed2cac1ef41640596c5a5f9f4e19ef5"",""startedAt"":""1705984837"",""basePrice"":""500000000000000000"",""endedAt"":""0"",""endedPrice"":""0"",""expectedState"":""0"",""nonce"":""0"",""marketFeePercentage"":""425""}}";
 
         _responseId = SkyMavis.Waypoint.OnSignTypeData(typedData);
-        string responseData = await WaitForMavisIdResponse(_responseId);
-        Debug.Log(responseData);
+        string responseData = await WaitForWaypointResponse(_responseId);
+        Debug.Log("Sign typed data response " + responseData);
     }
     public async void OnSendTransactionClicked()
     {
@@ -89,7 +90,7 @@ public class WaypointExample : MonoBehaviour
         string value = "100000000000000000";
 
         _responseId = SkyMavis.Waypoint.SendTransaction(receiverAddress, value);
-        string responseData = await WaitForMavisIdResponse(_responseId);
+        string responseData = await WaitForWaypointResponse(_responseId);
         Debug.Log("Send response data in Unity : " + responseData);
     }
 
@@ -105,7 +106,7 @@ public class WaypointExample : MonoBehaviour
             var data = ABI.EncodeFunctionData(readableAbi, approveParams);
             Debug.Log("Approve data : " + data);
             _responseId = SkyMavis.Waypoint.OnCallContract(contractAddress, data);
-            string responseData = await WaitForMavisIdResponse(_responseId);
+            string responseData = await WaitForWaypointResponse(_responseId);
             Debug.Log("Approve AXS response data in Unity : " + responseData);
 
         }
@@ -140,7 +141,7 @@ public class WaypointExample : MonoBehaviour
         {
             string data = ABI.EncodeFunctionData(readableAbi, swapParams);
             _responseId = SkyMavis.Waypoint.OnCallContract(katanaAddress, data, value);
-            var responseData = await WaitForMavisIdResponse(_responseId);
+            var responseData = await WaitForWaypointResponse(_responseId);
             Debug.Log("Swap response data in Unity : " + responseData);
         }
         catch (System.Exception e)
@@ -164,7 +165,7 @@ public class WaypointExample : MonoBehaviour
         {
             var data = ABI.EncodeFunctionData(readableAbi, values);
             _responseId = SkyMavis.Waypoint.OnCallContract(atiaShrineContractAddress, data);
-            string responseData = await WaitForMavisIdResponse(_responseId);
+            string responseData = await WaitForWaypointResponse(_responseId);
             Debug.Log("Atia blessing response data in Unity " + responseData);
 
         }
@@ -178,14 +179,14 @@ public class WaypointExample : MonoBehaviour
     public async void onClickAuthAsGuest()
     {
 
-        string credential = "credentialU2";
-        string authDate = "1727686970";
-        string hash = "38ede5cec00794eac1a43d9bdb6f0740d49b993c46f3459016f4657fbdb890b5";
-        string scope = "wallet";
+        string credential = "{YOUR_CREDENTIAL}";
+        string authDate = "{YOUR_AUTH_DATE}";
+        string hash = "{YOUR_HASH}";
+        string scope = "{YOUR_SCOPE}";
         try
         {
             _responseId = SkyMavis.Waypoint.OnAuthAsGuest(credential, authDate, hash, scope);
-            string responseData = await WaitForMavisIdResponse(_responseId);
+            string responseData = await WaitForWaypointResponse(_responseId);
             Debug.Log("Auth as guest response data in Unity " + responseData);
 
         }
@@ -201,7 +202,8 @@ public class WaypointExample : MonoBehaviour
         try
         {
             _responseId = SkyMavis.Waypoint.OnRegisterGuestAccount();
-            string responseData = await WaitForMavisIdResponse(_responseId);
+            Debug.Log("Response ID register : " + _responseId);
+            string responseData = await WaitForWaypointResponse(_responseId);
             Debug.Log("Register guest account response data in Unity " + responseData);
 
         }
