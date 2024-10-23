@@ -13,7 +13,7 @@
             </intent-filter>
             <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
             <intent-filter>
-                <!-- Accepts URIs that begin with "mydapp://open” -->
+                <!-- Accepts URIs that begin with "mydapp://callback” -->
                 <data
                     android:host="open"
                     android:scheme="mydapp" />

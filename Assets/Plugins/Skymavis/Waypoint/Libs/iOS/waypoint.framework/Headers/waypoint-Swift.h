@@ -298,7 +298,10 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #if defined(__OBJC__)
 
-SWIFT_EXTERN void authorize(int8_t const * _Nonnull state, int8_t const * _Nonnull redirect);
+SWIFT_EXTERN void authAsGuest(int8_t const * _Nonnull state, int8_t const * _Nonnull redirect, int8_t const * _Nonnull credential, int8_t const * _Nonnull authDate, int8_t const * _Nonnull hash, int8_t const * _Nonnull scope);
+
+
+SWIFT_EXTERN void authorize(int8_t const * _Nonnull state, int8_t const * _Nonnull redirect, int8_t const * _Nullable scope);
 
 
 SWIFT_EXTERN void callContract(int8_t const * _Nonnull state, int8_t const * _Nonnull redirect, int8_t const * _Nonnull contractAddress, int8_t const * _Nonnull data, int8_t const * _Nullable value, int8_t const * _Nullable from);
@@ -310,7 +313,10 @@ SWIFT_EXTERN void initClient(int8_t const * _Nonnull address, int8_t const * _No
 SWIFT_EXTERN void personalSign(int8_t const * _Nonnull state, int8_t const * _Nonnull redirect, int8_t const * _Nonnull message, int8_t const * _Nullable from);
 
 
-SWIFT_EXTERN void sendTransaction(int8_t const * _Nonnull state, int8_t const * _Nonnull redirect, int8_t const * _Nullable from, int8_t const * _Nonnull to, int8_t const * _Nonnull value);
+SWIFT_EXTERN void registerGuestAccount(int8_t const * _Nonnull state, int8_t const * _Nonnull redirect);
+
+
+SWIFT_EXTERN void sendTransaction(int8_t const * _Nonnull state, int8_t const * _Nonnull redirect, int8_t const * _Nonnull to, int8_t const * _Nonnull value, int8_t const * _Nullable from);
 
 
 SWIFT_EXTERN void signTypedData(int8_t const * _Nonnull state, int8_t const * _Nonnull redirect, int8_t const * _Nonnull typedData, int8_t const * _Nullable from);

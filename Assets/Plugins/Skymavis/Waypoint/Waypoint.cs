@@ -3,6 +3,7 @@ using SkyMavis.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 using Newtonsoft.Json.Linq;
+using System;
 
 #if UNITY_IOS
 using System.Runtime.InteropServices;
@@ -18,7 +19,13 @@ namespace SkyMavis
         private static extern void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId);
 
         [DllImport("__Internal")]
-        private static extern void authorize(string state, string redirects);
+        private static extern void authorize(string state, string redirects, string scopes = null);
+
+        [DllImport("__Internal")]
+        private static extern void authAsGuest(string state, string redirect, string credential, string authDate, string hash, string scope);
+
+        [DllImport("__Internal")]
+        private static extern void registerGuestAccount(string state, string redirect);
 
         [DllImport("__Internal")]
         private static extern void sendTransaction(string state, string redirect, string to, string value, string from = null);
@@ -80,46 +87,84 @@ namespace SkyMavis
             Overlay.OnDataResponsed += OnOverlayResponse;
         }
 #else
-        public static void Init(string clientId, string deeplinkSchema, bool isTestnet = false)
+        public static void Init(string waypointOrigin, string clientId, string deeplinkSchema, string rpcUrl, int chainId)
         {
             if (_isInitialized) return;
             _isInitialized = true;
             _deeplink = $"{deeplinkSchema}://open";
 
-            string endpoint = "https://waypoint.roninchain.com";
-            string rpcUrl = "https://api.roninchain.com/rpc";
-            int chainId = 2020;
-            if (isTestnet)
-            {
-                rpcUrl = "https://saigon-testnet.roninchain.com/rpc";
-                chainId = 2021;
-            }
 
 #if UNITY_ANDROID
             AndroidJavaObject chainIdObj = new AndroidJavaObject("java.lang.Integer", chainId);
-            AndroidJavaObject clientObj = new AndroidJavaObject("com.skymavis.sdk.waypoint.Waypoint", endpoint, clientId, rpcUrl, chainIdObj);
+            AndroidJavaObject clientObj = new AndroidJavaObject("com.skymavis.sdk.waypoint.Waypoint", waypointOrigin, clientId, rpcUrl, chainIdObj);
             _client = clientObj;
 #elif UNITY_IOS
-            initClient(endpoint, clientId, rpcUrl, chainId);
+            initClient(waypointOrigin, clientId, rpcUrl, chainId);
 #endif
             Application.deepLinkActivated += OnDeepLinkActivated;
         }
 #endif
 
-        public static string OnAuthorize()
+        public static string OnAuthorize(string[] scopes = null)
         {
             string state = GenerateRandomState();
 #if UNITY_ANDROID
             AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            _client.Call("authorize", context, state, _deeplink);
+            if (scopes != null)
+            {
+                _client.Call("authorize", context, state, _deeplink, scopes);
+            }
+            else
+            {
+                _client.Call("authorize", context, state, _deeplink);
+            }
 #elif UNITY_IOS
-            authorize(state, _deeplink);
+            if (scopes != null)
+            {
+                string scope = string.Join(" ", scopes);
+                authorize(state, _deeplink, scope);
+            }
+            else
+            {
+                authorize(state, _deeplink);
+            }
 #else
             Overlay.GetIDToken(state);
 #endif
             return state;
         }
+
+        public static string OnAuthAsGuest(string credential, string authDate, string hash, string scope)
+        {
+            string state = GenerateRandomState();
+#if UNITY_ANDROID
+            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
+            _client.Call("authAsGuest", context, state, _deeplink, credential, authDate, hash, scope);
+#elif UNITY_IOS
+            authAsGuest(state, _deeplink, credential, authDate, hash, scope);
+#else
+            // TODO : Implement in Overlay
+#endif
+            return state;
+        }
+
+        public static string OnRegisterGuestAccount()
+        {
+            string state = GenerateRandomState();
+#if UNITY_ANDROID
+            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
+            _client.Call("registerGuestAccount", context, state, _deeplink);
+#elif UNITY_IOS
+            registerGuestAccount(state, _deeplink);
+#else
+            // TODO : Implement in Overlay
+#endif
+            return state;
+        }
+
         public static string OnPersonalSign(string message, string from = null)
         {
             string state = GenerateRandomState();
@@ -208,6 +253,8 @@ namespace SkyMavis
 #endif
             return state;
         }
+
+
 
         public static string OnGetIDToken()
         {

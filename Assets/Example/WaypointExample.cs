@@ -7,6 +7,7 @@ public class WaypointExample : MonoBehaviour
 {
     // ClientId and DeeplinkSchema are registered with Sky Mavis
     static readonly string ClientId = "${YOUR_CLIENT_ID}";
+
     static readonly string DeeplinkSchema = "${YOUR_DEEPLINK_SCHEMA}";
 
     public GameObject popupPanel;
@@ -30,7 +31,11 @@ public class WaypointExample : MonoBehaviour
     {
         string responseData = null;
         string currentId = id;
-        void dataCallback(string state, string data) { if (currentId == state) responseData = data; }
+        // void dataCallback(string state, string data) { if (currentId == state) responseData = data; }
+        void dataCallback(string state, string data)
+        {
+            Debug.Log("Data callback : " + data);
+        }
         SkyMavis.Waypoint.BindOnResponse(dataCallback);
         while (string.IsNullOrEmpty(responseData) && currentId == _responseId) await Task.Yield();
         SkyMavis.Waypoint.UnBindOnResponse(dataCallback);
@@ -59,7 +64,8 @@ public class WaypointExample : MonoBehaviour
 
     public async void OnAuthorizeClicked()
     {
-        _responseId = SkyMavis.Waypoint.OnAuthorize();
+        string[] scopes = new string[] { "email", "profile", "openid", "wallet" };
+        _responseId = SkyMavis.Waypoint.OnAuthorize(scopes);
         string responseData = await WaitForMavisIdResponse(_responseId);
         Debug.Log("Authorize response : " + responseData);
     }
@@ -194,7 +200,11 @@ public class WaypointExample : MonoBehaviour
             }
         }
 #else
-        SkyMavis.Waypoint.Init(ClientId, DeeplinkSchema, true);
+
+        string rpcUrl = "https://saigon-testnet.roninchain.com/rpc";
+        int chainId = 2021;
+        string waypointOrigin = "https://waypoint.roninchain.com";
+        SkyMavis.Waypoint.Init(waypointOrigin, ClientId, DeeplinkSchema, rpcUrl, chainId);
 #endif
     }
 
