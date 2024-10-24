@@ -443,7 +443,7 @@ namespace SkyMavis.Utils
             return "0x" + sig + data.RemoveHexPrefix();
         }
 
-        private static string EncodeAbiParameters(AbiParameter abiParameter, object values)
+        public static string EncodeAbiParameters(AbiParameter abiParameter, object values)
         {
             var inputs = abiParameter.inputs;
             if (inputs == null)

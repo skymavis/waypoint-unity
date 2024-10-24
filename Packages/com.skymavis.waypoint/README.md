@@ -33,10 +33,9 @@ Mobile requirements:
 
 ## Installation
 
-1. Download the latest `Waypoint.unitypackage` release from this repository.
-2. Import the file by selecting the Unity menu option **Assets > Import package > Custom Package** and importing `Waypoint.unitypackage`.
-3. In Unity Editor, go to **Build Settings**, then choose the platform you are deploying, then click **Switch Platform**.
-4. Configure [platform-specific settings](https://docs.skymavis.com/mavis/mavis-id/guides/unity-sdk#step-2-install-the-sdk).
+1. [Install the package using the following Git URL:](https://docs.unity3d.com/Manual/upm-ui-giturl.html) `https://github.com/skymavis/waypoint-unity.git?path=/Packages/com.skymavis.waypoint`
+2. In Unity Editor, go to **Build Settings**, then choose the platform you are deploying, then click **Switch Platform**.
+3. Configure [platform-specific settings](https://docs.skymavis.com/mavis/mavis-id/guides/unity-sdk#step-2-install-the-sdk).
 
 ## Initialization
 
