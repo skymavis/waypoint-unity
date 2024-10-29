@@ -18,7 +18,7 @@ namespace SkyMavis
         private static extern void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId);
 
         [DllImport("__Internal")]
-        private static extern void authorize(string state, string redirects);
+        private static extern void authorize(string state, string redirects, string scopes = null);
 
         [DllImport("__Internal")]
         private static extern void sendTransaction(string state, string redirect, string to, string value, string from = null);
@@ -40,7 +40,6 @@ namespace SkyMavis
         private static string _deeplink;
         private static bool _isInitialized = false;
         private static List<UnityAction<string, string>> _subscribers = new List<UnityAction<string, string>>();
-
         public static void BindOnResponse(UnityAction<string, string> cb) { BindWaitForMessage(cb); }
         public static void UnBindOnResponse(UnityAction<string, string> cb) { UnbindWaitForMessage(cb); }
 
@@ -106,20 +105,36 @@ namespace SkyMavis
         }
 #endif
 
-        public static string OnAuthorize()
+        public static string OnAuthorize(string[] scopes = null)
         {
             string state = GenerateRandomState();
 #if UNITY_ANDROID
             AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            _client.Call("authorize", context, state, _deeplink);
+            if (scopes != null)
+            {
+                _client.Call("authorize", context, state, _deeplink, scopes);
+            }
+            else
+            {
+                _client.Call("authorize", context, state, _deeplink);
+            }
 #elif UNITY_IOS
-            authorize(state, _deeplink);
+            if (scopes != null)
+            {
+                string scope = string.Join(" ", scopes);
+                authorize(state, _deeplink, scope);
+            }
+            else
+            {
+                authorize(state, _deeplink);
+            }
 #else
             Overlay.GetIDToken(state);
 #endif
             return state;
         }
+
         public static string OnPersonalSign(string message, string from = null)
         {
             string state = GenerateRandomState();

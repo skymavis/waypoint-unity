@@ -59,7 +59,8 @@ public class WaypointExample : MonoBehaviour
 
     public async void OnAuthorizeClicked()
     {
-        _responseId = SkyMavis.Waypoint.OnAuthorize();
+        string[] scopes = new string[] { "email", "profile", "openid", "wallet" };
+        _responseId = SkyMavis.Waypoint.OnAuthorize(scopes);
         string responseData = await WaitForMavisIdResponse(_responseId);
         Debug.Log("Authorize response : " + responseData);
     }
