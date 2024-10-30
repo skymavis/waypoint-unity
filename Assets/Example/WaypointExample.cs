@@ -7,7 +7,7 @@ public class WaypointExample : MonoBehaviour
 {
     // ClientId and DeeplinkSchema are registered with Sky Mavis
     static readonly string ClientId = "${YOUR_CLIENT_ID}";
-    static readonly string DeeplinkSchema = "${YOUR_DEEPLINK_SCHEMA}";
+    static readonly string DeeplinkSchema = "${YOUR_APP_SCHEME}";
 
     public GameObject popupPanel;
     public TMP_Text text;
@@ -59,7 +59,7 @@ public class WaypointExample : MonoBehaviour
 
     public async void OnAuthorizeClicked()
     {
-        string[] scopes = new string[] { "email", "profile", "openid", "wallet" };
+        string scopes = "email openid profile wallet";
         _responseId = SkyMavis.Waypoint.OnAuthorize(scopes);
         string responseData = await WaitForMavisIdResponse(_responseId);
         Debug.Log("Authorize response : " + responseData);

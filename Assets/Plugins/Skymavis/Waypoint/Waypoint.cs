@@ -105,24 +105,23 @@ namespace SkyMavis
         }
 #endif
 
-        public static string OnAuthorize(string[] scopes = null)
+        public static string OnAuthorize(string scope = null)
         {
             string state = GenerateRandomState();
 #if UNITY_ANDROID
             AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            if (scopes != null)
+            if (scope != null)
             {
-                _client.Call("authorize", context, state, _deeplink, scopes);
+                _client.Call("authorize", context, state, _deeplink, scope);
             }
             else
             {
                 _client.Call("authorize", context, state, _deeplink);
             }
 #elif UNITY_IOS
-            if (scopes != null)
+            if (scope != null)
             {
-                string scope = string.Join(" ", scopes);
                 authorize(state, _deeplink, scope);
             }
             else
