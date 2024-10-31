@@ -31,9 +31,9 @@ public class WaypointExample : MonoBehaviour
         string responseData = null;
         string currentId = id;
         void dataCallback(string state, string data) { if (currentId == state) responseData = data; }
-        SkyMavis.Waypoint.BindOnResponse(dataCallback);
+        SkyMavis.Waypoint.MessageReceived += dataCallback;
         while (string.IsNullOrEmpty(responseData) && currentId == _responseId) await Task.Yield();
-        SkyMavis.Waypoint.UnBindOnResponse(dataCallback);
+        SkyMavis.Waypoint.MessageReceived -= dataCallback;
         return responseData;
     }
 

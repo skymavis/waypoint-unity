@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SkyMavis.Utils;
 using UnityEngine;
@@ -37,22 +38,10 @@ namespace SkyMavis
         private static AndroidJavaObject _client;
 #endif
 
+        public static event Action<string, string> MessageReceived;
+
         private static string _deeplink;
         private static bool _isInitialized = false;
-        private static List<UnityAction<string, string>> _subscribers = new List<UnityAction<string, string>>();
-
-        public static void BindOnResponse(UnityAction<string, string> cb) { BindWaitForMessage(cb); }
-        public static void UnBindOnResponse(UnityAction<string, string> cb) { UnbindWaitForMessage(cb); }
-
-        private static void BindWaitForMessage(UnityAction<string, string> cb)
-        {
-            _subscribers.Add(cb);
-        }
-
-        private static void UnbindWaitForMessage(UnityAction<string, string> cb)
-        {
-            _subscribers.Remove(cb);
-        }
 
         private static string GenerateRandomState()
         {
@@ -233,17 +222,7 @@ namespace SkyMavis
                     jData.Add(new JProperty(p.Key, p.Value));
                 }
                 string dataStr = jData.ToString();
-                foreach (var p in _subscribers)
-                {
-                    try
-                    {
-                        p?.Invoke(state, dataStr);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        Debug.LogException(ex);
-                    }
-                }
+                MessageReceived?.Invoke(state, dataStr);
             }
         }
 
@@ -255,17 +234,7 @@ namespace SkyMavis
             if (!resp.TryGetValue("state", out var state)) return;
             if (!resp.TryGetValue("data", out var data)) return;
             string dataStr = data.ToString();
-            foreach (var p in _subscribers)
-            {
-                try
-                {
-                    p?.Invoke((string)state, dataStr);
-                }
-                catch (System.Exception ex)
-                {
-                    Debug.LogException(ex);
-                }
-            }
+            MessageReceived?.Invoke((string)state, dataStr);
         }
     }
 }
