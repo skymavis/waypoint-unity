@@ -1,42 +1,14 @@
+using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using SkyMavis.Utils;
 using UnityEngine;
 using UnityEngine.Events;
-using Newtonsoft.Json.Linq;
-
-#if UNITY_IOS
-using System.Runtime.InteropServices;
-#endif
 
 namespace SkyMavis
 {
-    public static class Waypoint
+    public static partial class Waypoint
     {
-#if UNITY_IOS
-        // iOS function
-        [DllImport("__Internal")]
-        private static extern void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId);
-
-        [DllImport("__Internal")]
-        private static extern void authorize(string state, string redirects);
-
-        [DllImport("__Internal")]
-        private static extern void sendTransaction(string state, string redirect, string to, string value, string from = null);
-
-        [DllImport("__Internal")]
-        private static extern void personalSign(string state, string redirect, string message, string from = null);
-
-        [DllImport("__Internal")]
-        private static extern void signTypedData(string state, string redirect, string typedData, string from = null);
-
-        [DllImport("__Internal")]
-        private static extern void callContract(string state, string redirect, string contractAddress, string data, string value = "0x0", string from = null);
-#endif
-
-#if UNITY_ANDROID
-        private static AndroidJavaObject _client;
-#endif
-
         private static string _deeplink;
         private static bool _isInitialized = false;
         private static List<UnityAction<string, string>> _subscribers = new List<UnityAction<string, string>>();
@@ -57,6 +29,13 @@ namespace SkyMavis
         private static string GenerateRandomState()
         {
             return System.Guid.NewGuid().ToString();
+        }
+
+        private static string ExecuteWithRandomState(Action<string> callback)
+        {
+            var state = GenerateRandomState();
+            callback(state);
+            return state;
         }
 
         public static bool IsConnected
@@ -106,120 +85,19 @@ namespace SkyMavis
         }
 #endif
 
-        public static string OnAuthorize()
-        {
-            string state = GenerateRandomState();
-#if UNITY_ANDROID
-            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            _client.Call("authorize", context, state, _deeplink);
-#elif UNITY_IOS
-            authorize(state, _deeplink);
-#else
-            Overlay.GetIDToken(state);
-#endif
-            return state;
-        }
-        public static string OnPersonalSign(string message, string from = null)
-        {
-            string state = GenerateRandomState();
-#if UNITY_ANDROID
-            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            if (from != null)
-            {
-                _client.Call("personalSign", context, state, _deeplink, message, from);
-            }
-            else
-            {
-                _client.Call("personalSign", context, state, _deeplink, message);
-            }
-#elif UNITY_IOS
-            personalSign(state, _deeplink, message, from);
-#else
-            Overlay.PersonalSign(state, message, from);
-#endif
-            return state;
-        }
+        public static string OnAuthorize() => ExecuteWithRandomState(Authorize_internal);
 
-        public static string OnSignTypeData(string typedData, string from = null)
-        {
-            string state = GenerateRandomState();
-#if UNITY_ANDROID
-            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            if (from != null)
-            {
-                _client.Call("signTypedData", context, state, _deeplink, typedData, from);
-            }
-            else
-            {
-                _client.Call("signTypedData", context, state, _deeplink, typedData);
-            }
-#elif UNITY_IOS
-            signTypedData(state, _deeplink, typedData, from);
-#else
-            Overlay.SignTypedData(state, typedData);
-#endif
-            return state;
-        }
+        public static string OnPersonalSign(string message, string from = null) =>
+            ExecuteWithRandomState(state => PersonalSign_internal(state, message, from));
 
-        public static string SendTransaction(string receiverAddress, string value, string from = null)
-        {
-            string state = GenerateRandomState();
-#if UNITY_ANDROID
-            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            if (from != null)
-            {
-                _client.Call("sendTransaction", context, state, _deeplink, receiverAddress, value, from);
-            }
-            else
-            {
-                _client.Call("sendTransaction", context, state, _deeplink, receiverAddress, value);
-            }
-#elif UNITY_IOS
-            sendTransaction(state, _deeplink, receiverAddress, value, from);
-#else
-            Overlay.SendNativeToken(state, receiverAddress, value, from);
-#endif
-            return state;
-        }
+        public static string OnSignTypeData(string typedData, string from = null) =>
+            ExecuteWithRandomState(state => SignTypedData_internal(state, typedData, from));
 
-        public static string OnCallContract(string contractAddress, string data, string value = "0x0", string from = null)
-        {
-            string state = GenerateRandomState();
+        public static string SendTransaction(string receiverAddress, string value, string from = null) =>
+            ExecuteWithRandomState(state => SendTransaction_internal(state, receiverAddress, value, from));
 
-#if UNITY_ANDROID
-            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            if (from != null)
-            {
-                _client.Call("callContract", context, state, _deeplink, contractAddress, data, value, from);
-            }
-            else
-            {
-                _client.Call("callContract", context, state, _deeplink, contractAddress, data, value);
-            }
-#elif UNITY_IOS
-            callContract(state, _deeplink, contractAddress, data, value, from);
-#else
-            Overlay.SendTransaction(state, contractAddress, value, data, from);
-#endif
-            return state;
-        }
-
-        public static string OnGetIDToken()
-        {
-
-#if UNITY_STANDALONE
-            string state = GenerateRandomState();
-            Overlay.GetIDToken(state);
-            return state;
-#else
-            throw new System.NotImplementedException();
-#endif
-        }
+        public static string OnCallContract(string contractAddress, string data, string value = "0x0", string from = null) =>
+            ExecuteWithRandomState(state => CallContract_internal(state, contractAddress, data, value, from));
 
         private static void OnDeepLinkActivated(string url)
         {
