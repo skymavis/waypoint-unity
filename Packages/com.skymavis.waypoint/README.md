@@ -84,17 +84,17 @@ public async void OnAuthorizeClicked()
 }
 ```
 
-### Send a transaction
+### Send native token
 
 Transfers 0.1 RON to another address, returning a transaction hash.
 
 ```csharp
-public async void OnSendTransactionClicked()
+public async void OnSendNativeTokenClicked()
 {
     string receiverAddress = "0xD36deD8E1927dCDD76Bfe0CC95a5C1D65c0a807a";
     string value = "100000000000000000";
 
-    _responseId = SkyMavis.Waypoint.SendTransaction(receiverAddress, value);
+    _responseId = SkyMavis.Waypoint.SendNativeToken(receiverAddress, value);
     string responseData = await WaitForMavisIdResponse(_responseId);
     Debug.Log("Send response: " + responseData);
 }
@@ -148,7 +148,7 @@ public async void OnApproveErc20Clicked()
         {
             var data = ABI.EncodeFunctionData(readableAbi, approveParams);
             Debug.Log("Approve data : " + data);
-            _responseId = SkyMavis.Waypoint.OnCallContract(contractAddress, data);
+            _responseId = SkyMavis.Waypoint.SendTransaction(contractAddress, data);
             string responseData = await WaitForMavisIdResponse(_responseId);
             Debug.Log("Approve AXS response data in Unity : " + responseData);
 
@@ -192,7 +192,7 @@ public async void OnSwapRonToAxs()
         try
         {
             string data = ABI.EncodeFunctionData(readableAbi, swapParams);
-            _responseId = SkyMavis.Waypoint.OnCallContract(katanaAddress, data, value);
+            _responseId = SkyMavis.Waypoint.SendTransaction(katanaAddress, data, value);
             var responseData = await WaitForMavisIdResponse(_responseId);
             Debug.Log("Swap response data in Unity : " + responseData);
         }

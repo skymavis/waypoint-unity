@@ -82,12 +82,12 @@ public class WaypointExample : MonoBehaviour
         string responseData = await WaitForMavisIdResponse(_responseId);
         Debug.Log(responseData);
     }
-    public async void OnSendTransactionClicked()
+    public async void OnSendNativeTokenClicked()
     {
         string receiverAddress = "0xD36deD8E1927dCDD76Bfe0CC95a5C1D65c0a807a";
         string value = "100000000000000000";
 
-        _responseId = SkyMavis.Waypoint.SendTransaction(receiverAddress, value);
+        _responseId = SkyMavis.Waypoint.SendNativeToken(receiverAddress, value);
         string responseData = await WaitForMavisIdResponse(_responseId);
         Debug.Log("Send response data in Unity : " + responseData);
     }
@@ -103,7 +103,7 @@ public class WaypointExample : MonoBehaviour
         {
             var data = ABI.EncodeFunctionData(readableAbi, approveParams);
             Debug.Log("Approve data : " + data);
-            _responseId = SkyMavis.Waypoint.OnCallContract(contractAddress, data);
+            _responseId = SkyMavis.Waypoint.SendTransaction(contractAddress, data);
             string responseData = await WaitForMavisIdResponse(_responseId);
             Debug.Log("Approve AXS response data in Unity : " + responseData);
 
@@ -138,7 +138,7 @@ public class WaypointExample : MonoBehaviour
         try
         {
             string data = ABI.EncodeFunctionData(readableAbi, swapParams);
-            _responseId = SkyMavis.Waypoint.OnCallContract(katanaAddress, data, value);
+            _responseId = SkyMavis.Waypoint.SendTransaction(katanaAddress, data, value);
             var responseData = await WaitForMavisIdResponse(_responseId);
             Debug.Log("Swap response data in Unity : " + responseData);
         }
@@ -162,7 +162,7 @@ public class WaypointExample : MonoBehaviour
         try
         {
             var data = ABI.EncodeFunctionData(readableAbi, values);
-            _responseId = SkyMavis.Waypoint.OnCallContract(atiaShrineContractAddress, data);
+            _responseId = SkyMavis.Waypoint.SendTransaction(atiaShrineContractAddress, data);
             string responseData = await WaitForMavisIdResponse(_responseId);
             Debug.Log("Atia blessing response data in Unity " + responseData);
 
