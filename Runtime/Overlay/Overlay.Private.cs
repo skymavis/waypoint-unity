@@ -2,12 +2,13 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SkyMavis.Types;
+using SkyMavis.Waypoint.Types;
+using SkyMavis.Waypoint.Utils;
 using UnityEngine.Events;
 using UnityEngine;
 using WebSocketSharp;
 
-namespace SkyMavis
+namespace SkyMavis.Waypoint
 {
     internal static partial class Overlay
     {

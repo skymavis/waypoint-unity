@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using SkyMavis.Utils;
+using Newtonsoft.Json.Linq;
+using SkyMavis.Waypoint.Utils;
 using UnityEngine;
 using UnityEngine.Events;
-using Newtonsoft.Json.Linq;
 
 #if UNITY_IOS
 using System.Runtime.InteropServices;
 #endif
 
-namespace SkyMavis
+namespace SkyMavis.Waypoint
 {
     public static class Waypoint
     {

@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 
-namespace SkyMavis.Utils
+namespace SkyMavis.Waypoint.Utils
 {
     internal class KeccakDigest
     {

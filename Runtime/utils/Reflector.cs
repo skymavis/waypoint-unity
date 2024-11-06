@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace SkyMavis.Utils
+namespace SkyMavis.Waypoint.Utils
 {
     public static class Reflector
     {

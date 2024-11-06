@@ -1,8 +1,8 @@
 #if UNITY_STANDALONE
-using SkyMavis.Types;
+using SkyMavis.Waypoint.Types;
 using UnityEngine.Events;
 
-namespace SkyMavis
+namespace SkyMavis.Waypoint
 {
     internal static partial class Overlay
     {
