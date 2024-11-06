@@ -6,5 +6,15 @@
   "unity": "2020.3",
   "dependencies": {
     "com.unity.nuget.newtonsoft-json": "3.2.0"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Waypoint Example",
+      "path": "Samples~/Waypoint Example"
+    },
+    {
+      "displayName": "Skynet Example",
+      "path": "Samples~/Skynet Example"
+    }
+  ]
 }
