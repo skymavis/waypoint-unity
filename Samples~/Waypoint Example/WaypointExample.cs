@@ -38,7 +38,7 @@ public class WaypointExample : MonoBehaviour
             if (GUILayout.Button("Authorize")) Authorize();
             if (GUILayout.Button("Personal Sign")) PersonalSign();
             if (GUILayout.Button("Sign Typed Data")) SignTypedData();
-            if (GUILayout.Button("Send Transaction")) SendTransaction();
+            if (GUILayout.Button("Send RON")) SendRon();
             if (GUILayout.Button("Approve ERC-20")) ApproveErc20();
             if (GUILayout.Button("Swap RON to AXS")) SwapRonToAxs();
             if (GUILayout.Button("Atia Blessing")) AtiaBlessing();
@@ -71,7 +71,7 @@ public class WaypointExample : MonoBehaviour
             return null;
         }
 #else
-        SkyMavis.Waypoint.Init(mobileClientId, mobileDeepLinkSchema, true);
+        Waypoint.Init(mobileClientId, mobileDeepLinkSchema, true);
 #endif
 
         _step = 2;
@@ -103,7 +103,7 @@ public class WaypointExample : MonoBehaviour
         }
     }
 
-    private void Authorize() => Execute("Authorize", Waypoint.OnAuthorize);
+    private void Authorize() => Execute("Authorize", () => Waypoint.OnAuthorize());
 
     private void PersonalSign() => Execute("Personal Sign", () => Waypoint.OnPersonalSign("Hello Axie Infinity"));
 
@@ -113,11 +113,11 @@ public class WaypointExample : MonoBehaviour
         Execute("Sign Typed Data", () => Waypoint.OnSignTypeData(typedData));
     }
 
-    private void SendTransaction()
+    private void SendRon()
     {
         var receiverAddress = "0xD36deD8E1927dCDD76Bfe0CC95a5C1D65c0a807a";
         var value = "100000000000000000";
-        Execute("Send Transaction", () => Waypoint.SendTransaction(receiverAddress, value));
+        Execute("Send RON", () => Waypoint.SendNativeToken(receiverAddress, value));
     }
 
     private void ApproveErc20()
@@ -127,7 +127,7 @@ public class WaypointExample : MonoBehaviour
         // 1 AXS
         var approveParams = new { _spender = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63", _value = 1000000000000000000 };
         var data = ABI.EncodeFunctionData(readableAbi, approveParams);
-        Execute("Approve ERC-20", () => Waypoint.OnCallContract(contractAddress, data));
+        Execute("Approve ERC-20", () => Waypoint.SendTransaction(contractAddress, data));
     }
 
 
@@ -148,7 +148,7 @@ public class WaypointExample : MonoBehaviour
             _deadline = 19140313050
         };
         var data = ABI.EncodeFunctionData(readableAbi, swapParams);
-        Execute("Swap RON to AXS", () => Waypoint.OnCallContract(katanaAddress, data, value));
+        Execute("Swap RON to AXS", () => Waypoint.SendTransaction(katanaAddress, data, value));
     }
 
     private void AtiaBlessing()
@@ -158,6 +158,6 @@ public class WaypointExample : MonoBehaviour
         var readableAbi = "function activateStreak(address to)";
         var values = new[] { walletAddress };
         var data = ABI.EncodeFunctionData(readableAbi, values);
-        Execute("Atia Blessing", () => Waypoint.OnCallContract(atiaShrineContractAddress, data));
+        Execute("Atia Blessing", () => Waypoint.SendTransaction(atiaShrineContractAddress, data));
     }
 }

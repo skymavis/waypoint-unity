@@ -18,10 +18,10 @@ namespace SkyMavis.Waypoint
         private static extern void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId);
 
         [DllImport("__Internal")]
-        private static extern void authorize(string state, string redirects);
+        private static extern void authorize(string state, string redirects, string scope = null);
 
         [DllImport("__Internal")]
-        private static extern void sendTransaction(string state, string redirect, string to, string value, string from = null);
+        private static extern void sendNativeToken(string state, string redirect, string to, string value, string from = null);
 
         [DllImport("__Internal")]
         private static extern void personalSign(string state, string redirect, string message, string from = null);
@@ -30,7 +30,7 @@ namespace SkyMavis.Waypoint
         private static extern void signTypedData(string state, string redirect, string typedData, string from = null);
 
         [DllImport("__Internal")]
-        private static extern void callContract(string state, string redirect, string contractAddress, string data, string value = "0x0", string from = null);
+        private static extern void sendTransaction(string state, string redirect, string to, string data, string value = "0x0", string from = null);
 #endif
 
 #if UNITY_ANDROID
@@ -106,15 +106,15 @@ namespace SkyMavis.Waypoint
         }
 #endif
 
-        public static string OnAuthorize()
+        public static string OnAuthorize(string scope = null)
         {
             string state = GenerateRandomState();
 #if UNITY_ANDROID
             AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            _client.Call("authorize", context, state, _deeplink);
+            _client.Call("authorize", context, state, _deeplink, scope);
 #elif UNITY_IOS
-            authorize(state, _deeplink);
+            authorize(state, _deeplink, scope);
 #else
             Overlay.GetIDToken(state);
 #endif
@@ -164,47 +164,33 @@ namespace SkyMavis.Waypoint
             return state;
         }
 
-        public static string SendTransaction(string receiverAddress, string value, string from = null)
+        public static string SendNativeToken(string to, string value, string from = null)
         {
             string state = GenerateRandomState();
 #if UNITY_ANDROID
             AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            if (from != null)
-            {
-                _client.Call("sendTransaction", context, state, _deeplink, receiverAddress, value, from);
-            }
-            else
-            {
-                _client.Call("sendTransaction", context, state, _deeplink, receiverAddress, value);
-            }
+            _client.Call("sendNativeToken", context, state, _deeplink, to, value, from);
 #elif UNITY_IOS
-            sendTransaction(state, _deeplink, receiverAddress, value, from);
+            sendNativeToken(state, _deeplink, to, value, from);
 #else
-            Overlay.SendNativeToken(state, receiverAddress, value, from);
+            Overlay.SendNativeToken(state, to, value, from);
 #endif
             return state;
         }
 
-        public static string OnCallContract(string contractAddress, string data, string value = "0x0", string from = null)
+        public static string SendTransaction(string to, string data, string value = "0x0", string from = null)
         {
             string state = GenerateRandomState();
 
 #if UNITY_ANDROID
             AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            if (from != null)
-            {
-                _client.Call("callContract", context, state, _deeplink, contractAddress, data, value, from);
-            }
-            else
-            {
-                _client.Call("callContract", context, state, _deeplink, contractAddress, data, value);
-            }
+            _client.Call("sendTransaction", context, state, _deeplink, to, data, value, from);
 #elif UNITY_IOS
-            callContract(state, _deeplink, contractAddress, data, value, from);
+            sendTransaction(state, _deeplink, to, data, value, from);
 #else
-            Overlay.SendTransaction(state, contractAddress, value, data, from);
+            Overlay.SendTransaction(state, to, value, data, from);
 #endif
             return state;
         }
