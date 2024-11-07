@@ -71,7 +71,7 @@ public class WaypointExample : MonoBehaviour
             return null;
         }
 #else
-        SkyMavis.Waypoint.Init(mobileClientId, mobileDeepLinkSchema, true);
+        Waypoint.Init(mobileClientId, mobileDeepLinkSchema, true);
 #endif
 
         _step = 2;
