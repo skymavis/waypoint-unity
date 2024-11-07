@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/waypoint-Swift.h</key>
 		<data>
-		jvGdFk4c9uTpsxV5Ot5TLAuX/iw=
+		7Hyh3yb1vkzqJ5q/osL0+PQm/M8=
 		</data>
 		<key>Headers/waypoint.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Modules/waypoint.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		IEmOI93665wo4thDBE2JkgUtf1U=
+		W/cqo9RYVy90+Vsu4bSa4aq2yPg=
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
@@ -30,11 +30,11 @@
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		QdaRpn+fEM6cA9xlgMEdfRn8GKU=
+		ULmZZjlR7pRSmihr2TSYG9ifrWI=
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		UIyozX2PE+kAJhyJjIaPbjxPSks=
+		gfyq+9xZpZnP3S8FIlv0sx2q0Yw=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -43,7 +43,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			gSGXKIMcNaOrk8XDfCLN9rWWBQLlGQ77qSxVbUqWjuI=
+			32Q+9yuqcT/yDcME/mz1Z8xlYlrAfDohG7kOOE93eqE=
 			</data>
 		</dict>
 		<key>Headers/waypoint.h</key>
@@ -64,7 +64,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ouczJb46r3re2Gg190yv6leQ+6YipPDfp1pwzRy3dhk=
+			g8JtLGpYsTsy24HsoAGC3i6wVLNawHlZ4egXhrYIPsc=
 			</data>
 		</dict>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.abi.json</key>
@@ -78,14 +78,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7elhskp5XD+19SpErHh8hmti4abNZE8q0UdQqDMUXl4=
+			IpptK9LSC4Dm05DY635v6g7adiVZ8K5k/xVdxpzdOqE=
 			</data>
 		</dict>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			AsCQ2/aINS33HZTTGScdQQ/BmHFn/iJb16eqcqpfXfU=
+			FMogzZ321mk7XmZvHtbYdLtuvcEeNP9hQysMond6/W0=
 			</data>
 		</dict>
 	</dict>
