@@ -55,7 +55,7 @@ public class WaypointExample : MonoBehaviour
 
         if (!string.IsNullOrEmpty(mavisHubSessionId) && mavisHubPort > -1)
         {
-            Waypoint.Init(mavisHubSessionId, mavisHubPort);
+            Waypoint.SetUp(mavisHubSessionId, mavisHubPort);
         }
 
         static string GetArg(string name)
@@ -71,7 +71,7 @@ public class WaypointExample : MonoBehaviour
             return null;
         }
 #else
-        Waypoint.Init(mobileClientId, mobileDeepLinkSchema, true);
+        Waypoint.SetUp(mobileClientId, mobileDeepLinkSchema, true);
 #endif
 
         _step = 2;
@@ -103,14 +103,14 @@ public class WaypointExample : MonoBehaviour
         }
     }
 
-    private void Authorize() => Execute("Authorize", () => Waypoint.OnAuthorize());
+    private void Authorize() => Execute("Authorize", () => Waypoint.Authorize());
 
-    private void PersonalSign() => Execute("Personal Sign", () => Waypoint.OnPersonalSign("Hello Axie Infinity"));
+    private void PersonalSign() => Execute("Personal Sign", () => Waypoint.PersonalSign("Hello Axie Infinity"));
 
     private void SignTypedData()
     {
         var typedData = @"{""types"":{""Asset"":[{""name"":""erc"",""type"":""uint8""},{""name"":""addr"",""type"":""address""},{""name"":""id"",""type"":""uint256""},{""name"":""quantity"",""type"":""uint256""}],""Order"":[{""name"":""maker"",""type"":""address""},{""name"":""kind"",""type"":""uint8""},{""name"":""assets"",""type"":""Asset[]""},{""name"":""expiredAt"",""type"":""uint256""},{""name"":""paymentToken"",""type"":""address""},{""name"":""startedAt"",""type"":""uint256""},{""name"":""basePrice"",""type"":""uint256""},{""name"":""endedAt"",""type"":""uint256""},{""name"":""endedPrice"",""type"":""uint256""},{""name"":""expectedState"",""type"":""uint256""},{""name"":""nonce"",""type"":""uint256""},{""name"":""marketFeePercentage"",""type"":""uint256""}],""EIP712Domain"":[{""name"":""name"",""type"":""string""},{""name"":""version"",""type"":""string""},{""name"":""chainId"",""type"":""uint256""},{""name"":""verifyingContract"",""type"":""address""}]}, ""domain"":{""name"":""MarketGateway"",""version"":""1"",""chainId"":2021,""verifyingContract"":""0xfff9ce5f71ca6178d3beecedb61e7eff1602950e""},""primaryType"":""Order"",""message"":{""maker"":""0xd761024b4ef3336becd6e802884d0b986c29b35a"",""kind"":""1"",""assets"":[{""erc"":""1"",""addr"":""0x32950db2a7164ae833121501c797d79e7b79d74c"",""id"":""2730069"",""quantity"":""0""}],""expiredAt"":""1721709637"",""paymentToken"":""0xc99a6a985ed2cac1ef41640596c5a5f9f4e19ef5"",""startedAt"":""1705984837"",""basePrice"":""500000000000000000"",""endedAt"":""0"",""endedPrice"":""0"",""expectedState"":""0"",""nonce"":""0"",""marketFeePercentage"":""425""}}";
-        Execute("Sign Typed Data", () => Waypoint.OnSignTypeData(typedData));
+        Execute("Sign Typed Data", () => Waypoint.SignTypedData(typedData));
     }
 
     private void SendRon()

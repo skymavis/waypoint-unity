@@ -1,44 +1,16 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using SkyMavis.Waypoint.Adapters;
 using SkyMavis.Waypoint.Utils;
 using UnityEngine;
 using UnityEngine.Events;
-
-#if UNITY_IOS
-using System.Runtime.InteropServices;
-#endif
 
 namespace SkyMavis.Waypoint
 {
     public static class Waypoint
     {
-#if UNITY_IOS
-        // iOS function
-        [DllImport("__Internal")]
-        private static extern void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId);
-
-        [DllImport("__Internal")]
-        private static extern void authorize(string state, string redirects, string scope = null);
-
-        [DllImport("__Internal")]
-        private static extern void sendNativeToken(string state, string redirect, string to, string value, string from = null);
-
-        [DllImport("__Internal")]
-        private static extern void personalSign(string state, string redirect, string message, string from = null);
-
-        [DllImport("__Internal")]
-        private static extern void signTypedData(string state, string redirect, string typedData, string from = null);
-
-        [DllImport("__Internal")]
-        private static extern void sendTransaction(string state, string redirect, string to, string data, string value = "0x0", string from = null);
-#endif
-
-#if UNITY_ANDROID
-        private static AndroidJavaObject _client;
-#endif
-
-        private static string _deeplink;
-        private static bool _isInitialized = false;
+        private static IAdapter _adapter;
         private static List<UnityAction<string, string>> _subscribers = new List<UnityAction<string, string>>();
 
         public static void BindOnResponse(UnityAction<string, string> cb) { BindWaitForMessage(cb); }
@@ -54,158 +26,61 @@ namespace SkyMavis.Waypoint
             _subscribers.Remove(cb);
         }
 
-        private static string GenerateRandomState()
-        {
-            return System.Guid.NewGuid().ToString();
-        }
+        public static bool IsConnected => _adapter?.IsConnected ?? false;
 
-        public static bool IsConnected
+        public static void SetUp(string sessionID, int port)
         {
-            get
-            {
-#if UNITY_STANDALONE
-                return Overlay.IsConnected;
-#else
-                return true;
-#endif
-            }
-        }
-
-#if UNITY_STANDALONE
-        public static void Init(string sessionID, int port)
-        {
-            if (_isInitialized) return;
-            _isInitialized = true;
-            Overlay.Initialize(sessionID, port);
+            ThrowIfInitialized();
+            _adapter = new OverlayAdapter(sessionID, port);
             Overlay.OnDataResponsed += OnOverlayResponse;
         }
-#else
-        public static void Init(string clientId, string deeplinkSchema, bool isTestnet = false)
-        {
-            if (_isInitialized) return;
-            _isInitialized = true;
-            _deeplink = $"{deeplinkSchema}://open";
 
-            string endpoint = "https://waypoint.roninchain.com";
-            string rpcUrl = "https://api.roninchain.com/rpc";
-            int chainId = 2020;
-            if (isTestnet)
+        public static void SetUp(string clientID, string deepLinkSchema, bool isTestNet = false)
+        {
+            ThrowIfInitialized();
+
+            var deepLink = $"{deepLinkSchema}://open";
+            var endpoint = "https://waypoint.roninchain.com";
+            var rpcURL = "https://api.roninchain.com/rpc";
+            var chainID = 2020;
+
+            if (isTestNet)
             {
-                rpcUrl = "https://saigon-testnet.roninchain.com/rpc";
-                chainId = 2021;
+                rpcURL = "https://saigon-testnet.roninchain.com/rpc";
+                chainID = 2021;
             }
 
-#if UNITY_ANDROID
-            AndroidJavaObject chainIdObj = new AndroidJavaObject("java.lang.Integer", chainId);
-            AndroidJavaObject clientObj = new AndroidJavaObject("com.skymavis.sdk.waypoint.Waypoint", endpoint, clientId, rpcUrl, chainIdObj);
-            _client = clientObj;
-#elif UNITY_IOS
-            initClient(endpoint, clientId, rpcUrl, chainId);
-#endif
+            _adapter = Application.platform switch
+            {
+                RuntimePlatform.Android => new AndroidAdapter(clientID, deepLink, endpoint, rpcURL, chainID),
+                RuntimePlatform.IPhonePlayer => new IOSAdapter(clientID, deepLink, endpoint, rpcURL, chainID),
+                _ => throw new NotSupportedException($"Platform not supported: {Application.platform}"),
+            };
             Application.deepLinkActivated += OnDeepLinkActivated;
         }
-#endif
 
-        public static string OnAuthorize(string scope = null)
+        public static void CleanUp()
         {
-            string state = GenerateRandomState();
-#if UNITY_ANDROID
-            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            _client.Call("authorize", context, state, _deeplink, scope);
-#elif UNITY_IOS
-            authorize(state, _deeplink, scope);
-#else
-            Overlay.GetIDToken(state);
-#endif
-            return state;
-        }
-        public static string OnPersonalSign(string message, string from = null)
-        {
-            string state = GenerateRandomState();
-#if UNITY_ANDROID
-            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            if (from != null)
-            {
-                _client.Call("personalSign", context, state, _deeplink, message, from);
-            }
-            else
-            {
-                _client.Call("personalSign", context, state, _deeplink, message);
-            }
-#elif UNITY_IOS
-            personalSign(state, _deeplink, message, from);
-#else
-            Overlay.PersonalSign(state, message, from);
-#endif
-            return state;
+            Overlay.OnDataResponsed -= OnOverlayResponse;
+            Application.deepLinkActivated -= OnDeepLinkActivated;
+            _adapter.Dispose();
+            _adapter = null;
         }
 
-        public static string OnSignTypeData(string typedData, string from = null)
-        {
-            string state = GenerateRandomState();
-#if UNITY_ANDROID
-            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            if (from != null)
-            {
-                _client.Call("signTypedData", context, state, _deeplink, typedData, from);
-            }
-            else
-            {
-                _client.Call("signTypedData", context, state, _deeplink, typedData);
-            }
-#elif UNITY_IOS
-            signTypedData(state, _deeplink, typedData, from);
-#else
-            Overlay.SignTypedData(state, typedData);
-#endif
-            return state;
-        }
+        public static string Authorize(string scope = null) =>
+            ExecuteWithRandomState(state => _adapter.Authorize(state, scope));
 
-        public static string SendNativeToken(string to, string value, string from = null)
-        {
-            string state = GenerateRandomState();
-#if UNITY_ANDROID
-            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            _client.Call("sendNativeToken", context, state, _deeplink, to, value, from);
-#elif UNITY_IOS
-            sendNativeToken(state, _deeplink, to, value, from);
-#else
-            Overlay.SendNativeToken(state, to, value, from);
-#endif
-            return state;
-        }
+        public static string PersonalSign(string message, string from = null) =>
+            ExecuteWithRandomState(state => _adapter.PersonalSign(state, message, from));
 
-        public static string SendTransaction(string to, string data, string value = "0x0", string from = null)
-        {
-            string state = GenerateRandomState();
+        public static string SignTypedData(string typedData, string from = null) =>
+            ExecuteWithRandomState(state => _adapter.SignTypedData(state, typedData, from));
 
-#if UNITY_ANDROID
-            AndroidJavaClass contextCls = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject context = contextCls.GetStatic<AndroidJavaObject>("currentActivity");
-            _client.Call("sendTransaction", context, state, _deeplink, to, data, value, from);
-#elif UNITY_IOS
-            sendTransaction(state, _deeplink, to, data, value, from);
-#else
-            Overlay.SendTransaction(state, to, value, data, from);
-#endif
-            return state;
-        }
+        public static string SendNativeToken(string to, string value, string from = null) =>
+            ExecuteWithRandomState(state => _adapter.SendNativeToken(state, to, value, from));
 
-        public static string OnGetIDToken()
-        {
-
-#if UNITY_STANDALONE
-            string state = GenerateRandomState();
-            Overlay.GetIDToken(state);
-            return state;
-#else
-            throw new System.NotImplementedException();
-#endif
-        }
+        public static string SendTransaction(string to, string data, string value = "0x0", string from = null) =>
+            ExecuteWithRandomState(state => _adapter.SendTransaction(state, to, data, value, from));
 
         private static void OnDeepLinkActivated(string url)
         {
@@ -252,6 +127,23 @@ namespace SkyMavis.Waypoint
                     Debug.LogException(ex);
                 }
             }
+        }
+
+        private static void ThrowIfInitialized()
+        {
+            if (_adapter != null)
+            {
+                throw new InvalidOperationException("Waypoint is already initialized. Consider calling Waypoint.CleanUp() before setting up again.");
+            }
+        }
+
+        private static string GenerateRandomState() => Guid.NewGuid().ToString();
+
+        private static string ExecuteWithRandomState(Action<string> callback)
+        {
+            var state = GenerateRandomState();
+            callback(state);
+            return state;
         }
     }
 }

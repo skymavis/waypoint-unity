@@ -1,4 +1,3 @@
-#if UNITY_STANDALONE
 using SkyMavis.Waypoint.Types;
 using UnityEngine.Events;
 
@@ -293,4 +292,3 @@ namespace SkyMavis.Waypoint
         }
     }
 }
-#endif
