@@ -9,7 +9,7 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace SkyMavis
+namespace SkyMavis.Waypoint.Utils
 {
     internal class UnityThread : MonoBehaviour
     {

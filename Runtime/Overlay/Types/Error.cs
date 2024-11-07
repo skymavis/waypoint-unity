@@ -1,4 +1,4 @@
-namespace SkyMavis.Types
+namespace SkyMavis.Waypoint.Types
 {
 
     public class OverlayError

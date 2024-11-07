@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace SkyMavis.Types
+namespace SkyMavis.Waypoint.Types
 {
     public enum SDKState
     {

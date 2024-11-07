@@ -3,7 +3,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 
-namespace SkyMavis.Utils
+namespace SkyMavis.Waypoint.Utils
 {
     internal static class HexUtils
     {
