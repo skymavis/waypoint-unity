@@ -103,7 +103,7 @@ public class WaypointExample : MonoBehaviour
         }
     }
 
-    private void Authorize() => Execute("Authorize", Waypoint.OnAuthorize);
+    private void Authorize() => Execute("Authorize", () => Waypoint.OnAuthorize());
 
     private void PersonalSign() => Execute("Personal Sign", () => Waypoint.OnPersonalSign("Hello Axie Infinity"));
 
@@ -117,7 +117,7 @@ public class WaypointExample : MonoBehaviour
     {
         var receiverAddress = "0xD36deD8E1927dCDD76Bfe0CC95a5C1D65c0a807a";
         var value = "100000000000000000";
-        Execute("Send Transaction", () => Waypoint.SendNativeToken(receiverAddress, value));
+        Execute("Send RON", () => Waypoint.SendNativeToken(receiverAddress, value));
     }
 
     private void ApproveErc20()
