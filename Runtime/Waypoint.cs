@@ -11,20 +11,7 @@ namespace SkyMavis.Waypoint
     public static class Waypoint
     {
         private static IAdapter _adapter;
-        private static List<UnityAction<string, string>> _subscribers = new List<UnityAction<string, string>>();
-
-        public static void BindOnResponse(UnityAction<string, string> cb) { BindWaitForMessage(cb); }
-        public static void UnBindOnResponse(UnityAction<string, string> cb) { UnbindWaitForMessage(cb); }
-
-        private static void BindWaitForMessage(UnityAction<string, string> cb)
-        {
-            _subscribers.Add(cb);
-        }
-
-        private static void UnbindWaitForMessage(UnityAction<string, string> cb)
-        {
-            _subscribers.Remove(cb);
-        }
+        public static event Action<string, string> ResponseReceived;
 
         public static bool IsConnected => _adapter?.IsConnected ?? false;
 
@@ -94,17 +81,7 @@ namespace SkyMavis.Waypoint
                     jData.Add(new JProperty(p.Key, p.Value));
                 }
                 string dataStr = jData.ToString();
-                foreach (var p in _subscribers)
-                {
-                    try
-                    {
-                        p?.Invoke(state, dataStr);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        Debug.LogException(ex);
-                    }
-                }
+                ResponseReceived?.Invoke((string)state, dataStr);
             }
         }
 
@@ -116,17 +93,7 @@ namespace SkyMavis.Waypoint
             if (!resp.TryGetValue("state", out var state)) return;
             if (!resp.TryGetValue("data", out var data)) return;
             string dataStr = data.ToString();
-            foreach (var p in _subscribers)
-            {
-                try
-                {
-                    p?.Invoke((string)state, dataStr);
-                }
-                catch (System.Exception ex)
-                {
-                    Debug.LogException(ex);
-                }
-            }
+            ResponseReceived?.Invoke((string)state, dataStr);
         }
 
         private static void ThrowIfInitialized()
