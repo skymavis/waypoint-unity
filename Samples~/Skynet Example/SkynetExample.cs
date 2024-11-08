@@ -77,7 +77,7 @@ public class SkynetExample : MonoBehaviour
 
         if (!string.IsNullOrEmpty(mavisHubSessionId) && mavisHubPort > -1)
         {
-            Waypoint.Init(mavisHubSessionId, mavisHubPort);
+            Waypoint.SetUp(mavisHubSessionId, mavisHubPort);
         }
 
         static string GetArg(string name)
@@ -93,7 +93,7 @@ public class SkynetExample : MonoBehaviour
             return null;
         }
 #else
-        Waypoint.Init(mobileClientId, mobileDeepLinkSchema, true);
+        Waypoint.SetUp(mobileClientId, mobileDeepLinkSchema, true);
 #endif
 
         _step = 2;
@@ -106,7 +106,7 @@ public class SkynetExample : MonoBehaviour
         _step = 4;
 
         ExecuteOnWaypointResponse(
-            Waypoint.OnAuthorize(),
+            Waypoint.Authorize(),
             data =>
             {
                 _lastResponse = $"Waypoint authorize response: {data}";
