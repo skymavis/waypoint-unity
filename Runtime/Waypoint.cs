@@ -10,10 +10,11 @@ namespace SkyMavis.Waypoint
 {
     public static class Waypoint
     {
-        private static IAdapter _adapter;
         public static event Action<string, string> ResponseReceived;
 
         public static bool IsConnected => _adapter?.IsConnected ?? false;
+
+        private static IAdapter _adapter;
 
         public static void SetUp(string sessionID, int port)
         {
