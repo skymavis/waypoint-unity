@@ -90,14 +90,14 @@ public class WaypointExample : MonoBehaviour
     private Task<string> WaitForResponse(string requestID)
     {
         var tcs = new TaskCompletionSource<string>();
-        SkyMavis.Waypoint.Waypoint.ResponseReceived += Callback;
+        Waypoint.ResponseReceived += Callback;
         return tcs.Task;
 
         void Callback(string state, string data)
         {
             if (state == requestID)
             {
-                SkyMavis.Waypoint.Waypoint.ResponseReceived -= Callback;
+                Waypoint.ResponseReceived -= Callback;
                 tcs.SetResult(data);
             }
         }

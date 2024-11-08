@@ -124,13 +124,13 @@ public class SkynetExample : MonoBehaviour
 
     void ExecuteOnWaypointResponse(string requestId, Action<string> callback)
     {
-        SkyMavis.Waypoint.Waypoint.ResponseReceived += OnResponseReceived;
+        Waypoint.ResponseReceived += OnResponseReceived;
 
         void OnResponseReceived(string state, string data)
         {
             if (state == requestId)
             {
-                SkyMavis.Waypoint.Waypoint.ResponseReceived -= OnResponseReceived;
+                Waypoint.ResponseReceived -= OnResponseReceived;
                 callback(data);
             }
         }
