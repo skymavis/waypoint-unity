@@ -1,12 +1,10 @@
-using System;
-
 namespace SkyMavis.Waypoint.Adapters
 {
     internal class OverlayAdapter : IAdapter
     {
-        internal OverlayAdapter(string sessionID, int port)
+        internal OverlayAdapter(WaypointSettings settings)
         {
-            Overlay.Initialize(sessionID, port);
+            Overlay.Initialize(settings.MavisHubSessionID, settings.MavisHubPort);
         }
 
         public void Dispose() { }

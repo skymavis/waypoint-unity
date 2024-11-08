@@ -9,15 +9,12 @@ using UnityEngine;
 /// </summary>
 public class WaypointExample : MonoBehaviour
 {
-    [Header("Setup Standalone")]
-    [Tooltip("Set empty string to detect from command line arguments")]
-    public string mavisHubSessionId;
-    [Tooltip("Set negative number to detect from command line arguments")]
-    public int mavisHubPort = -1;
-
-    [Header("Setup Mobile")]
-    public string mobileClientId;
-    public string mobileDeepLinkSchema;
+    [Header("Setup Waypoint")]
+    public WaypointSettings waypointSettings = new WaypointSettings()
+    {
+        mavisHubPort = 4001,
+        network = WaypointSettings.Network.Testnet,
+    };
 
     private int _step = 1;
     private string _lastResponse;
@@ -49,31 +46,7 @@ public class WaypointExample : MonoBehaviour
 
     private async void Initialize()
     {
-#if UNITY_STANDALONE
-        if (string.IsNullOrEmpty(mavisHubSessionId)) mavisHubSessionId = GetArg("-sessionId");
-        if (mavisHubPort < 0 && int.TryParse(GetArg("-hubPort"), out var portArg)) mavisHubPort = portArg;
-
-        if (!string.IsNullOrEmpty(mavisHubSessionId) && mavisHubPort > -1)
-        {
-            Waypoint.SetUp(mavisHubSessionId, mavisHubPort);
-        }
-
-        static string GetArg(string name)
-        {
-            var args = Environment.GetCommandLineArgs();
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i] == name && args.Length > i + 1)
-                {
-                    return args[i + 1];
-                }
-            }
-            return null;
-        }
-#else
-        Waypoint.SetUp(mobileClientId, mobileDeepLinkSchema, true);
-#endif
-
+        Waypoint.SetUp(waypointSettings);
         _step = 2;
 
         while (!Waypoint.IsConnected) await Task.Yield();

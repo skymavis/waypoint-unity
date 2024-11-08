@@ -24,17 +24,14 @@ public class SkynetExample : MonoBehaviour
         "0x0b7007c13325c48911f73a2dad5fa5dcbf808adc", // USDC
     };
 
-    [Header("Setup Waypoint Standalone")]
-    [Tooltip("Set empty string to detect from command line arguments")]
-    public string mavisHubSessionId;
-    [Tooltip("Set negative number to detect from command line arguments")]
-    public int mavisHubPort = -1;
+    [Header("Setup Waypoint")]
+    public WaypointSettings waypointSettings = new WaypointSettings()
+    {
+        mavisHubPort = 4001,
+        network = WaypointSettings.Network.Testnet,
+    };
 
-    [Header("Setup Waypoint Mobile")]
-    public string mobileClientId;
-    public string mobileDeepLinkSchema;
-
-    [Header("Setup Skynet API")]
+    [Header("Setup Skynet")]
     public string skynetApiKey;
 
     private int _step = 1;
@@ -71,31 +68,7 @@ public class SkynetExample : MonoBehaviour
 
     private IEnumerator InitializeWaypoint()
     {
-#if UNITY_STANDALONE
-        if (string.IsNullOrEmpty(mavisHubSessionId)) mavisHubSessionId = GetArg("-sessionId");
-        if (mavisHubPort < 0 && int.TryParse(GetArg("-hubPort"), out var portArg)) mavisHubPort = portArg;
-
-        if (!string.IsNullOrEmpty(mavisHubSessionId) && mavisHubPort > -1)
-        {
-            Waypoint.SetUp(mavisHubSessionId, mavisHubPort);
-        }
-
-        static string GetArg(string name)
-        {
-            var args = Environment.GetCommandLineArgs();
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i] == name && args.Length > i + 1)
-                {
-                    return args[i + 1];
-                }
-            }
-            return null;
-        }
-#else
-        Waypoint.SetUp(mobileClientId, mobileDeepLinkSchema, true);
-#endif
-
+        Waypoint.SetUp(waypointSettings);
         _step = 2;
         yield return new WaitUntil(() => Waypoint.IsConnected);
         _step = 3;
