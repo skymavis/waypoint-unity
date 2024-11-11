@@ -23,7 +23,7 @@ namespace SkyMavis.Waypoint.Adapters
             sendTransaction(state, _deepLink, to, data, value, from);
 
         void IAdapter.PersonalSign(string state, string message, string from) =>
-            personalSign(state, message, from);
+            personalSign(state, _deepLink, message, from);
 
         void IAdapter.SendNativeToken(string state, string to, string value, string from) =>
             sendNativeToken(state, _deepLink, to, value, from);
@@ -35,18 +35,18 @@ namespace SkyMavis.Waypoint.Adapters
         private static extern void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId);
 
         [DllImport("__Internal")]
-        private static extern void authorize(string state, string redirects, string scope = null);
+        private static extern void authorize(string state, string redirects, string scope);
 
         [DllImport("__Internal")]
-        private static extern void sendNativeToken(string state, string redirect, string to, string value, string from = null);
+        private static extern void sendNativeToken(string state, string redirect, string to, string value, string from);
 
         [DllImport("__Internal")]
-        private static extern void personalSign(string state, string redirect, string message, string from = null);
+        private static extern void personalSign(string state, string redirect, string message, string from);
 
         [DllImport("__Internal")]
-        private static extern void signTypedData(string state, string redirect, string typedData, string from = null);
+        private static extern void signTypedData(string state, string redirect, string typedData, string from);
 
         [DllImport("__Internal")]
-        private static extern void sendTransaction(string state, string redirect, string to, string data, string value = "0x0", string from = null);
+        private static extern void sendTransaction(string state, string redirect, string to, string data, string value, string from);
     }
 }
