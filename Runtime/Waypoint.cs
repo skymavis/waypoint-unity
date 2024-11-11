@@ -1,10 +1,11 @@
 using System;
 using Newtonsoft.Json.Linq;
-using SkyMavis.Waypoint.Adapters;
-using SkyMavis.Waypoint.Utils;
+using SkyMavis.Utils;
+using SkyMavis.WaypointInternal;
+using SkyMavis.WaypointInternal.Adapters;
 using UnityEngine;
 
-namespace SkyMavis.Waypoint
+namespace SkyMavis
 {
     public static class Waypoint
     {

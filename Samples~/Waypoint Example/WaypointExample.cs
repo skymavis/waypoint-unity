@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using SkyMavis.Waypoint;
-using SkyMavis.Waypoint.Utils;
+using SkyMavis;
+using SkyMavis.Utils;
 using UnityEngine;
 
 /// <summary>

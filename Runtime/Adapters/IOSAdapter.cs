@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace SkyMavis.Waypoint.Adapters
+namespace SkyMavis.WaypointInternal.Adapters
 {
     internal class IOSAdapter : IAdapter
     {

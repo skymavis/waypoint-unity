@@ -1,6 +1,6 @@
 using System;
 
-namespace SkyMavis.Waypoint.Adapters
+namespace SkyMavis.WaypointInternal.Adapters
 {
     internal interface IAdapter : IDisposable
     {

@@ -1,7 +1,6 @@
-using SkyMavis.Waypoint.Adapters;
 using UnityEngine;
 
-namespace SkyMavis.Waypoint
+namespace SkyMavis.WaypointInternal.Adapters
 {
     internal class AndroidAdapter : IAdapter
     {

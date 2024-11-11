@@ -1,4 +1,4 @@
-namespace SkyMavis.Waypoint.Adapters
+namespace SkyMavis.WaypointInternal.Adapters
 {
     internal class OverlayAdapter : IAdapter
     {
