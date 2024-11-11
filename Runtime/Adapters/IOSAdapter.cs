@@ -4,12 +4,12 @@ namespace SkyMavis.Waypoint.Adapters
 {
     internal class IOSAdapter : IAdapter
     {
-        private string _deepLink;
+        private readonly string _deepLink;
 
-        internal IOSAdapter(string clientID, string deepLink, string endpoint, string rpcURL, int chainID)
+        internal IOSAdapter(WaypointSettings settings)
         {
-            _deepLink = deepLink;
-            initClient(endpoint, clientID, rpcURL, chainID);
+            _deepLink = settings.deepLinkCallbackURL;
+            initClient(settings.endpoint, settings.clientID, settings.network.rpcURL, settings.network.chainID);
         }
 
         public void Dispose() { }

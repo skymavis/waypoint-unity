@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using SkyMavis.Waypoint.Adapters;
 using SkyMavis.Waypoint.Utils;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace SkyMavis.Waypoint
 {
@@ -16,34 +14,20 @@ namespace SkyMavis.Waypoint
 
         private static IAdapter _adapter;
 
-        public static void SetUp(string sessionID, int port)
+        public static void SetUp(WaypointSettings settings)
         {
-            ThrowIfInitialized();
-            _adapter = new OverlayAdapter(sessionID, port);
-            Overlay.OnDataResponsed += OnOverlayResponse;
-        }
-
-        public static void SetUp(string clientID, string deepLinkSchema, bool isTestNet = false)
-        {
-            ThrowIfInitialized();
-
-            var deepLink = $"{deepLinkSchema}://open";
-            var endpoint = "https://waypoint.roninchain.com";
-            var rpcURL = "https://api.roninchain.com/rpc";
-            var chainID = 2020;
-
-            if (isTestNet)
+            if (_adapter != null)
             {
-                rpcURL = "https://saigon-testnet.roninchain.com/rpc";
-                chainID = 2021;
+                throw new InvalidOperationException("Waypoint is already initialized. Consider calling Waypoint.CleanUp() before setting up again.");
             }
 
             _adapter = Application.platform switch
             {
-                RuntimePlatform.Android => new AndroidAdapter(clientID, deepLink, endpoint, rpcURL, chainID),
-                RuntimePlatform.IPhonePlayer => new IOSAdapter(clientID, deepLink, endpoint, rpcURL, chainID),
-                _ => throw new NotSupportedException($"Platform not supported: {Application.platform}"),
+                RuntimePlatform.Android => new AndroidAdapter(settings),
+                RuntimePlatform.IPhonePlayer => new IOSAdapter(settings),
+                _ => new OverlayAdapter(settings),
             };
+            Overlay.OnDataResponsed += OnOverlayResponse;
             Application.deepLinkActivated += OnDeepLinkActivated;
         }
 
@@ -95,14 +79,6 @@ namespace SkyMavis.Waypoint
             if (!resp.TryGetValue("data", out var data)) return;
             string dataStr = data.ToString();
             ResponseReceived?.Invoke((string)state, dataStr);
-        }
-
-        private static void ThrowIfInitialized()
-        {
-            if (_adapter != null)
-            {
-                throw new InvalidOperationException("Waypoint is already initialized. Consider calling Waypoint.CleanUp() before setting up again.");
-            }
         }
 
         private static string GenerateRandomState() => Guid.NewGuid().ToString();
