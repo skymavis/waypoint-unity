@@ -11,10 +11,11 @@ namespace SkyMavis.Waypoint
 
         internal AndroidAdapter(string clientID, string deepLink, string endpoint, string rpcURL, int chainID)
         {
-            using var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            using var jPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            using var jChainID = new AndroidJavaObject("java.lang.Integer", chainID);
             _deepLink = deepLink;
-            _client = new AndroidJavaObject("com.skymavis.sdk.waypoint.Waypoint", endpoint, clientID, rpcURL, chainID);
-            _context = player.GetStatic<AndroidJavaObject>("currentActivity");
+            _client = new AndroidJavaObject("com.skymavis.sdk.waypoint.Waypoint", endpoint, clientID, rpcURL, jChainID);
+            _context = jPlayer.GetStatic<AndroidJavaObject>("currentActivity");
         }
 
         public void Dispose()
