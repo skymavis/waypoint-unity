@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using SkyMavis.Waypoint.Utils;
+using SkyMavis.Utils;
 
 namespace SkyMavis.Waypoint.Tests.Editor
 {

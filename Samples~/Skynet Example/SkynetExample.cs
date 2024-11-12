@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
-using SkyMavis.Waypoint;
+using SkyMavis;
 using UnityEngine;
 using UnityEngine.Networking;
 

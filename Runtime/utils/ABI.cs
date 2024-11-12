@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
-namespace SkyMavis.Waypoint.Utils
+namespace SkyMavis.Utils
 {
     [Serializable]
     public class AbiParameter

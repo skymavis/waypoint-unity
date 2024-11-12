@@ -1,7 +1,7 @@
-using SkyMavis.Waypoint.Types;
+using SkyMavis.WaypointInternal.Types;
 using UnityEngine.Events;
 
-namespace SkyMavis.Waypoint
+namespace SkyMavis.WaypointInternal
 {
     internal static partial class Overlay
     {

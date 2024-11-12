@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace SkyMavis.Waypoint
+namespace SkyMavis
 {
     [Serializable]
     public class WaypointSettings
