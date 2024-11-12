@@ -90,5 +90,47 @@ namespace SkyMavis
             callback(state);
             return state;
         }
+
+        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.SetUp() instead.")]
+        public static void Init(string sessionID, int port)
+        {
+
+            WaypointSettings waypointSettings = new WaypointSettings()
+            {
+                mavisHubSessionID = sessionID,
+                mavisHubPort = port
+            };
+
+            SetUp(waypointSettings);
+        }
+
+        public static void Init(string waypointOrigin, string clientId, string deeplinkSchema, string rpcUrl, int chainId)
+        {
+            WaypointSettings waypointSettings = new WaypointSettings()
+            {
+                endpoint = waypointOrigin,
+                clientID = clientId,
+                deepLinkCallbackURL = deeplinkSchema,
+                network = new WaypointSettings.Network()
+                {
+                    rpcURL = rpcUrl,
+                    chainID = chainId
+                }
+            };
+
+            SetUp(waypointSettings);
+        }
+
+        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.Authorize() instead.")]
+        public static string OnAuthorize(string scope = null) => Authorize(scope);
+        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.PersonalSign() instead.")]
+        public static string OnPersonalSign(string message, string from = null) => PersonalSign(message, from);
+        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.SignTypedData() instead.")]
+        public static string OnSignTypeData(string typedData, string from = null) => SignTypedData(typedData, from);
+        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.SendNativeToken() instead.")]
+        public static string OnSendTransaction(string receiverAddress, string value, string from = null) => SendNativeToken(receiverAddress, value, from);
+        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.SendTransaction instead.")]
+        public static string OnCallContract(string contractAddress, string data, string value = "0x0", string from = null) => SendTransaction(contractAddress, data, value, from);
+
     }
 }
