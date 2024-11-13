@@ -1,14 +1,13 @@
 {
     "name": "SkyMavis.Waypoint",
-    "rootNamespace": "SkyMavis.Waypoint",
+    "rootNamespace": "SkyMavis",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "Newtonsoft.Json.dll",
-        "websocket-sharp.dll"
+        "Newtonsoft.Json.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],
