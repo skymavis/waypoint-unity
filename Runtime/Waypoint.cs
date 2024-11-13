@@ -1,7 +1,6 @@
 using System;
 using Newtonsoft.Json.Linq;
 using SkyMavis.Utils;
-using SkyMavis.WaypointInternal;
 using SkyMavis.WaypointInternal.Adapters;
 using UnityEngine;
 
@@ -10,6 +9,11 @@ namespace SkyMavis
     public static class Waypoint
     {
         public static event Action<string, string> ResponseReceived;
+
+        public static readonly ILogger Logger = new Logger(Debug.unityLogger)
+        {
+            filterLogType = LogType.Warning,
+        };
 
         public static bool IsConnected => _adapter?.IsConnected ?? false;
 
@@ -26,18 +30,20 @@ namespace SkyMavis
             {
                 RuntimePlatform.Android => new AndroidAdapter(settings),
                 RuntimePlatform.IPhonePlayer => new IOSAdapter(settings),
-                _ => new OverlayAdapter(settings),
+                _ => new OverlayAdapter(settings, OnOverlayResponse),
             };
-            Overlay.OnDataResponsed += OnOverlayResponse;
             Application.deepLinkActivated += OnDeepLinkActivated;
         }
 
         public static void CleanUp()
         {
-            Overlay.OnDataResponsed -= OnOverlayResponse;
             Application.deepLinkActivated -= OnDeepLinkActivated;
-            _adapter.Dispose();
-            _adapter = null;
+
+            if (_adapter != null)
+            {
+                _adapter.Dispose();
+                _adapter = null;
+            }
         }
 
         public static string Authorize(string scope = null) =>

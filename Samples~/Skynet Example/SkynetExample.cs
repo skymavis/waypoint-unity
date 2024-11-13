@@ -38,6 +38,11 @@ public class SkynetExample : MonoBehaviour
     private string _ownerAddress;
     private string _lastResponse;
 
+    private void OnDestroy()
+    {
+        Waypoint.CleanUp();
+    }
+
     private void OnGUI()
     {
         using (new GUILayout.AreaScope(new Rect(20, 20, Screen.width - 40, Screen.height - 40)))
