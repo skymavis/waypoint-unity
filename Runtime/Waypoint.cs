@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using SkyMavis.Utils;
 using SkyMavis.WaypointInternal.Adapters;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SkyMavis
 {
@@ -98,6 +99,12 @@ namespace SkyMavis
         }
 
         #region Deprecated API
+
+        [Obsolete("To be removed in 0.5.0. Use event ResponseReceived instead.")]
+        public static void BindOnResponse(UnityAction<string, string> cb) => ResponseReceived += cb.Invoke;
+
+        [Obsolete("To be removed in 0.5.0. Use event ResponseReceived instead.")]
+        public static void UnBindOnResponse(UnityAction<string, string> cb) => ResponseReceived -= cb.Invoke;
 
         [Obsolete("To be removed in 0.5.0. Use SetUp() instead.")]
         public static void Init(string sessionID, int port)
