@@ -91,9 +91,9 @@ namespace SkyMavis
             return state;
         }
 
-        #region Deprecated Code
+        #region Deprecated API
 
-        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.SetUp() instead.")]
+        [Obsolete("To be removed in 0.5.0. Use SetUp() instead.")]
         public static void Init(string sessionID, int port)
         {
 
@@ -106,6 +106,7 @@ namespace SkyMavis
             SetUp(waypointSettings);
         }
 
+        [Obsolete("To be removed in 0.5.0. Use SetUp() instead.")]
         public static void Init(string waypointOrigin, string clientId, string deeplinkSchema, string rpcUrl, int chainId)
         {
             WaypointSettings waypointSettings = new WaypointSettings()
@@ -123,19 +124,19 @@ namespace SkyMavis
             SetUp(waypointSettings);
         }
 
-        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.Authorize() instead.")]
+        [Obsolete("To be removed in 0.5.0. Use Authorize() instead.")]
         public static string OnAuthorize(string scope = null) => Authorize(scope);
 
-        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.PersonalSign() instead.")]
+        [Obsolete("To be removed in 0.5.0. Use PersonalSign() instead.")]
         public static string OnPersonalSign(string message, string from = null) => PersonalSign(message, from);
 
-        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.SignTypedData() instead.")]
+        [Obsolete("To be removed in 0.5.0. Use SignTypedData() instead.")]
         public static string OnSignTypeData(string typedData, string from = null) => SignTypedData(typedData, from);
 
-        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.SendNativeToken() instead.")]
+        [Obsolete("To be removed in 0.5.0. Use SendNativeToken() instead.")]
         public static string OnSendTransaction(string receiverAddress, string value, string from = null) => SendNativeToken(receiverAddress, value, from);
 
-        [Obsolete("To be removed in 0.5.0. Use SkyMavis.Waypoint.Waypoint.SendTransaction instead.")]
+        [Obsolete("To be removed in 0.5.0. Use SendTransaction() instead.")]
         public static string OnCallContract(string contractAddress, string data, string value = "0x0", string from = null) => SendTransaction(contractAddress, data, value, from);
 
         #endregion
