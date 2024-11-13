@@ -126,7 +126,7 @@ namespace SkyMavis
             {
                 endpoint = waypointOrigin,
                 clientID = clientId,
-                deepLinkCallbackURL = deeplinkSchema,
+                deepLinkCallbackURL = $"{deeplinkSchema}://open",
                 network = new WaypointSettings.Network()
                 {
                     rpcURL = rpcUrl,
