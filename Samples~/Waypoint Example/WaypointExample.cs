@@ -107,8 +107,7 @@ public class WaypointExample : MonoBehaviour
         var readableAbi = "function approve(address _spender, uint256 _value)";
         // 1 AXS
         var approveParams = new { _spender = "0x6B190089ed7F75Fe17B3b0A17F6ebd69f72c3F63", _value = 1000000000000000000 };
-        var data = ABI.EncodeFunctionData(readableAbi, approveParams);
-        Execute("Approve ERC-20", () => Waypoint.SendTransaction(contractAddress, data));
+        Execute("Approve ERC-20", () => Waypoint.WriteContract(contractAddress, readableAbi, approveParams));
     }
 
 
@@ -128,8 +127,7 @@ public class WaypointExample : MonoBehaviour
             _to = walletAddress,
             _deadline = 19140313050
         };
-        var data = ABI.EncodeFunctionData(readableAbi, swapParams);
-        Execute("Swap RON to AXS", () => Waypoint.SendTransaction(katanaAddress, data, value));
+        Execute("Swap RON to AXS", () => Waypoint.WriteContract(katanaAddress, readableAbi, swapParams, value));
     }
 
     private void AtiaBlessing()
@@ -138,7 +136,6 @@ public class WaypointExample : MonoBehaviour
         var atiaShrineContractAddress = "0xd5c5afefad9ea288acbaaebeacec5225dd3d6d2b";
         var readableAbi = "function activateStreak(address to)";
         var values = new[] { walletAddress };
-        var data = ABI.EncodeFunctionData(readableAbi, values);
-        Execute("Atia Blessing", () => Waypoint.SendTransaction(atiaShrineContractAddress, data));
+        Execute("Atia Blessing", () => Waypoint.WriteContract(atiaShrineContractAddress, readableAbi, values));
     }
 }

@@ -56,11 +56,14 @@ namespace SkyMavis
         public static string SignTypedData(string typedData, string from = null) =>
             ExecuteWithRandomState(state => _adapter.SignTypedData(state, typedData, from));
 
-        public static string SendNativeToken(string to, string value, string from = null) =>
-            ExecuteWithRandomState(state => _adapter.SendNativeToken(state, to, value, from));
+        public static string SendNativeToken(string receiverAddress, string value, string from = null) =>
+            SendTransaction(receiverAddress, null, value, from);
 
-        public static string SendTransaction(string to, string data, string value = "0x0", string from = null) =>
-            ExecuteWithRandomState(state => _adapter.SendTransaction(state, to, data, value, from));
+        public static string WriteContract(string contractAddress, string humanReadableABI, object functionParameters, string value = "0x0", string from = null) =>
+            SendTransaction(contractAddress, ABI.EncodeFunctionData(humanReadableABI, functionParameters), value, from);
+
+        internal static string SendTransaction(string address, string data, string value, string from) =>
+            ExecuteWithRandomState(state => _adapter.SendTransaction(state, address, data, value, from));
 
         private static void OnDeepLinkActivated(string url)
         {
@@ -147,9 +150,9 @@ namespace SkyMavis
         public static string OnSignTypeData(string typedData, string from = null) => SignTypedData(typedData, from);
 
         [Obsolete("To be removed in 0.5.0. Use SendNativeToken() instead.")]
-        public static string OnSendTransaction(string receiverAddress, string value, string from = null) => SendNativeToken(receiverAddress, value, from);
+        public static string SendTransaction(string receiverAddress, string value, string from = null) => SendNativeToken(receiverAddress, value, from);
 
-        [Obsolete("To be removed in 0.5.0. Use SendTransaction() instead.")]
+        [Obsolete("To be removed in 0.5.0. Use WriteContract() instead.")]
         public static string OnCallContract(string contractAddress, string data, string value = "0x0", string from = null) => SendTransaction(contractAddress, data, value, from);
 
         #endregion
