@@ -27,9 +27,10 @@ public class SkynetExample : MonoBehaviour
     [Header("Setup Waypoint")]
     public WaypointSettings waypointSettings = new WaypointSettings()
     {
-        mavisHubPort = 4001,
         network = WaypointSettings.Network.Testnet,
     };
+    [Min(1f)]
+    public float uiScale = 1.5f;
 
     [Header("Setup Skynet")]
     public string skynetApiKey;
@@ -38,14 +39,11 @@ public class SkynetExample : MonoBehaviour
     private string _ownerAddress;
     private string _lastResponse;
 
-    private void OnDestroy()
-    {
-        Waypoint.CleanUp();
-    }
-
     private void OnGUI()
     {
-        using (new GUILayout.AreaScope(new Rect(20, 20, Screen.width - 40, Screen.height - 40)))
+        GUI.matrix = Matrix4x4.Scale(uiScale * Vector3.one);
+
+        using (new GUILayout.AreaScope(new Rect(20f, 20f, Screen.width / uiScale - 40f, Screen.height / uiScale - 40f)))
         {
             GUI.enabled = _step == 1;
             GUILayout.Label("Step 1: Configure Waypoint and Skynet in Skynet Example GameObject");

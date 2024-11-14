@@ -235,10 +235,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85266c5de33e24f48b55238ea41ade82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mavisHubSessionId: 
-  mavisHubPort: -1
-  mobileClientId: 
-  mobileDeepLinkSchema: 
+  waypointSettings:
+    mavisHubSessionID: 
+    mavisHubPort: -1
+    clientID: <provided by Sky Mavis Dev Portal>
+    endpoint: https://waypoint.roninchain.com
+    deepLinkCallbackURL: schema://host
+    network:
+      chainID: 2021
+      rpcURL: https://saigon-testnet.roninchain.com/rpc
+  uiScale: 1.5
   skynetApiKey: 
 --- !u!4 &1191223542
 Transform:
