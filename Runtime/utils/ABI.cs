@@ -9,18 +9,18 @@ using Newtonsoft.Json;
 
 namespace SkyMavis.Utils
 {
-    [Serializable]
     public class AbiParameter
     {
-        public string type;
-        public string name;
-        public string internalType;
-        public List<AbiParameter> components;
-        public List<AbiParameter> inputs;
+        public string type { get; set; }
+        public string name { get; set; }
+        public string internalType { get; set; }
+        public List<AbiParameter> components { get; set; }
+        public List<AbiParameter> inputs { get; set; }
+
         public AbiParameter Clone()
         {
-            var serializeObject = JsonConvert.SerializeObject(this);
-            return JsonConvert.DeserializeObject<AbiParameter>(serializeObject);
+            var serialized = JsonConvert.SerializeObject(this);
+            return JsonConvert.DeserializeObject<AbiParameter>(serialized);
         }
     }
 
@@ -85,6 +85,48 @@ namespace SkyMavis.Utils
                 else if (obj is int intValue)
                 {
                     value = new BigInteger(intValue);
+                }
+                else if (obj is BigInteger bInt)
+                {
+                    value = bInt;
+                }
+                else
+                {
+                    throw new System.NotImplementedException();
+                }
+                if (size % 32 != 0)
+                {
+                    size = (int)(Math.Ceiling(size / 32f) * 32);
+                }
+                return EncodeNumber(value, signed, size);
+            }
+            else if (inputType == "bool")
+            {
+                bool signed = false;
+                int size = 1;
+                BigInteger value;
+                if (obj is string strValue)
+                {
+                    if (strValue.StartsWith("0x"))
+                    {
+                        value = BigInteger.Parse(strValue.RemoveHexPrefix(), System.Globalization.NumberStyles.AllowHexSpecifier, null);
+                    }
+                    else
+                    {
+                        value = BigInteger.Parse(strValue);
+                    }
+                }
+                else if (obj is long longValue)
+                {
+                    value = new BigInteger(longValue);
+                }
+                else if (obj is int intValue)
+                {
+                    value = new BigInteger(intValue);
+                }
+                else if (obj is bool bValue)
+                {
+                    value = new BigInteger(bValue ? 1 : 0);
                 }
                 else
                 {
@@ -287,8 +329,8 @@ namespace SkyMavis.Utils
         private static PreparedParam InternalEncodeInput(object obj, int index, AbiParameter input)
         {
             string inputType = input.type;
-            var valType = obj.GetType();
 
+            var valType = obj.GetType();
             if (valType.IsArray)
             {
                 var collection = obj as object[];
@@ -305,7 +347,7 @@ namespace SkyMavis.Utils
                     return InternalEncodeInput(val, 0, input);
                 }
             }
-            else if (inputType == "tuple")
+            else if (inputType == "tuple" || inputType.Contains(','))
             {
                 return EncodeTuple(obj, input);
             }
@@ -340,25 +382,110 @@ namespace SkyMavis.Utils
             return param.type + (includeName ? $" {param.name}" : "");
         }
 
-        private static List<AbiParameter> ParseParameters(string parameters)
+        private static List<AbiParameter> ParseParametersV2(string parameters)
         {
             var parameterList = new List<AbiParameter>();
             if (string.IsNullOrEmpty(parameters)) return parameterList;
 
             int start = 0;
             int depth = 0;
+            Dictionary<int, List<AbiParameter>> pending = new Dictionary<int, List<AbiParameter>>();
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                if (parameters[i] == '(')
+                {
+                    depth++;
+                    start = i + 1;
+                }
+                else if (parameters[i] == ')')
+                {
+                    pending[depth].Add(ParseSingleParameter(parameters.Substring(start, i - start).Trim()));
+                    start = i + 1;
+                    depth--;
 
+                    int end = i + 1;
+                    while (end < parameters.Length && parameters[end] != ',')
+                    {
+                        end++;
+                    }
+
+                    AbiParameter tuple = new AbiParameter();
+                    tuple.name = parameters.Substring(start, end - start).Trim();
+                    if (tuple.name.Contains("[]"))
+                    {
+                        tuple.type = "tuple[]";
+                        tuple.name = tuple.name.Replace("[]", "").Trim();
+                    }
+                    else
+                    {
+                        tuple.type = "tuple";
+                    }
+
+                    tuple.components = pending[depth + 1];
+                    pending.Remove(depth + 1);
+
+                    if (depth == 0)
+                    {
+                        parameterList.Add(tuple);
+                    }
+                    else
+                    {
+                        pending[depth].Add(tuple);
+                    }
+                    i = end;
+                    start = i + 1;
+                }
+                else if (parameters[i] == ',')
+                {
+                    if (depth == 0)
+                    {
+                        parameterList.Add(ParseSingleParameter(parameters.Substring(start, i - start).Trim()));
+                        start = i + 1;
+                    }
+                    else
+                    {
+                        if (!pending.ContainsKey(depth))
+                        {
+                            pending.Add(depth, new List<AbiParameter>());
+                        }
+                        pending[depth].Add(ParseSingleParameter(parameters.Substring(start, i - start).Trim()));
+                        start = i + 1;
+                    }
+                }
+            }
+            if (start < parameters.Length)
+            {
+                parameterList.Add(ParseSingleParameter(parameters.Substring(start).Trim()));
+            }
+            return parameterList;
+        }
+
+        private static List<AbiParameter> ParseParameters(string parameters)
+        {
+            var parameterList = new List<AbiParameter>();
+            if (string.IsNullOrEmpty(parameters)) return parameterList;
+            return ParseParametersV2(parameters);
+
+            int start = 0;
+            int depth = 0;
+            Dictionary<int, List<AbiParameter>> pending = new Dictionary<int, List<AbiParameter>>();
             for (int i = 0; i < parameters.Length; i++)
             {
                 if (parameters[i] == '(') depth++;
                 else if (parameters[i] == ')') depth--;
-                else if (parameters[i] == ',' && depth == 0)
+                else if (parameters[i] == ',')
                 {
-                    parameterList.Add(ParseSingleParameter(parameters.Substring(start, i - start).Trim()));
-                    start = i + 1;
+                    if (depth == 0)
+                    {
+                        parameterList.Add(ParseSingleParameter(parameters.Substring(start, i - start).Trim()));
+                        start = i + 1;
+                    }
                 }
             }
-            parameterList.Add(ParseSingleParameter(parameters.Substring(start).Trim()));
+            if (start < parameters.Length)
+            {
+                parameterList.Add(ParseSingleParameter(parameters.Substring(start).Trim()));
+            }
 
             return parameterList;
         }
@@ -434,7 +561,7 @@ namespace SkyMavis.Utils
 
         public static string EncodeFunctionData(string readableAbi, object values)
         {
-            AbiParameter abiItems = ParseAbi(readableAbi);
+            var abiItems = ABI.ParseAbi(readableAbi);
             var data = EncodeAbiParameters(abiItems, values);
             string funcNormalized = FormatAbiItem(abiItems, false);
             var sig = EncodeFunctionName(funcNormalized).Substring(0, 8);
@@ -443,18 +570,34 @@ namespace SkyMavis.Utils
             return "0x" + sig + data.RemoveHexPrefix();
         }
 
-        public static string EncodeAbiParameters(AbiParameter abiParameter, object values)
+        private static string EncodeFunctionData(AbiParameter abiItems, object values)
+        {
+            var data = EncodeAbiParameters(abiItems, values);
+            var sig = EncodeFunctionName(FormatAbiParam(abiItems, false)).Substring(0, 8);
+
+            if (data == "") return "0x";
+            return "0x" + sig + data.RemoveHexPrefix();
+        }
+
+        public static string EncodeAbiParameters(string readableAbi, object values)
+        {
+            var abiItems = ABI.ParseAbi(readableAbi);
+            return EncodeAbiParameters(abiItems, values);
+        }
+
+        private static string EncodeAbiParameters(AbiParameter abiParameter, object values)
         {
             var inputs = abiParameter.inputs;
             if (inputs == null)
             {
                 throw new System.ArgumentException();
             }
+
             List<PreparedParam> preparedParams = new List<PreparedParam>();
             bool dynamic = false;
             for (int i = 0; i < inputs.Count; i++)
             {
-                AbiParameter input = inputs[i];
+                var input = inputs[i];
                 var valType = values.GetType();
                 if (valType.IsArray)
                 {
@@ -467,7 +610,6 @@ namespace SkyMavis.Utils
                     var fields = Reflector.Reflect(valType);
                     string inputName = $"<{input.name}>i__Field";
                     var field = fields.FirstOrDefault(x => x.Name == inputName);
-                    string fieldValues = string.Join(", ", fields.Select(f => f.GetValue(values).ToString()));
                     if (field == null)
                     {
                         throw new System.ArgumentException();
@@ -491,7 +633,6 @@ namespace SkyMavis.Utils
 
         public static AbiParameter ParseAbi(string abiString)
         {
-
             string type;
             if (abiString.Contains("function")) type = "function";
             else if (abiString.Contains("event")) type = "event";
@@ -504,8 +645,8 @@ namespace SkyMavis.Utils
             if (!match.Success) throw new ArgumentException("Invalid ABI format");
             string name = match.Groups["name"].Value;
             string parameters = match.Groups["parameters"].Value;
-            List<AbiParameter> inputs = ParseParameters(parameters);
-            AbiParameter AbiObj = new AbiParameter
+            var inputs = ParseParameters(parameters);
+            var AbiObj = new AbiParameter
             {
                 name = name,
                 type = type,
