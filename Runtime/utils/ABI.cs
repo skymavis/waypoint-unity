@@ -60,40 +60,27 @@ namespace SkyMavis.Utils
             return new PreparedParam { dynamic = false, encoded = encoded };
         }
 
+        private static BigInteger convertObjectToBigInt(object obj)
+        {
+            BigInteger value = obj switch
+            {
+                string v => v.StartsWith("0x") ? BigInteger.Parse(v.RemoveHexPrefix(), System.Globalization.NumberStyles.AllowHexSpecifier, null) : BigInteger.Parse(v),
+                BigInteger v => v,
+                int v => new BigInteger(v),
+                long v => new BigInteger(v),
+                bool v => new BigInteger(v ? 1 : 0),
+                _ => throw new System.NotSupportedException(),
+            };
+            return value;
+        }
+
         private static PreparedParam GetEncodeValue(object obj, string inputType)
         {
             if (inputType.StartsWith("uint") || inputType.StartsWith("int"))
             {
                 bool signed = inputType.StartsWith("int");
                 int size = int.Parse(inputType.Substring(inputType.IndexOf("int") + 3)) / 8;
-                BigInteger value;
-                if (obj is string strValue)
-                {
-                    if (strValue.StartsWith("0x"))
-                    {
-                        value = BigInteger.Parse(strValue.RemoveHexPrefix(), System.Globalization.NumberStyles.AllowHexSpecifier, null);
-                    }
-                    else
-                    {
-                        value = BigInteger.Parse(strValue);
-                    }
-                }
-                else if (obj is long longValue)
-                {
-                    value = new BigInteger(longValue);
-                }
-                else if (obj is int intValue)
-                {
-                    value = new BigInteger(intValue);
-                }
-                else if (obj is BigInteger bInt)
-                {
-                    value = bInt;
-                }
-                else
-                {
-                    throw new System.NotImplementedException();
-                }
+                BigInteger value = convertObjectToBigInt(obj);
                 if (size % 32 != 0)
                 {
                     size = (int)(Math.Ceiling(size / 32f) * 32);
@@ -104,34 +91,7 @@ namespace SkyMavis.Utils
             {
                 bool signed = false;
                 int size = 1;
-                BigInteger value;
-                if (obj is string strValue)
-                {
-                    if (strValue.StartsWith("0x"))
-                    {
-                        value = BigInteger.Parse(strValue.RemoveHexPrefix(), System.Globalization.NumberStyles.AllowHexSpecifier, null);
-                    }
-                    else
-                    {
-                        value = BigInteger.Parse(strValue);
-                    }
-                }
-                else if (obj is long longValue)
-                {
-                    value = new BigInteger(longValue);
-                }
-                else if (obj is int intValue)
-                {
-                    value = new BigInteger(intValue);
-                }
-                else if (obj is bool bValue)
-                {
-                    value = new BigInteger(bValue ? 1 : 0);
-                }
-                else
-                {
-                    throw new System.NotImplementedException();
-                }
+                BigInteger value = convertObjectToBigInt(obj);
                 if (size % 32 != 0)
                 {
                     size = (int)(Math.Ceiling(size / 32f) * 32);
