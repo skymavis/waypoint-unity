@@ -7,9 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### BREAKING CHANGE
+### :rotating_light: BREAKING CHANGES
 
-- Converted the SDK to UPM format.
+- Converted Waypoint SDK to the Unity Package Manager (UPM) format, allowing easier installation and version management. Users can now [install the SDK directly via a git URL](https://docs.unity3d.com/Manual/upm-ui-giturl.html) with [extended syntax](https://docs.unity3d.com/Manual/upm-git.html#syntax):
+  ```
+  https://github.com/skymavis/waypoint-unity.git#v0.4.0
+  ```
+- Introduced new API methods to replace older, deprecated ones. Deprecated methods remain available for backward compatibility but will be removed in the next major release.
+  - `Waypoint.BindOnResponse(callback)` and `Waypoint.UnBindOnResponse(callback)` are deprecated. The `Waypoint.RespondReceived` C# event is the new recommended replacement.
+  - Additional deprecated methods and their replacements:
+    - `Waypoint.Init(sessionID, port)` ➔ `Waypoint.SetUp(WaypointSettings)`
+    - `Waypoint.Init(clientID, keepLinkSchema, isTestNet)` ➔ `Waypoint.SetUp(WaypointSettings)`
+    - `Waypoint.OnAuthorize()` ➔ `Waypoint.Authorize()`
+    - `Waypoint.OnGetIDToken()` ➔ `Waypoint.Authorize()`
+    - `Waypoint.OnPersonalSign(message, from)` ➔ `Waypoint.PersonalSign(message, from)`
+    - `Waypoint.OnSignTypeData(typedData, from)` ➔ `Waypoint.SignTypedData(typedData, from)`
+    - `Waypoint.SendTransaction(receiverAddress, value, from)` ➔ `Waypoint.SendNativeToken(receiverAddress, value, from)`
+    - `Waypoint.OnCallContract(contractAddress, data, value, from)` ➔ `Waypoint.WriteContract(contractAddress, humanReadableAbi, functionParameters, value, from)`
+  - **Note**: Deprecated methods will be fully removed in version 0.5.0.
+
+### :sparkles: Added
+
+- Introduced `Waypoint.CleanUp()` to release managed resources when the SDK is no longer in use. This method is now required for proper cleanup of the SDK’s resources.
 
 ## [0.3.0] - 2024-10-23
 
