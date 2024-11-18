@@ -22,11 +22,11 @@ namespace SkyMavis.Waypoint.Editor
                     using (new EditorGUI.IndentLevelScope(1))
                     {
                         position.y += lineHeight;
-                        position.height = 2 * lineHeight;
-                        EditorGUI.HelpBox(EditorGUI.IndentedRect(position), "Leave Mavis Hub related properties empty or negative to auto-detect from the command line arguments.", MessageType.Info);
+                        position.height = 3 * lineHeight;
+                        EditorGUI.HelpBox(EditorGUI.IndentedRect(position), "Mavis Hub related properties can be obtained programmatically using WaypoingSettings.TryGetMavisHubArgs().", MessageType.Info);
                         position.height = lineHeight;
 
-                        position.y += 2 * lineHeight;
+                        position.y += 3 * lineHeight;
                         EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(WaypointSettings.mavisHubSessionID)));
 
                         position.y += lineHeight;
@@ -36,10 +36,10 @@ namespace SkyMavis.Waypoint.Editor
                         EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(WaypointSettings.clientID)));
 
                         position.y += lineHeight;
-                        EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(WaypointSettings.endpoint)));
+                        EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(WaypointSettings.deepLinkCallbackURL)));
 
                         position.y += lineHeight;
-                        EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(WaypointSettings.deepLinkCallbackURL)));
+                        EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(WaypointSettings.endpoint)));
 
                         position.y += lineHeight;
                         EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(WaypointSettings.network)));
@@ -52,7 +52,7 @@ namespace SkyMavis.Waypoint.Editor
         {
             if (!_showFoldout) return EditorGUIUtility.singleLineHeight;
 
-            return 8 * EditorGUIUtility.singleLineHeight + EditorGUI.GetPropertyHeight(property.FindPropertyRelative(nameof(WaypointSettings.network)), true);
+            return 9 * EditorGUIUtility.singleLineHeight + EditorGUI.GetPropertyHeight(property.FindPropertyRelative(nameof(WaypointSettings.network)), true);
         }
     }
 }

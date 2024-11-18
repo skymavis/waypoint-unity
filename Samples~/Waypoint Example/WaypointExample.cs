@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using SkyMavis;
-using SkyMavis.Utils;
 using UnityEngine;
 
 /// <summary>
@@ -17,8 +16,19 @@ public class WaypointExample : MonoBehaviour
     [Min(1f)]
     public float uiScale = 1.5f;
 
+    private bool _hasMavisHubArgs;
     private int _step = 1;
     private string _lastResponse;
+
+    void Awake()
+    {
+        if (WaypointSettings.TryGetMavisHubArgs(out var sessionID, out var port))
+        {
+            _hasMavisHubArgs = true;
+            waypointSettings.mavisHubSessionID = sessionID;
+            waypointSettings.mavisHubPort = port;
+        }
+    }
 
     private void OnDestroy()
     {
@@ -32,7 +42,22 @@ public class WaypointExample : MonoBehaviour
         using (new GUILayout.AreaScope(new Rect(20f, 20f, Screen.width / uiScale - 40f, Screen.height / uiScale - 40f)))
         {
             GUI.enabled = _step == 1;
-            GUILayout.Label("Step 1: Configure Waypoint in Waypoint Example GameObject");
+            GUILayout.Label("Step 1: Configure Waypoint settings in the inspector");
+            if (_hasMavisHubArgs) GUILayout.Label("Mavis Hub related properties are configured programmatically from command line arguments.");
+            GUILayout.Label($"Mavis Hub Session ID: {waypointSettings.mavisHubSessionID}");
+            GUILayout.Label($"Mavis Hub Port: {waypointSettings.mavisHubPort}");
+            GUILayout.Label($"OAuth Client ID: {waypointSettings.clientID}");
+            GUILayout.Label($"Deep Link Callback URL: {waypointSettings.deepLinkCallbackURL}");
+            GUILayout.Label($"Endpoint: {waypointSettings.endpoint}");
+            GUILayout.Label($"Chain ID: {waypointSettings.network.chainID}");
+            GUILayout.Label($"RPC URL: {waypointSettings.network.rpcURL}");
+
+            using (new GUILayout.HorizontalScope())
+            {
+                if (GUILayout.Button("Use Mainnet")) UseMainnet();
+                if (GUILayout.Button("Use Testnet")) UseTestnet();
+            }
+
             if (GUILayout.Button("Initialize")) Initialize();
 
             GUI.enabled = _step == 2;
@@ -51,6 +76,10 @@ public class WaypointExample : MonoBehaviour
             GUILayout.TextArea(_lastResponse, GUILayout.ExpandHeight(true));
         }
     }
+
+    private void UseMainnet() => waypointSettings.network = WaypointSettings.Network.Mainnet;
+
+    private void UseTestnet() => waypointSettings.network = WaypointSettings.Network.Testnet;
 
     private async void Initialize()
     {

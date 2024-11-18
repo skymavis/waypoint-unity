@@ -164,6 +164,5 @@ namespace SkyMavis
         public static string OnCallContract(string contractAddress, string data, string value = "0x0", string from = null) => SendTransaction(contractAddress, data, value, from);
 
         #endregion
-
     }
 }

@@ -1,18 +1,49 @@
 using System;
-using UnityEngine;
 
 namespace SkyMavis
 {
     [Serializable]
     public class WaypointSettings
     {
-        [Tooltip("Leave empty to auto-detect from command line arguments.")]
+        public static bool TryGetMavisHubArgs(out string sessionID, out int port)
+        {
+            var args = Environment.GetCommandLineArgs();
+            sessionID = null;
+            port = -1;
+
+            for (var i = 0; i < args.Length - 1; i++)
+            {
+                switch (args[i])
+                {
+                    case "-sessionId":
+                        sessionID = args[i + 1];
+                        break;
+                    case "-hubPort":
+                        if (!int.TryParse(args[i + 1], out port)) port = -1;
+                        break;
+                }
+            }
+
+            return sessionID != null && port >= 0;
+        }
+
+        /// <summary>
+        /// Use <see cref="TryGetMavisHubArgs"/> to check if Mavis Hub session ID is provided via command line arguments.
+        /// </summary>
         public string mavisHubSessionID;
-        [Tooltip("Leave negative to auto-detect from command line arguments.")]
-        public int mavisHubPort = -1;
+        /// <summary>
+        /// Use <see cref="TryGetMavisHubArgs"/> to check if Mavis Hub port is provided via command line arguments.
+        /// </summary>
+        public int mavisHubPort;
+        /// <summary>
+        /// Provided by <a href="https://developers.skymavis.com/console/id-service/">Sky Mavis Dev Portal</a>
+        /// </summary>
         public string clientID = "<provided by Sky Mavis Dev Portal>";
-        public string endpoint = "https://waypoint.roninchain.com";
+        /// <summary>
+        /// Reference: <a href="https://docs.unity3d.com/Manual/deep-linking.html">Unity Deep Linking Manual</a>
+        /// </summary>
         public string deepLinkCallbackURL = "schema://host";
+        public string endpoint = "https://waypoint.roninchain.com";
         public Network network = Network.Mainnet;
 
         [Serializable]
@@ -32,23 +63,5 @@ namespace SkyMavis
             public int chainID;
             public string rpcURL;
         }
-
-        internal string MavisHubSessionID => string.IsNullOrEmpty(mavisHubSessionID) ? GetCommandLineArgs("-sessionId") : mavisHubSessionID;
-
-        internal int MavisHubPort => mavisHubPort < 0 && int.TryParse(GetCommandLineArgs("-hubPort"), out var port) ? port : mavisHubPort;
-
-        private static string GetCommandLineArgs(string name)
-        {
-            var args = Environment.GetCommandLineArgs();
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i] == name && args.Length > i + 1)
-                {
-                    return args[i + 1];
-                }
-            }
-            return null;
-        }
-
     }
 }

@@ -35,9 +35,25 @@ public class SkynetExample : MonoBehaviour
     [Header("Setup Skynet")]
     public string skynetApiKey;
 
+    private bool _hasMavisHubArgs;
     private int _step = 1;
     private string _ownerAddress;
     private string _lastResponse;
+
+    void Awake()
+    {
+        if (WaypointSettings.TryGetMavisHubArgs(out var sessionID, out var port))
+        {
+            _hasMavisHubArgs = true;
+            waypointSettings.mavisHubSessionID = sessionID;
+            waypointSettings.mavisHubPort = port;
+        }
+    }
+
+    void OnDestroy()
+    {
+        Waypoint.CleanUp();
+    }
 
     private void OnGUI()
     {
@@ -47,6 +63,21 @@ public class SkynetExample : MonoBehaviour
         {
             GUI.enabled = _step == 1;
             GUILayout.Label("Step 1: Configure Waypoint and Skynet in Skynet Example GameObject");
+            if (_hasMavisHubArgs) GUILayout.Label("Mavis Hub related properties are configured programmatically from command line arguments.");
+            GUILayout.Label($"Mavis Hub Session ID: {waypointSettings.mavisHubSessionID}");
+            GUILayout.Label($"Mavis Hub Port: {waypointSettings.mavisHubPort}");
+            GUILayout.Label($"OAuth Client ID: {waypointSettings.clientID}");
+            GUILayout.Label($"Deep Link Callback URL: {waypointSettings.deepLinkCallbackURL}");
+            GUILayout.Label($"Endpoint: {waypointSettings.endpoint}");
+            GUILayout.Label($"Chain ID: {waypointSettings.network.chainID}");
+            GUILayout.Label($"RPC URL: {waypointSettings.network.rpcURL}");
+
+            using (new GUILayout.HorizontalScope())
+            {
+                if (GUILayout.Button("Use Mainnet")) UseMainnet();
+                if (GUILayout.Button("Use Testnet")) UseTestnet();
+            }
+
             if (GUILayout.Button("Waypoint: Initialize")) StartCoroutine(InitializeWaypoint());
 
             GUI.enabled = _step == 2;
@@ -69,11 +100,23 @@ public class SkynetExample : MonoBehaviour
         }
     }
 
+    private void UseMainnet() => waypointSettings.network = WaypointSettings.Network.Mainnet;
+
+    private void UseTestnet() => waypointSettings.network = WaypointSettings.Network.Testnet;
+
     private IEnumerator InitializeWaypoint()
     {
+        if (WaypointSettings.TryGetMavisHubArgs(out var sessionID, out var port))
+        {
+            waypointSettings.mavisHubSessionID = sessionID;
+            waypointSettings.mavisHubPort = port;
+        }
+
         Waypoint.SetUp(waypointSettings);
         _step = 2;
+
         yield return new WaitUntil(() => Waypoint.IsConnected);
+
         _step = 3;
     }
 
