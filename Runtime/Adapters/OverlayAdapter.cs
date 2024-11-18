@@ -31,8 +31,8 @@ namespace SkyMavis.WaypointInternal.Adapters
             {
                 Scheme = "ws",
                 Host = "127.0.0.1",
-                Port = settings.MavisHubPort,
-                Query = $"sessionId={settings.MavisHubSessionID}",
+                Port = settings.mavisHubPort,
+                Query = $"sessionId={settings.mavisHubSessionID}",
             }.Uri);
         }
 
