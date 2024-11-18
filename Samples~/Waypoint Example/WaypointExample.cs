@@ -84,7 +84,11 @@ public class WaypointExample : MonoBehaviour
         }
     }
 
-    private void Authorize() => Execute("Authorize", () => Waypoint.Authorize());
+    private void Authorize()
+    {
+        var scope = "profile openid email wallet";
+        Execute("Authorize", () => Waypoint.Authorize(scope))
+    }
 
     private void PersonalSign() => Execute("Personal Sign", () => Waypoint.PersonalSign("Hello Axie Infinity"));
 

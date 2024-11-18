@@ -148,6 +148,9 @@ namespace SkyMavis
         [Obsolete("To be removed in 0.5.0. Use Authorize() instead.")]
         public static string OnAuthorize(string scope = null) => Authorize(scope);
 
+        [Obsolete("To be removed in 0.5.0. Use Authorize() instead.")]
+        public static string OnGetIDToken() => Authorize();
+
         [Obsolete("To be removed in 0.5.0. Use PersonalSign() instead.")]
         public static string OnPersonalSign(string message, string from = null) => PersonalSign(message, from);
 
