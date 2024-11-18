@@ -123,18 +123,23 @@ namespace SkyMavis
         }
 
         [Obsolete("To be removed in 0.5.0. Use SetUp() instead.")]
-        public static void Init(string waypointOrigin, string clientId, string deeplinkSchema, string rpcUrl, int chainId)
+        public static void Init(string clientId, string deeplinkSchema, bool isTestnet = false)
         {
+            WaypointSettings.Network network = new WaypointSettings.Network();
+            if (isTestnet)
+            {
+                network = WaypointSettings.Network.Testnet;
+            }
+            else
+            {
+                network = WaypointSettings.Network.Mainnet;
+            }
+
             WaypointSettings waypointSettings = new WaypointSettings()
             {
-                endpoint = waypointOrigin,
                 clientID = clientId,
                 deepLinkCallbackURL = $"{deeplinkSchema}://open",
-                network = new WaypointSettings.Network()
-                {
-                    rpcURL = rpcUrl,
-                    chainID = chainId
-                }
+                network = network,
             };
 
             SetUp(waypointSettings);
