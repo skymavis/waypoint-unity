@@ -33,9 +33,8 @@ Mobile requirements:
 
 ## Installation
 
-1. [Install the package using the following Git URL:](https://docs.unity3d.com/Manual/upm-ui-giturl.html) `https://github.com/skymavis/waypoint-unity.git#v4`
-2. In Unity Editor, go to **Build Settings**, then choose the platform you are deploying, then click **Switch Platform**.
-3. Configure [platform-specific settings](https://docs.skymavis.com/mavis/mavis-id/guides/unity-sdk#step-2-install-the-sdk).
+1. [Install the package using the following Git URL:](https://docs.unity3d.com/Manual/upm-ui-giturl.html) `https://github.com/skymavis/waypoint-unity.git#v0.4.0`
+2. Configure [platform-specific settings](https://docs.skymavis.com/mavis/ronin-waypoint/reference/unity-sdk#installation).
 
 ## Initialization
 
