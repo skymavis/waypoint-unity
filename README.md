@@ -195,4 +195,3 @@ public async void OnApproveErc20Clicked()
 ## Documentation
 
 - For more information, see the [Ronin Waypoint Unity SDK](https://docs.skymavis.com/mavis/ronin-waypoint/reference/unity-sdk) integration guide.
-- For detailed examples, see the [playground source code](https://github.com/axieinfinity/waypoint-unity/blob/main/Assets/Example/ID.cs).
