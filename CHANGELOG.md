@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2024-11-19
+
 ### :rotating_light: BREAKING CHANGES
 
 - Converted Waypoint SDK to the Unity Package Manager (UPM) format, allowing easier installation and version management. Users can now [install the SDK directly via a git URL](https://docs.unity3d.com/Manual/upm-ui-giturl.html) with [extended syntax](https://docs.unity3d.com/Manual/upm-git.html#syntax):
@@ -38,7 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2024-05-30
 
-[Unreleased]: https://github.com/skymavis/waypoint-unity/compare/waypoint-unity%2F0.3.0...HEAD
+[Unreleased]: https://github.com/skymavis/waypoint-unity/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/skymavis/waypoint-unity/compare/waypoint-unity%2F0.3.0...v0.4.0
 [0.3.0]: https://github.com/skymavis/waypoint-unity/compare/waypoint-unity%2F0.2.1...waypoint-unity%2F0.3.0
 [0.2.1]: https://github.com/skymavis/waypoint-unity/compare/mavis-id-unity%2F0.2.0...waypoint-unity%2F0.2.1
 [0.2.0]: https://github.com/skymavis/waypoint-unity/compare/mavis-id-unity%2F0.1.0...mavis-id-unity%2F0.2.0

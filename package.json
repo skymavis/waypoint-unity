@@ -1,6 +1,6 @@
 {
   "name": "com.skymavis.waypoint",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Unity SDK for Ronin Waypoint integrates the account and wallet features of the Ronin Waypoint service into Unity games deployed to mobile platforms (Android and iOS) and desktop platforms (Windows and macOS).",
   "displayName": "Ronin Waypoint SDK",
   "unity": "2020.3",
