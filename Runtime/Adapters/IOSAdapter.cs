@@ -31,6 +31,7 @@ namespace SkyMavis.WaypointInternal.Adapters
         void IAdapter.SignTypedData(string state, string typedData, string from) =>
             signTypedData(state, _deepLink, typedData, from);
 
+#if UNITY_IOS
         [DllImport("__Internal")]
         private static extern void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId);
 
@@ -48,5 +49,24 @@ namespace SkyMavis.WaypointInternal.Adapters
 
         [DllImport("__Internal")]
         private static extern void sendTransaction(string state, string redirect, string to, string data, string value, string from);
+#else
+        private static void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId) =>
+            throw new System.NotImplementedException();
+
+        private static void authorize(string state, string redirects, string scope) =>
+            throw new System.NotImplementedException();
+
+        private static void sendNativeToken(string state, string redirect, string to, string value, string from) =>
+            throw new System.NotImplementedException();
+
+        private static void personalSign(string state, string redirect, string message, string from) =>
+            throw new System.NotImplementedException();
+
+        private static void signTypedData(string state, string redirect, string typedData, string from) =>
+            throw new System.NotImplementedException();
+
+        private static void sendTransaction(string state, string redirect, string to, string data, string value, string from) =>
+            throw new System.NotImplementedException();
+#endif
     }
 }
