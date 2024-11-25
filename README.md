@@ -33,12 +33,10 @@ Mobile requirements:
 
 ## Installation
 
-1. [Install the package using the following Git URL:](https://docs.unity3d.com/Manual/upm-ui-giturl.html) `https://github.com/skymavis/waypoint-unity.git#v0.4.0`
+1. [Install the package using the following Git URL:](https://docs.unity3d.com/Manual/upm-ui-giturl.html) `https://github.com/skymavis/waypoint-unity.git#v0.4.1`
 2. Configure [platform-specific settings](https://docs.skymavis.com/mavis/ronin-waypoint/reference/unity-sdk#installation).
 
 ## Initialization
-
-
 
 ### Mobile
 
@@ -80,6 +78,7 @@ void Start()
 ## Usage example
 
 ### Create a response listener
+
 Ronin Waypoint returns responses to your app through a redirect URI that you registered in the **Developer Console**.
 
 ```csharp
