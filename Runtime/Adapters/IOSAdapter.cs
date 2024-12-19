@@ -8,8 +8,9 @@ namespace SkyMavis.WaypointInternal.Adapters
 
         internal IOSAdapter(WaypointSettings settings)
         {
+            bool isTestnet = settings.network.chainID == WaypointSettings.Network.Testnet.chainID;
             _deepLink = settings.deepLinkCallbackURL;
-            initClient(settings.endpoint, settings.clientID, settings.network.rpcURL, settings.network.chainID);
+            initClient(settings.endpoint, settings.clientID, _deepLink, isTestnet);
         }
 
         public void Dispose() { }
@@ -17,55 +18,55 @@ namespace SkyMavis.WaypointInternal.Adapters
         bool IAdapter.IsConnected => true;
 
         void IAdapter.Authorize(string state, string scope) =>
-            authorize(state, _deepLink, scope);
+            authorize(state, scope);
 
         void IAdapter.SendTransaction(string state, string to, string data, string value, string from) =>
-            sendTransaction(state, _deepLink, to, data, value, from);
+            sendTransaction(state, to, data, value, from);
 
         void IAdapter.PersonalSign(string state, string message, string from) =>
-            personalSign(state, _deepLink, message, from);
+            personalSign(state, message, from);
 
         void IAdapter.SendNativeToken(string state, string to, string value, string from) =>
-            sendNativeToken(state, _deepLink, to, value, from);
+            sendNativeToken(state, to, value, from);
 
         void IAdapter.SignTypedData(string state, string typedData, string from) =>
-            signTypedData(state, _deepLink, typedData, from);
+            signTypedData(state, typedData, from);
 
 #if UNITY_IOS
         [DllImport("__Internal")]
-        private static extern void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId);
+        private static extern void initClient(string waypointOrigin, string clientId, string redirectUri, bool isTestnet);
 
         [DllImport("__Internal")]
-        private static extern void authorize(string state, string redirects, string scope);
+        private static extern void authorize(string state, string scope);
 
         [DllImport("__Internal")]
-        private static extern void sendNativeToken(string state, string redirect, string to, string value, string from);
+        private static extern void sendNativeToken(string state, string to, string value, string from);
 
         [DllImport("__Internal")]
-        private static extern void personalSign(string state, string redirect, string message, string from);
+        private static extern void personalSign(string state, string message, string from);
 
         [DllImport("__Internal")]
-        private static extern void signTypedData(string state, string redirect, string typedData, string from);
+        private static extern void signTypedData(string state, string typedData, string from);
 
         [DllImport("__Internal")]
-        private static extern void sendTransaction(string state, string redirect, string to, string data, string value, string from);
+        private static extern void sendTransaction(string state, string to, string data, string value, string from);
 #else
-        private static void initClient(string waypointOrigin, string clientId, string chainRpc, int chainId) =>
+        private static void initClient(string waypointOrigin, string clientId, string redirectUri, bool isTestnet) =>
             throw new System.NotImplementedException();
 
-        private static void authorize(string state, string redirects, string scope) =>
+        private static void authorize(string state, string scope) =>
             throw new System.NotImplementedException();
 
-        private static void sendNativeToken(string state, string redirect, string to, string value, string from) =>
+        private static void sendNativeToken(string state, string to, string value, string from) =>
             throw new System.NotImplementedException();
 
-        private static void personalSign(string state, string redirect, string message, string from) =>
+        private static void personalSign(string state, string message, string from) =>
             throw new System.NotImplementedException();
 
-        private static void signTypedData(string state, string redirect, string typedData, string from) =>
+        private static void signTypedData(string state, string typedData, string from) =>
             throw new System.NotImplementedException();
 
-        private static void sendTransaction(string state, string redirect, string to, string data, string value, string from) =>
+        private static void sendTransaction(string state, string to, string data, string value, string from) =>
             throw new System.NotImplementedException();
 #endif
     }
