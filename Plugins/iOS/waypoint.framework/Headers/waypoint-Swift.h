@@ -307,7 +307,7 @@ SWIFT_EXTERN void authorize(int8_t const * _Nonnull state, int8_t const * _Nulla
 SWIFT_EXTERN void createKeylessWallet(int8_t const * _Nonnull state);
 
 
-SWIFT_EXTERN void initClient(int8_t const * _Nonnull waypointOrigin, int8_t const * _Nonnull clientId, int8_t const * _Nonnull redirectUri, BOOL const * _Nullable isTestnet);
+SWIFT_EXTERN void initClient(int8_t const * _Nonnull waypointOrigin, int8_t const * _Nonnull clientId, int8_t const * _Nonnull redirectUri, int8_t const * _Nonnull rpcUrl, int32_t chainId);
 
 
 SWIFT_EXTERN void personalSign(int8_t const * _Nonnull state, int8_t const * _Nonnull message, int8_t const * _Nullable from);

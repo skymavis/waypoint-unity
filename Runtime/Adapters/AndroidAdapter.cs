@@ -11,9 +11,9 @@ namespace SkyMavis.WaypointInternal.Adapters
         internal AndroidAdapter(WaypointSettings settings)
         {
             using var jPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            using var jIsTestnet = new AndroidJavaObject("java.lang.Boolean", settings.network.chainID == WaypointSettings.Network.Testnet.chainID);
+            using var jChainID = new AndroidJavaObject("java.lang.Integer", settings.network.chainID);
             _deepLink = settings.deepLinkCallbackURL;
-            _client = new AndroidJavaObject("com.skymavis.sdk.waypoint.Waypoint", settings.endpoint, settings.clientID, _deepLink, jIsTestnet);
+            _client = new AndroidJavaObject("com.skymavis.sdk.waypoint.Waypoint", settings.endpoint, settings.clientID, settings.network.rpcURL, jChainID);
             _context = jPlayer.GetStatic<AndroidJavaObject>("currentActivity");
         }
 

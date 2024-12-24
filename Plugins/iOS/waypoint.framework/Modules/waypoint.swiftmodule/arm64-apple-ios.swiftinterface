@@ -17,7 +17,8 @@ public struct Network {
   public let rpcUrl: Swift.String
 }
 public class Waypoint {
-  public init(waypointOrigin: Swift.String, clientId: Swift.String, redirectUri: Swift.String, isTestnet: Swift.Bool = false)
+  public init(waypointOrigin: Swift.String, clientId: Swift.String, redirectUri: Swift.String, rpcUrl: Swift.String, chainId: Swift.Int)
+  public init(waypointOrigin: Swift.String, clientId: Swift.String, redirectUri: Swift.String)
   #if compiler(>=5.3) && $AsyncAwait
   public func authorize(state: Swift.String, scope: Swift.String? = nil) async -> Swift.String
   #endif
@@ -46,7 +47,7 @@ public class Waypoint {
 }
 @_hasMissingDesignatedInitializers final public class WaypointManager {
   public static let shared: waypoint.WaypointManager
-  final public func configure(waypointOrigin: Swift.String, clientId: Swift.String, redirectUri: Swift.String, isTestnet: Swift.Bool = false)
+  final public func configure(waypointOrigin: Swift.String, clientId: Swift.String, redirectUri: Swift.String, rpcUrl: Swift.String, chainId: Swift.Int)
   final public var client: waypoint.Waypoint? {
     get
   }
@@ -65,7 +66,7 @@ public struct Response {
   public func getValue(for key: Swift.String) -> Swift.String?
 }
 @_cdecl("initClient")
-public func initClient(waypointOrigin: Swift.UnsafePointer<Swift.Int8>, clientId: Swift.UnsafePointer<Swift.Int8>, redirectUri: Swift.UnsafePointer<Swift.Int8>, isTestnet: Swift.UnsafePointer<Swift.Bool>? = nil)
+public func initClient(waypointOrigin: Swift.UnsafePointer<Swift.Int8>, clientId: Swift.UnsafePointer<Swift.Int8>, redirectUri: Swift.UnsafePointer<Swift.Int8>, rpcUrl: Swift.UnsafePointer<Swift.Int8>, chainId: Swift.Int32)
 @_cdecl("authorize")
 public func authorize(state: Swift.UnsafePointer<Swift.Int8>, scope: Swift.UnsafePointer<Swift.Int8>? = nil)
 @_cdecl("personalSign")

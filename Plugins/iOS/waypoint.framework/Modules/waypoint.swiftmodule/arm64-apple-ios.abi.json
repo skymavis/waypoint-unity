@@ -236,7 +236,7 @@
           {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(waypointOrigin:clientId:redirectUri:isTestnet:)",
+            "printedName": "init(waypointOrigin:clientId:redirectUri:rpcUrl:chainId:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -264,15 +264,59 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "hasDefaultArg": true,
-                "usr": "s:Sb"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:8waypoint8WaypointC0A6Origin8clientId11redirectUri9isTestnetACSS_S2SSbtcfc",
-            "mangledName": "$s8waypoint8WaypointC0A6Origin8clientId11redirectUri9isTestnetACSS_S2SSbtcfc",
+            "usr": "s:8waypoint8WaypointC0A6Origin8clientId11redirectUri6rpcUrl05chainE0ACSS_S3SSitcfc",
+            "mangledName": "$s8waypoint8WaypointC0A6Origin8clientId11redirectUri6rpcUrl05chainE0ACSS_S3SSitcfc",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(waypointOrigin:clientId:redirectUri:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Waypoint",
+                "printedName": "waypoint.Waypoint",
+                "usr": "s:8waypoint8WaypointC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:8waypoint8WaypointC0A6Origin8clientId11redirectUriACSS_S2Stcfc",
+            "mangledName": "$s8waypoint8WaypointC0A6Origin8clientId11redirectUriACSS_S2Stcfc",
             "moduleName": "waypoint",
             "declAttributes": [
               "AccessControl"
@@ -737,7 +781,7 @@
           {
             "kind": "Function",
             "name": "configure",
-            "printedName": "configure(waypointOrigin:clientId:redirectUri:isTestnet:)",
+            "printedName": "configure(waypointOrigin:clientId:redirectUri:rpcUrl:chainId:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -764,15 +808,20 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "hasDefaultArg": true,
-                "usr": "s:Sb"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
               }
             ],
             "declKind": "Func",
-            "usr": "s:8waypoint15WaypointManagerC9configure0A6Origin8clientId11redirectUri9isTestnetySS_S2SSbtF",
-            "mangledName": "$s8waypoint15WaypointManagerC9configure0A6Origin8clientId11redirectUri9isTestnetySS_S2SSbtF",
+            "usr": "s:8waypoint15WaypointManagerC9configure0A6Origin8clientId11redirectUri6rpcUrl05chainG0ySS_S3SSitF",
+            "mangledName": "$s8waypoint15WaypointManagerC9configure0A6Origin8clientId11redirectUri6rpcUrl05chainG0ySS_S3SSitF",
             "moduleName": "waypoint",
             "declAttributes": [
               "Final",
@@ -1323,7 +1372,7 @@
       {
         "kind": "Function",
         "name": "initClient",
-        "printedName": "initClient(waypointOrigin:clientId:redirectUri:isTestnet:)",
+        "printedName": "initClient(waypointOrigin:clientId:redirectUri:rpcUrl:chainId:)",
         "children": [
           {
             "kind": "TypeNominal",
@@ -1374,31 +1423,28 @@
           },
           {
             "kind": "TypeNominal",
-            "name": "Optional",
-            "printedName": "Swift.UnsafePointer<Swift.Bool>?",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "UnsafePointer",
-                "printedName": "Swift.UnsafePointer<Swift.Bool>",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Bool",
-                    "printedName": "Swift.Bool",
-                    "usr": "s:Sb"
-                  }
-                ],
-                "usr": "s:SP"
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
               }
             ],
-            "hasDefaultArg": true,
-            "usr": "s:Sq"
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Int32",
+            "printedName": "Swift.Int32",
+            "usr": "s:s5Int32V"
           }
         ],
         "declKind": "Func",
-        "usr": "c:(cm)initClientWithWaypointOrigin:clientId:redirectUri:isTestnet:",
-        "mangledName": "$s8waypoint10initClient0A6Origin8clientId11redirectUri9isTestnetySPys4Int8VG_A2ISPySbGSgtF",
+        "usr": "c:(cm)initClientWithWaypointOrigin:clientId:redirectUri:rpcUrl:chainId:",
+        "mangledName": "$s8waypoint10initClient0A6Origin8clientId11redirectUri6rpcUrl05chainF0ySPys4Int8VG_A3Js5Int32VtF",
         "moduleName": "waypoint",
         "declAttributes": [
           "AccessControl",
@@ -2013,25 +2059,11 @@
       "value": "\"https:\/\/saigon-testnet.roninchain.com\/rpc\""
     },
     {
-      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Waypoint.swift",
-      "kind": "BooleanLiteral",
-      "offset": 667,
-      "length": 5,
-      "value": "false"
-    },
-    {
       "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Request.swift",
       "kind": "Dictionary",
       "offset": 244,
       "length": 3,
       "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/WaypointManager.swift",
-      "kind": "BooleanLiteral",
-      "offset": 318,
-      "length": 5,
-      "value": "false"
     },
     {
       "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Response.swift",

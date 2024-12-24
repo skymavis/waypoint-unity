@@ -8,9 +8,8 @@ namespace SkyMavis.WaypointInternal.Adapters
 
         internal IOSAdapter(WaypointSettings settings)
         {
-            bool isTestnet = settings.network.chainID == WaypointSettings.Network.Testnet.chainID;
             _deepLink = settings.deepLinkCallbackURL;
-            initClient(settings.endpoint, settings.clientID, _deepLink, ref isTestnet);
+            initClient(settings.endpoint, settings.clientID, _deepLink, settings.network.rpcURL, settings.network.chainID);
         }
 
         public void Dispose() { }
@@ -34,7 +33,7 @@ namespace SkyMavis.WaypointInternal.Adapters
 
 #if UNITY_IOS
         [DllImport("__Internal")]
-        private static extern void initClient(string waypointOrigin, string clientId, string redirectUri, ref bool isTestnet);
+        private static extern void initClient(string waypointOrigin, string clientId, string redirectUri, string chainRpc, int chainId);
 
         [DllImport("__Internal")]
         private static extern void authorize(string state, string scope);
@@ -51,7 +50,7 @@ namespace SkyMavis.WaypointInternal.Adapters
         [DllImport("__Internal")]
         private static extern void sendTransaction(string state, string to, string data, string value, string from);
 #else
-        private static void initClient(string waypointOrigin, string clientId, string redirectUri, ref bool isTestnet) =>
+        private static void initClient(string waypointOrigin, string clientId, string redirectUri, string chainRpc, int chainId) =>
             throw new System.NotImplementedException();
 
         private static void authorize(string state, string scope) =>

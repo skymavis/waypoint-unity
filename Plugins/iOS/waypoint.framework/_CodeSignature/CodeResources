@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/waypoint-Swift.h</key>
 		<data>
-		IVNDIe29+YI0L4gt2lzlW02HmdQ=
+		CUq2VMeZfSyu/7cXKDe5cgTIDbo=
 		</data>
 		<key>Headers/waypoint.h</key>
 		<data>
@@ -22,15 +22,15 @@
 		</data>
 		<key>Modules/waypoint.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		TXAbJD5utLvYGHiCYGEhCajhOi0=
+		QuDXm2P3wouIHFEfl0k/eJ7WE4w=
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		z3TO2X7freAujs0JUU0w/U9jws0=
+		eQNHxVgSjkDmeK3bPGhybLMAvBo=
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		gXQ3fvq+/9zk0H8Iw2N9GqYXQHE=
+		bpeairdD/Mh0TP8byLbXcpteUes=
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
@@ -38,11 +38,11 @@
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		gXQ3fvq+/9zk0H8Iw2N9GqYXQHE=
+		bpeairdD/Mh0TP8byLbXcpteUes=
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		8uRoNVXMfP6v61APuBnkqEh4fSY=
+		dcYfWxLz8yMSUUSQZUqmcse4Nso=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -51,7 +51,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dl/uq8lTa543DKTKtLbYHdYrnurF2uA7+xKcdwWNbo0=
+			zKFEnHI4f49FS4xMlO9xfucWpTdd5YijfcQ34vYhwzQ=
 			</data>
 		</dict>
 		<key>Headers/waypoint.h</key>
@@ -72,21 +72,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SVkbbz2tKcEnyVKsfW5A3F/XyYiCZ+vWRO6Y18voVos=
+			btdOecZ/gkg3IH5ElzBYgWU/gHiBfrMw8+yCzaJD69g=
 			</data>
 		</dict>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			WgiSmzKHdfxyI7Tte//Ty/SxOGHMtpneOcSTa0/DKu0=
+			kl31W2jvAPeDG4NsGuJOdxHMeUX6GL7tnTQlP7+/IRE=
 			</data>
 		</dict>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BhlxglF5dV65FTMp9US/XQ08RmdC2xAC29S6acWkq5U=
+			KzXjlNxb2ruO6g5q0NHLu9FLShC5m3URrkNI3SYgiYo=
 			</data>
 		</dict>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftdoc</key>
@@ -100,14 +100,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BhlxglF5dV65FTMp9US/XQ08RmdC2xAC29S6acWkq5U=
+			KzXjlNxb2ruO6g5q0NHLu9FLShC5m3URrkNI3SYgiYo=
 			</data>
 		</dict>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dK3O2MA/5OiqXHLK3oaHBNGvIqKOJqtruBKyj10mtyE=
+			RN+pqEZ/XoU0ykq1MA1LjlJeWsRVdcOoMPKwnJDCUvo=
 			</data>
 		</dict>
 	</dict>
