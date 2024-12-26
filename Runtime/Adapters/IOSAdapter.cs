@@ -31,6 +31,15 @@ namespace SkyMavis.WaypointInternal.Adapters
         void IAdapter.SignTypedData(string state, string typedData, string from) =>
             signTypedData(state, typedData, from);
 
+        void IAdapter.authAsGuest(string state, string credential, string authDate, string hash, string scope) =>
+            authAsGuest(state, credential, authDate, hash, scope);
+
+        void IAdapter.registerGuestAccount(string state) =>
+            registerGuestAccount(state);
+
+        void IAdapter.createKeylessWallet(string state) =>
+            createKeylessWallet(state);
+
 #if UNITY_IOS
         [DllImport("__Internal")]
         private static extern void initClient(string waypointOrigin, string clientId, string redirectUri, string chainRpc, int chainId);
@@ -49,6 +58,15 @@ namespace SkyMavis.WaypointInternal.Adapters
 
         [DllImport("__Internal")]
         private static extern void sendTransaction(string state, string to, string data, string value, string from);
+
+        [DllImport("__Internal")]
+        private static extern void authAsGuest(string state, string credential, string authDate, string hash, string scope);
+
+        [DllImport("__Internal")]
+        private static extern void registerGuestAccount(string state);
+
+        [DllImport("__Internal")]
+        private static extern void createKeylessWallet(string state);
 #else
         private static void initClient(string waypointOrigin, string clientId, string redirectUri, string chainRpc, int chainId) =>
             throw new System.NotImplementedException();
@@ -66,6 +84,15 @@ namespace SkyMavis.WaypointInternal.Adapters
             throw new System.NotImplementedException();
 
         private static void sendTransaction(string state, string to, string data, string value, string from) =>
+            throw new System.NotImplementedException();
+
+        private static void authAsGuest(string state, string credential, string authDate, string hash, string scope) =>
+            throw new System.NotImplementedException();
+
+        private static void registerGuestAccount(string state) =>
+            throw new System.NotImplementedException();
+
+        private static void createKeylessWallet(string state) =>
             throw new System.NotImplementedException();
 #endif
     }

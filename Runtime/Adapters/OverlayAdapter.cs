@@ -97,6 +97,21 @@ namespace SkyMavis.WaypointInternal.Adapters
                 from
             );
 
+        void IAdapter.authAsGuest(string state, string credential, string authDate, string hash, string scope)
+        {
+            // TODO
+        };
+
+        void IAdapter.registerGuestAccount(string state, string to, string value, string from)
+        {
+            // TODO
+        };
+
+        void IAdapter.createKeylessWallet(string state, string to, string value, string from)
+        {
+            // TODO
+        };
+
         private void InitializeWebSocket(Uri uri)
         {
             var ct = _cts.Token;

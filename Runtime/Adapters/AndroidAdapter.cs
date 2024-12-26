@@ -39,5 +39,14 @@ namespace SkyMavis.WaypointInternal.Adapters
 
         void IAdapter.SignTypedData(string state, string typedData, string from) =>
             _client.Call("signTypedData", _context, state, typedData, from);
+
+        void IAdapter.AuthAsGuest(string state, string credential, string authDate, string hash, string scope) =>
+            _client.Call("authAsGuest", _context, state, credential, authDate, hash, scope);
+
+        void IAdapter.RegisterGuestAccount(string state) =>
+            _client.Call("registerGuestAccount", _context, state);
+
+        void IAdapter.CreateKeylessWallet(string state) =>
+            _client.Call("createKeylessWallet", _context, state);
     }
 }

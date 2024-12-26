@@ -65,6 +65,15 @@ namespace SkyMavis
         internal static string SendTransaction(string address, string data, string value, string from) =>
             ExecuteWithRandomState(state => _adapter.SendTransaction(state, address, data, value, from));
 
+        internal static string authAsGuest(string credential, string authDate, string hash, string scope) =>
+            ExecuteWithRandomState(state => _adapter.authAsGuest(state, credential, authDate, hash, scope));
+
+        internal static string registerGuestAccount() =>
+            ExecuteWithRandomState(state => _adapter.registerGuestAccount(state));
+
+        internal static string createKeylessWallet() =>
+            ExecuteWithRandomState(state => _adapter.createKeylessWallet(state));
+
         private static void OnDeepLinkActivated(string url)
         {
             if (url == null) return;
