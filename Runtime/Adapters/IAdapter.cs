@@ -10,8 +10,8 @@ namespace SkyMavis.WaypointInternal.Adapters
         internal void SignTypedData(string state, string typedData, string from = null);
         internal void SendNativeToken(string state, string to, string value, string from = null);
         internal void SendTransaction(string state, string to, string data, string value = "0x0", string from = null);
-        internal void authAsGuest(string state, string credential, string authDate, string hash, string scope);
-        internal void registerGuestAccount(string state);
-        internal void createKeylessWallet(string state);
+        internal void AuthAsGuest(string state, string credential, string authDate, string hash, string scope);
+        internal void RegisterGuestAccount(string state);
+        internal void CreateKeylessWallet(string state);
     }
 }

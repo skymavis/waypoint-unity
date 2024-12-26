@@ -31,13 +31,13 @@ namespace SkyMavis.WaypointInternal.Adapters
         void IAdapter.SignTypedData(string state, string typedData, string from) =>
             signTypedData(state, typedData, from);
 
-        void IAdapter.authAsGuest(string state, string credential, string authDate, string hash, string scope) =>
+        void IAdapter.AuthAsGuest(string state, string credential, string authDate, string hash, string scope) =>
             authAsGuest(state, credential, authDate, hash, scope);
 
-        void IAdapter.registerGuestAccount(string state) =>
+        void IAdapter.RegisterGuestAccount(string state) =>
             registerGuestAccount(state);
 
-        void IAdapter.createKeylessWallet(string state) =>
+        void IAdapter.CreateKeylessWallet(string state) =>
             createKeylessWallet(state);
 
 #if UNITY_IOS

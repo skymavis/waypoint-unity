@@ -72,6 +72,9 @@ public class WaypointExample : MonoBehaviour
             if (GUILayout.Button("Approve ERC-20")) ApproveErc20();
             if (GUILayout.Button("Swap RON to AXS")) SwapRonToAxs();
             if (GUILayout.Button("Atia Blessing")) AtiaBlessing();
+            if (GUILayout.Button("Auth As Guest")) AuthAsGuest();
+            if (GUILayout.Button("Register Guest Account")) RegisterGuestAccount();
+            if (GUILayout.Button("Create Keyless Wallet")) CreateKeylessWallet();
             GUILayout.Label("Last response");
             GUILayout.TextArea(_lastResponse, GUILayout.ExpandHeight(true));
         }
@@ -170,5 +173,24 @@ public class WaypointExample : MonoBehaviour
         var readableAbi = "function activateStreak(address to)";
         var values = new[] { walletAddress };
         Execute("Atia Blessing", () => Waypoint.WriteContract(atiaShrineContractAddress, readableAbi, values));
+    }
+
+    private void AuthAsGuest()
+    {
+        var credential = "credentialk2";
+        var authDate = "1727254379";
+        var hash = "4e4fe3085e191bd03c54b7a35508682815899bb7c46300290558eb6cb9029f4c";
+        var scope = "wallet";
+        Execute("Auth as guest", () => Waypoint.AuthAsGuest(credential, authDate, hash, scope));
+    }
+
+    private void RegisterGuestAccount()
+    {
+        Execute("Register guest account", () => Waypoint.RegisterGuestAccount());
+    }
+
+    private void CreateKeylessWallet()
+    {
+        Execute("Create keyless wallet", () => Waypoint.CreateKeylessWallet());
     }
 }
