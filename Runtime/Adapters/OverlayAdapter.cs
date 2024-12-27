@@ -99,17 +99,17 @@ namespace SkyMavis.WaypointInternal.Adapters
 
         void IAdapter.AuthAsGuest(string state, string credential, string authDate, string hash, string scope)
         {
-            // TODO
+            throw new NotImplementedException();
         }
 
         void IAdapter.RegisterGuestAccount(string state)
         {
-            // TODO
+            throw new NotImplementedException();
         }
 
         void IAdapter.CreateKeylessWallet(string state)
         {
-            // TODO
+            throw new NotImplementedException();
         }
 
         private void InitializeWebSocket(Uri uri)
