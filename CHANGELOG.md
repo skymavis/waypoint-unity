@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Changed default value of `scope` parameter in `Waypoint.Authorize()` from `null` to `openid profile email`.
+
 ## [0.4.1] - 2024-11-25
 
 ### :wrench: Fixed
