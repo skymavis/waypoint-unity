@@ -47,7 +47,7 @@ namespace SkyMavis
             }
         }
 
-        public static string Authorize(string scope = null) =>
+        public static string Authorize(string scope = "openid profile email") =>
             ExecuteWithRandomState(state => _adapter.Authorize(state, scope));
 
         public static string PersonalSign(string message, string from = null) =>
@@ -112,7 +112,6 @@ namespace SkyMavis
         [Obsolete("To be removed in 0.5.0. Use SetUp() instead.")]
         public static void Init(string sessionID, int port)
         {
-
             WaypointSettings waypointSettings = new WaypointSettings()
             {
                 mavisHubSessionID = sessionID,
