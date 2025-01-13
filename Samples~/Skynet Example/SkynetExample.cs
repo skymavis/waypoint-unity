@@ -78,20 +78,23 @@ public class SkynetExample : MonoBehaviour
                 if (GUILayout.Button("Use Testnet")) UseTestnet();
             }
 
-            if (GUILayout.Button("Waypoint: Initialize")) StartCoroutine(InitializeWaypoint());
+            if (GUILayout.Button("Waypoint: Initialize")) InitializeWaypoint();
 
-            GUI.enabled = _step == 2;
-            GUILayout.Label("Step 2: Wait for Waypoint initialization");
+            GUI.enabled = true;
+            GUILayout.Space(10);
+            GUILayout.Label($"Waypoint.IsConnected == {Waypoint.IsConnected}");
+            GUILayout.Label($"The Waypoint API can be called only when Waypoint is connected.");
+            GUILayout.Space(10);
 
-            GUI.enabled = _step == 3;
-            GUILayout.Label("Step 3: Authorize using Waypoint SDK");
+            GUI.enabled = _step == 2 && Waypoint.IsConnected;
+            GUILayout.Label("Step 2: Authorize using Waypoint SDK");
             if (GUILayout.Button("Waypoint: Authorize")) AuthorizeWaypoint();
 
-            GUI.enabled = _step == 4;
-            GUILayout.Label("Step 4: Wait for Waypoint response");
+            GUI.enabled = _step == 3;
+            GUILayout.Label("Step 3: Wait for Waypoint response");
 
-            GUI.enabled = _step == 5;
-            GUILayout.Label("Step 5: Extract owner address from response JSON");
+            GUI.enabled = _step == 4;
+            GUILayout.Label("Step 4: Extract owner address from response JSON");
             GUILayout.Label($"Owner address: {_ownerAddress ?? "<empty>"}");
             if (GUILayout.Button("Skynet: Get NFTs")) StartCoroutine(GetNfts());
             if (GUILayout.Button("Skynet: Get ERC-20 token balances")) StartCoroutine(GetErc20TokenBalances());
@@ -104,7 +107,7 @@ public class SkynetExample : MonoBehaviour
 
     private void UseTestnet() => waypointSettings.network = WaypointSettings.Network.Testnet;
 
-    private IEnumerator InitializeWaypoint()
+    private void InitializeWaypoint()
     {
         if (WaypointSettings.TryGetMavisHubArgs(out var sessionID, out var port))
         {
@@ -114,15 +117,11 @@ public class SkynetExample : MonoBehaviour
 
         Waypoint.SetUp(waypointSettings);
         _step = 2;
-
-        yield return new WaitUntil(() => Waypoint.IsConnected);
-
-        _step = 3;
     }
 
     private void AuthorizeWaypoint()
     {
-        _step = 4;
+        _step = 3;
 
         ExecuteOnWaypointResponse(
             Waypoint.Authorize(),
@@ -135,7 +134,7 @@ public class SkynetExample : MonoBehaviour
                 if (response.type == "success")
                 {
                     _ownerAddress = response.data.accountWallet.identity;
-                    _step = 5;
+                    _step = 4;
                 }
             }
         );

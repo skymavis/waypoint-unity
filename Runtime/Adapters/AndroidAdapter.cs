@@ -23,7 +23,9 @@ namespace SkyMavis.WaypointInternal.Adapters
             _context.Dispose();
         }
 
-        bool IAdapter.IsConnected => true;
+        bool IAdapter.IsConnected =>
+            Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork ||
+            Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork;
 
         void IAdapter.Authorize(string state, string scope) =>
             _client.Call("authorize", _context, state, _deepLink, scope);

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### :construction: Changed 
+
+- Changed `Waypoint.IsConnected` behavior on Android and iOS. The Waypoint API now throws `InvalidOperationException` if the SDK is not connected.
+
 ## [0.4.1] - 2024-11-25
 
 ### :wrench: Fixed

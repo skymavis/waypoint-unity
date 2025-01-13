@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+using UnityEngine;
 
 namespace SkyMavis.WaypointInternal.Adapters
 {
@@ -14,7 +14,9 @@ namespace SkyMavis.WaypointInternal.Adapters
 
         public void Dispose() { }
 
-        bool IAdapter.IsConnected => true;
+        bool IAdapter.IsConnected =>
+            Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork ||
+            Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork;
 
         void IAdapter.Authorize(string state, string scope) =>
             authorize(state, _deepLink, scope);
