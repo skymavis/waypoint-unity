@@ -219,8 +219,6 @@ namespace SkyMavis.WaypointInternal.Adapters
 
         private async void SendWebSocket(string eventName, string state, object data, string from)
         {
-            if (!(this as IAdapter).IsConnected) throw new InvalidOperationException($"[Waypoint] Not connected to Mavis Hub.");
-
             await _semaphore.WaitAsync(_cts.Token);
 
             try

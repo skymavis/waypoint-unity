@@ -60,11 +60,14 @@ public class WaypointExample : MonoBehaviour
 
             if (GUILayout.Button("Initialize")) Initialize();
 
-            GUI.enabled = _step == 2;
-            GUILayout.Label("Step 2: Wait for Waypoint initialization");
+            GUI.enabled = true;
+            GUILayout.Space(10);
+            GUILayout.Label($"Waypoint.IsConnected == {Waypoint.IsConnected}");
+            GUILayout.Label($"The Waypoint API can be called only when Waypoint is connected.");
+            GUILayout.Space(10);
 
-            GUI.enabled = _step == 3;
-            GUILayout.Label("Step 3: Call Waypoint API");
+            GUI.enabled = _step == 2 && Waypoint.IsConnected;
+            GUILayout.Label("Step 2: Call Waypoint API");
             if (GUILayout.Button("Authorize")) Authorize();
             if (GUILayout.Button("Personal Sign")) PersonalSign();
             if (GUILayout.Button("Sign Typed Data")) SignTypedData();
@@ -81,14 +84,10 @@ public class WaypointExample : MonoBehaviour
 
     private void UseTestnet() => waypointSettings.network = WaypointSettings.Network.Testnet;
 
-    private async void Initialize()
+    private void Initialize()
     {
         Waypoint.SetUp(waypointSettings);
         _step = 2;
-
-        while (!Waypoint.IsConnected) await Task.Yield();
-
-        _step = 3;
     }
 
     private async void Execute(string actionName, Func<string> action)

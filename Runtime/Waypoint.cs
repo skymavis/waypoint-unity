@@ -96,6 +96,8 @@ namespace SkyMavis
 
         private static string ExecuteWithRandomState(Action<string> callback)
         {
+            if (!IsConnected) throw new InvalidOperationException("Waypoint is not connected.");
+
             var state = GenerateRandomState();
             callback(state);
             return state;
