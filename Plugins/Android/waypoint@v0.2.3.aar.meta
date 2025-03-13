@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1033d4575c7fa4ab4a7d7a5e8233e753
+guid: c50908c8a04a244d58fd3023880d74c3
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -12,9 +12,14 @@ PluginImporter:
   validateReferences: 1
   platformData:
   - first:
-      Any: 
+      Android: Android
     second:
       enabled: 1
+      settings: {}
+  - first:
+      Any: 
+    second:
+      enabled: 0
       settings: {}
   - first:
       Editor: Editor

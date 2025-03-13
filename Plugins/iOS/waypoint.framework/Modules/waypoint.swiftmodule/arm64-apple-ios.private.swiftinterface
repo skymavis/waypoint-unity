@@ -1,0 +1,85 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name waypoint
+import AuthenticationServices
+import Foundation
+import SafariServices
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_exported import waypoint
+public struct Network {
+  public static let Mainnet: waypoint.Network
+  public static let Testnet: waypoint.Network
+  public let chainId: Swift.Int
+  public let rpcUrl: Swift.String
+}
+public class Waypoint {
+  public init(waypointOrigin: Swift.String, clientId: Swift.String, redirectUri: Swift.String, rpcUrl: Swift.String, chainId: Swift.Int)
+  public init(waypointOrigin: Swift.String, clientId: Swift.String, redirectUri: Swift.String)
+  #if compiler(>=5.3) && $AsyncAwait
+  public func authorize(state: Swift.String, scope: Swift.String? = nil) async -> Swift.String
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func personalSign(state: Swift.String, message: Swift.String, from: Swift.String? = nil) async -> Swift.String
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func signTypedData(state: Swift.String, typedData: Swift.String, from: Swift.String? = nil) async -> Swift.String
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func sendTransaction(state: Swift.String, to: Swift.String, data: Swift.String? = nil, value: Swift.String? = nil, from: Swift.String? = nil) async -> Swift.String
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func sendNativeToken(state: Swift.String, to: Swift.String, value: Swift.String, from: Swift.String? = nil) async -> Swift.String
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func authAsGuest(state: Swift.String, credential: Swift.String, authDate: Swift.String, hash: Swift.String, scope: Swift.String) async -> Swift.String
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func registerGuestAccount(state: Swift.String) async -> Swift.String
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func createKeylessWallet(state: Swift.String) async -> Swift.String
+  #endif
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class WaypointManager {
+  public static let shared: waypoint.WaypointManager
+  final public func configure(waypointOrigin: Swift.String, clientId: Swift.String, redirectUri: Swift.String, rpcUrl: Swift.String, chainId: Swift.Int)
+  final public var client: waypoint.Waypoint? {
+    get
+  }
+  @objc deinit
+}
+public struct ResponseError : Swift.Error {
+}
+public struct Response {
+  public let success: Swift.Bool
+  public let state: Swift.String?
+  public let error: waypoint.ResponseError?
+  public let data: [Swift.String : Swift.String]
+  public init(success: Swift.Bool = false, state: Swift.String? = nil, error: waypoint.ResponseError? = nil, data: [Swift.String : Swift.String] = [:])
+  public static func parseDeepLink(deeplink: Swift.String) -> waypoint.Response
+  public static func parseDeepLink(deeplink: Foundation.URL) -> waypoint.Response
+  public func getValue(for key: Swift.String) -> Swift.String?
+}
+@_cdecl("initClient")
+public func initClient(waypointOrigin: Swift.UnsafePointer<Swift.Int8>, clientId: Swift.UnsafePointer<Swift.Int8>, redirectUri: Swift.UnsafePointer<Swift.Int8>, rpcUrl: Swift.UnsafePointer<Swift.Int8>, chainId: Swift.Int32)
+@_cdecl("authorize")
+public func authorize(state: Swift.UnsafePointer<Swift.Int8>, scope: Swift.UnsafePointer<Swift.Int8>? = nil)
+@_cdecl("personalSign")
+public func personalSign(state: Swift.UnsafePointer<Swift.Int8>, message: Swift.UnsafePointer<Swift.Int8>, from: Swift.UnsafePointer<Swift.Int8>? = nil)
+@_cdecl("signTypedData")
+public func signTypedData(state: Swift.UnsafePointer<Swift.Int8>, typedData: Swift.UnsafePointer<Swift.Int8>, from: Swift.UnsafePointer<Swift.Int8>? = nil)
+@_cdecl("sendTransaction")
+public func sendTransaction(state: Swift.UnsafePointer<Swift.Int8>, to: Swift.UnsafePointer<Swift.Int8>, data: Swift.UnsafePointer<Swift.Int8>? = nil, value: Swift.UnsafePointer<Swift.Int8>? = nil, from: Swift.UnsafePointer<Swift.Int8>? = nil)
+@_cdecl("sendNativeToken")
+public func sendNativeToken(state: Swift.UnsafePointer<Swift.Int8>, to: Swift.UnsafePointer<Swift.Int8>, value: Swift.UnsafePointer<Swift.Int8>, from: Swift.UnsafePointer<Swift.Int8>? = nil)
+@_cdecl("authAsGuest")
+public func authAsGuest(state: Swift.UnsafePointer<Swift.Int8>, credential: Swift.UnsafePointer<Swift.Int8>, authDate: Swift.UnsafePointer<Swift.Int8>, hash: Swift.UnsafePointer<Swift.Int8>, scope: Swift.UnsafePointer<Swift.Int8>)
+@_cdecl("registerGuestAccount")
+public func registerGuestAccount(state: Swift.UnsafePointer<Swift.Int8>)
+@_cdecl("createKeylessWallet")
+public func createKeylessWallet(state: Swift.UnsafePointer<Swift.Int8>)

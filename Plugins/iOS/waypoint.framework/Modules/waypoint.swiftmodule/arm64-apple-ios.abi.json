@@ -3,7 +3,2256 @@
     "kind": "Root",
     "name": "TopLevel",
     "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "waypoint"
+      },
+      {
+        "kind": "Import",
+        "name": "AuthenticationServices",
+        "printedName": "AuthenticationServices",
+        "declKind": "Import",
+        "moduleName": "waypoint"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "waypoint"
+      },
+      {
+        "kind": "Import",
+        "name": "SafariServices",
+        "printedName": "SafariServices",
+        "declKind": "Import",
+        "moduleName": "waypoint"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Network",
+        "printedName": "Network",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "Mainnet",
+            "printedName": "Mainnet",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Network",
+                "printedName": "waypoint.Network",
+                "usr": "s:8waypoint7NetworkV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8waypoint7NetworkV7MainnetACvpZ",
+            "mangledName": "$s8waypoint7NetworkV7MainnetACvpZ",
+            "moduleName": "waypoint",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Network",
+                    "printedName": "waypoint.Network",
+                    "usr": "s:8waypoint7NetworkV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8waypoint7NetworkV7MainnetACvgZ",
+                "mangledName": "$s8waypoint7NetworkV7MainnetACvgZ",
+                "moduleName": "waypoint",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "Testnet",
+            "printedName": "Testnet",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Network",
+                "printedName": "waypoint.Network",
+                "usr": "s:8waypoint7NetworkV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8waypoint7NetworkV7TestnetACvpZ",
+            "mangledName": "$s8waypoint7NetworkV7TestnetACvpZ",
+            "moduleName": "waypoint",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Network",
+                    "printedName": "waypoint.Network",
+                    "usr": "s:8waypoint7NetworkV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8waypoint7NetworkV7TestnetACvgZ",
+                "mangledName": "$s8waypoint7NetworkV7TestnetACvgZ",
+                "moduleName": "waypoint",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "chainId",
+            "printedName": "chainId",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8waypoint7NetworkV7chainIdSivp",
+            "mangledName": "$s8waypoint7NetworkV7chainIdSivp",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8waypoint7NetworkV7chainIdSivg",
+                "mangledName": "$s8waypoint7NetworkV7chainIdSivg",
+                "moduleName": "waypoint",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "rpcUrl",
+            "printedName": "rpcUrl",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8waypoint7NetworkV6rpcUrlSSvp",
+            "mangledName": "$s8waypoint7NetworkV6rpcUrlSSvp",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8waypoint7NetworkV6rpcUrlSSvg",
+                "mangledName": "$s8waypoint7NetworkV6rpcUrlSSvg",
+                "moduleName": "waypoint",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:8waypoint7NetworkV",
+        "mangledName": "$s8waypoint7NetworkV",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Waypoint",
+        "printedName": "Waypoint",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(waypointOrigin:clientId:redirectUri:rpcUrl:chainId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Waypoint",
+                "printedName": "waypoint.Waypoint",
+                "usr": "s:8waypoint8WaypointC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:8waypoint8WaypointC0A6Origin8clientId11redirectUri6rpcUrl05chainE0ACSS_S3SSitcfc",
+            "mangledName": "$s8waypoint8WaypointC0A6Origin8clientId11redirectUri6rpcUrl05chainE0ACSS_S3SSitcfc",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(waypointOrigin:clientId:redirectUri:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Waypoint",
+                "printedName": "waypoint.Waypoint",
+                "usr": "s:8waypoint8WaypointC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:8waypoint8WaypointC0A6Origin8clientId11redirectUriACSS_S2Stcfc",
+            "mangledName": "$s8waypoint8WaypointC0A6Origin8clientId11redirectUriACSS_S2Stcfc",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "authorize",
+            "printedName": "authorize(state:scope:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8WaypointC9authorize5state5scopeS2S_SSSgtYaF",
+            "mangledName": "$s8waypoint8WaypointC9authorize5state5scopeS2S_SSSgtYaF",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "personalSign",
+            "printedName": "personalSign(state:message:from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8WaypointC12personalSign5state7message4fromS2S_S2SSgtYaF",
+            "mangledName": "$s8waypoint8WaypointC12personalSign5state7message4fromS2S_S2SSgtYaF",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "signTypedData",
+            "printedName": "signTypedData(state:typedData:from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8WaypointC13signTypedData5state05typedE04fromS2S_S2SSgtYaF",
+            "mangledName": "$s8waypoint8WaypointC13signTypedData5state05typedE04fromS2S_S2SSgtYaF",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "sendTransaction",
+            "printedName": "sendTransaction(state:to:data:value:from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8WaypointC15sendTransaction5state2to4data5value4fromS2S_S2SSgA2JtYaF",
+            "mangledName": "$s8waypoint8WaypointC15sendTransaction5state2to4data5value4fromS2S_S2SSgA2JtYaF",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "sendNativeToken",
+            "printedName": "sendNativeToken(state:to:value:from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8WaypointC15sendNativeToken5state2to5value4fromS2S_S3SSgtYaF",
+            "mangledName": "$s8waypoint8WaypointC15sendNativeToken5state2to5value4fromS2S_S3SSgtYaF",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "authAsGuest",
+            "printedName": "authAsGuest(state:credential:authDate:hash:scope:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8WaypointC11authAsGuest5state10credential0C4Date4hash5scopeS2S_S4StYaF",
+            "mangledName": "$s8waypoint8WaypointC11authAsGuest5state10credential0C4Date4hash5scopeS2S_S4StYaF",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "registerGuestAccount",
+            "printedName": "registerGuestAccount(state:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8WaypointC20registerGuestAccount5stateS2S_tYaF",
+            "mangledName": "$s8waypoint8WaypointC20registerGuestAccount5stateS2S_tYaF",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "createKeylessWallet",
+            "printedName": "createKeylessWallet(state:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8WaypointC19createKeylessWallet5stateS2S_tYaF",
+            "mangledName": "$s8waypoint8WaypointC19createKeylessWallet5stateS2S_tYaF",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:8waypoint8WaypointC",
+        "mangledName": "$s8waypoint8WaypointC",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "waypoint"
+      },
+      {
+        "kind": "Import",
+        "name": "SafariServices",
+        "printedName": "SafariServices",
+        "declKind": "Import",
+        "moduleName": "waypoint"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "WaypointManager",
+        "printedName": "WaypointManager",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "WaypointManager",
+                "printedName": "waypoint.WaypointManager",
+                "usr": "s:8waypoint15WaypointManagerC"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8waypoint15WaypointManagerC6sharedACvpZ",
+            "mangledName": "$s8waypoint15WaypointManagerC6sharedACvpZ",
+            "moduleName": "waypoint",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "WaypointManager",
+                    "printedName": "waypoint.WaypointManager",
+                    "usr": "s:8waypoint15WaypointManagerC"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8waypoint15WaypointManagerC6sharedACvgZ",
+                "mangledName": "$s8waypoint15WaypointManagerC6sharedACvgZ",
+                "moduleName": "waypoint",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "configure",
+            "printedName": "configure(waypointOrigin:clientId:redirectUri:rpcUrl:chainId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint15WaypointManagerC9configure0A6Origin8clientId11redirectUri6rpcUrl05chainG0ySS_S3SSitF",
+            "mangledName": "$s8waypoint15WaypointManagerC9configure0A6Origin8clientId11redirectUri6rpcUrl05chainG0ySS_S3SSitF",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "client",
+            "printedName": "client",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "waypoint.Waypoint?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Waypoint",
+                    "printedName": "waypoint.Waypoint",
+                    "usr": "s:8waypoint8WaypointC"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8waypoint15WaypointManagerC6clientAA0B0CSgvp",
+            "mangledName": "$s8waypoint15WaypointManagerC6clientAA0B0CSgvp",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "waypoint.Waypoint?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Waypoint",
+                        "printedName": "waypoint.Waypoint",
+                        "usr": "s:8waypoint8WaypointC"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8waypoint15WaypointManagerC6clientAA0B0CSgvg",
+                "mangledName": "$s8waypoint15WaypointManagerC6clientAA0B0CSgvg",
+                "moduleName": "waypoint",
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:8waypoint15WaypointManagerC",
+        "mangledName": "$s8waypoint15WaypointManagerC",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "Final",
+          "AccessControl"
+        ],
+        "hasMissingDesignatedInitializers": true
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "waypoint"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ResponseError",
+        "printedName": "ResponseError",
+        "declKind": "Struct",
+        "usr": "s:8waypoint13ResponseErrorV",
+        "mangledName": "$s8waypoint13ResponseErrorV",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Response",
+        "printedName": "Response",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "success",
+            "printedName": "success",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8waypoint8ResponseV7successSbvp",
+            "mangledName": "$s8waypoint8ResponseV7successSbvp",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8waypoint8ResponseV7successSbvg",
+                "mangledName": "$s8waypoint8ResponseV7successSbvg",
+                "moduleName": "waypoint",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "state",
+            "printedName": "state",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8waypoint8ResponseV5stateSSSgvp",
+            "mangledName": "$s8waypoint8ResponseV5stateSSSgvp",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8waypoint8ResponseV5stateSSSgvg",
+                "mangledName": "$s8waypoint8ResponseV5stateSSSgvg",
+                "moduleName": "waypoint",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "error",
+            "printedName": "error",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "waypoint.ResponseError?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ResponseError",
+                    "printedName": "waypoint.ResponseError",
+                    "usr": "s:8waypoint13ResponseErrorV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8waypoint8ResponseV5errorAA0B5ErrorVSgvp",
+            "mangledName": "$s8waypoint8ResponseV5errorAA0B5ErrorVSgvp",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "waypoint.ResponseError?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ResponseError",
+                        "printedName": "waypoint.ResponseError",
+                        "usr": "s:8waypoint13ResponseErrorV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8waypoint8ResponseV5errorAA0B5ErrorVSgvg",
+                "mangledName": "$s8waypoint8ResponseV5errorAA0B5ErrorVSgvg",
+                "moduleName": "waypoint",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "data",
+            "printedName": "data",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8waypoint8ResponseV4dataSDyS2SGvp",
+            "mangledName": "$s8waypoint8ResponseV4dataSDyS2SGvp",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8waypoint8ResponseV4dataSDyS2SGvg",
+                "mangledName": "$s8waypoint8ResponseV4dataSDyS2SGvg",
+                "moduleName": "waypoint",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(success:state:error:data:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Response",
+                "printedName": "waypoint.Response",
+                "usr": "s:8waypoint8ResponseV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "hasDefaultArg": true,
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "waypoint.ResponseError?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ResponseError",
+                    "printedName": "waypoint.ResponseError",
+                    "usr": "s:8waypoint13ResponseErrorV"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:8waypoint8ResponseV7success5state5error4dataACSb_SSSgAA0B5ErrorVSgSDyS2SGtcfc",
+            "mangledName": "$s8waypoint8ResponseV7success5state5error4dataACSb_SSSgAA0B5ErrorVSgSDyS2SGtcfc",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "parseDeepLink",
+            "printedName": "parseDeepLink(deeplink:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Response",
+                "printedName": "waypoint.Response",
+                "usr": "s:8waypoint8ResponseV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8ResponseV13parseDeepLink8deeplinkACSS_tFZ",
+            "mangledName": "$s8waypoint8ResponseV13parseDeepLink8deeplinkACSS_tFZ",
+            "moduleName": "waypoint",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "parseDeepLink",
+            "printedName": "parseDeepLink(deeplink:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Response",
+                "printedName": "waypoint.Response",
+                "usr": "s:8waypoint8ResponseV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8ResponseV13parseDeepLink8deeplinkAC10Foundation3URLV_tFZ",
+            "mangledName": "$s8waypoint8ResponseV13parseDeepLink8deeplinkAC10Foundation3URLV_tFZ",
+            "moduleName": "waypoint",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getValue",
+            "printedName": "getValue(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8waypoint8ResponseV8getValue3forSSSgSS_tF",
+            "mangledName": "$s8waypoint8ResponseV8getValue3forSSSgSS_tF",
+            "moduleName": "waypoint",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:8waypoint8ResponseV",
+        "mangledName": "$s8waypoint8ResponseV",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "waypoint"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "waypoint"
+      },
+      {
+        "kind": "Function",
+        "name": "initClient",
+        "printedName": "initClient(waypointOrigin:clientId:redirectUri:rpcUrl:chainId:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Int32",
+            "printedName": "Swift.Int32",
+            "usr": "s:s5Int32V"
+          }
+        ],
+        "declKind": "Func",
+        "usr": "c:(cm)initClientWithWaypointOrigin:clientId:redirectUri:rpcUrl:chainId:",
+        "mangledName": "$s8waypoint10initClient0A6Origin8clientId11redirectUri6rpcUrl05chainF0ySPys4Int8VG_A3Js5Int32VtF",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl",
+          "CDecl"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Function",
+        "name": "authorize",
+        "printedName": "authorize(state:scope:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Optional",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>?",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UnsafePointer",
+                "printedName": "Swift.UnsafePointer<Swift.Int8>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int8",
+                    "printedName": "Swift.Int8",
+                    "usr": "s:s4Int8V"
+                  }
+                ],
+                "usr": "s:SP"
+              }
+            ],
+            "hasDefaultArg": true,
+            "usr": "s:Sq"
+          }
+        ],
+        "declKind": "Func",
+        "usr": "c:(cm)authorizeWithState:scope:",
+        "mangledName": "$s8waypoint9authorize5state5scopeySPys4Int8VG_AGSgtF",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl",
+          "CDecl"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Function",
+        "name": "personalSign",
+        "printedName": "personalSign(state:message:from:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Optional",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>?",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UnsafePointer",
+                "printedName": "Swift.UnsafePointer<Swift.Int8>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int8",
+                    "printedName": "Swift.Int8",
+                    "usr": "s:s4Int8V"
+                  }
+                ],
+                "usr": "s:SP"
+              }
+            ],
+            "hasDefaultArg": true,
+            "usr": "s:Sq"
+          }
+        ],
+        "declKind": "Func",
+        "usr": "c:(cm)personalSignWithState:message:from:",
+        "mangledName": "$s8waypoint12personalSign5state7message4fromySPys4Int8VG_A2HSgtF",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl",
+          "CDecl"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Function",
+        "name": "signTypedData",
+        "printedName": "signTypedData(state:typedData:from:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Optional",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>?",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UnsafePointer",
+                "printedName": "Swift.UnsafePointer<Swift.Int8>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int8",
+                    "printedName": "Swift.Int8",
+                    "usr": "s:s4Int8V"
+                  }
+                ],
+                "usr": "s:SP"
+              }
+            ],
+            "hasDefaultArg": true,
+            "usr": "s:Sq"
+          }
+        ],
+        "declKind": "Func",
+        "usr": "c:(cm)signTypedDataWithState:typedData:from:",
+        "mangledName": "$s8waypoint13signTypedData5state05typedD04fromySPys4Int8VG_A2HSgtF",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl",
+          "CDecl"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Function",
+        "name": "sendTransaction",
+        "printedName": "sendTransaction(state:to:data:value:from:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Optional",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>?",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UnsafePointer",
+                "printedName": "Swift.UnsafePointer<Swift.Int8>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int8",
+                    "printedName": "Swift.Int8",
+                    "usr": "s:s4Int8V"
+                  }
+                ],
+                "usr": "s:SP"
+              }
+            ],
+            "hasDefaultArg": true,
+            "usr": "s:Sq"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Optional",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>?",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UnsafePointer",
+                "printedName": "Swift.UnsafePointer<Swift.Int8>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int8",
+                    "printedName": "Swift.Int8",
+                    "usr": "s:s4Int8V"
+                  }
+                ],
+                "usr": "s:SP"
+              }
+            ],
+            "hasDefaultArg": true,
+            "usr": "s:Sq"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Optional",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>?",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UnsafePointer",
+                "printedName": "Swift.UnsafePointer<Swift.Int8>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int8",
+                    "printedName": "Swift.Int8",
+                    "usr": "s:s4Int8V"
+                  }
+                ],
+                "usr": "s:SP"
+              }
+            ],
+            "hasDefaultArg": true,
+            "usr": "s:Sq"
+          }
+        ],
+        "declKind": "Func",
+        "usr": "c:(cm)sendTransactionWithState:to:data:value:from:",
+        "mangledName": "$s8waypoint15sendTransaction5state2to4data5value4fromySPys4Int8VG_A2JSgA2KtF",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl",
+          "CDecl"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Function",
+        "name": "sendNativeToken",
+        "printedName": "sendNativeToken(state:to:value:from:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "Optional",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>?",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UnsafePointer",
+                "printedName": "Swift.UnsafePointer<Swift.Int8>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int8",
+                    "printedName": "Swift.Int8",
+                    "usr": "s:s4Int8V"
+                  }
+                ],
+                "usr": "s:SP"
+              }
+            ],
+            "hasDefaultArg": true,
+            "usr": "s:Sq"
+          }
+        ],
+        "declKind": "Func",
+        "usr": "c:(cm)sendNativeTokenWithState:to:value:from:",
+        "mangledName": "$s8waypoint15sendNativeToken5state2to5value4fromySPys4Int8VG_A3ISgtF",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl",
+          "CDecl"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Function",
+        "name": "authAsGuest",
+        "printedName": "authAsGuest(state:credential:authDate:hash:scope:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          }
+        ],
+        "declKind": "Func",
+        "usr": "c:(cm)authAsGuestWithState:credential:authDate:hash:scope:",
+        "mangledName": "$s8waypoint11authAsGuest5state10credential0B4Date4hash5scopeySPys4Int8VG_A4JtF",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl",
+          "CDecl"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Function",
+        "name": "registerGuestAccount",
+        "printedName": "registerGuestAccount(state:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          }
+        ],
+        "declKind": "Func",
+        "usr": "c:(cm)registerGuestAccountWithState:",
+        "mangledName": "$s8waypoint20registerGuestAccount5stateySPys4Int8VG_tF",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl",
+          "CDecl"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Function",
+        "name": "createKeylessWallet",
+        "printedName": "createKeylessWallet(state:)",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "Void",
+            "printedName": "()"
+          },
+          {
+            "kind": "TypeNominal",
+            "name": "UnsafePointer",
+            "printedName": "Swift.UnsafePointer<Swift.Int8>",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int8",
+                "printedName": "Swift.Int8",
+                "usr": "s:s4Int8V"
+              }
+            ],
+            "usr": "s:SP"
+          }
+        ],
+        "declKind": "Func",
+        "usr": "c:(cm)createKeylessWalletWithState:",
+        "mangledName": "$s8waypoint19createKeylessWallet5stateySPys4Int8VG_tF",
+        "moduleName": "waypoint",
+        "declAttributes": [
+          "AccessControl",
+          "CDecl"
+        ],
+        "funcSelfKind": "NonMutating"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "waypoint"
+      }
+    ],
     "json_format_version": 8
   },
-  "ConstValues": []
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Waypoint.swift",
+      "kind": "IntegerLiteral",
+      "offset": 123,
+      "length": 4,
+      "value": "2020"
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Waypoint.swift",
+      "kind": "StringLiteral",
+      "offset": 145,
+      "length": 32,
+      "value": "\"https:\/\/api.roninchain.com\/rpc\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Waypoint.swift",
+      "kind": "IntegerLiteral",
+      "offset": 243,
+      "length": 4,
+      "value": "2021"
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Waypoint.swift",
+      "kind": "StringLiteral",
+      "offset": 265,
+      "length": 43,
+      "value": "\"https:\/\/saigon-testnet.roninchain.com\/rpc\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Request.swift",
+      "kind": "Dictionary",
+      "offset": 244,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Response.swift",
+      "kind": "BooleanLiteral",
+      "offset": 302,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Response.swift",
+      "kind": "Dictionary",
+      "offset": 409,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 68,
+      "length": 11,
+      "value": "\"authorize\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 106,
+      "length": 10,
+      "value": "\"register\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 139,
+      "length": 6,
+      "value": "\"send\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 168,
+      "length": 6,
+      "value": "\"sign\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 199,
+      "length": 8,
+      "value": "\"guests\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 232,
+      "length": 8,
+      "value": "\"client\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 265,
+      "length": 8,
+      "value": "\"wallet\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 300,
+      "length": 10,
+      "value": "\"seamless\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 334,
+      "length": 7,
+      "value": "\"start\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 365,
+      "length": 7,
+      "value": "\"setup\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 400,
+      "length": 11,
+      "value": "\"introduce\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 461,
+      "length": 7,
+      "value": "\"state\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 492,
+      "length": 7,
+      "value": "\"scope\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 526,
+      "length": 10,
+      "value": "\"redirect\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 563,
+      "length": 10,
+      "value": "\"clientId\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 599,
+      "length": 9,
+      "value": "\"chainId\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 629,
+      "length": 4,
+      "value": "\"to\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 656,
+      "length": 6,
+      "value": "\"data\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 686,
+      "length": 7,
+      "value": "\"value\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 721,
+      "length": 11,
+      "value": "\"typedData\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 758,
+      "length": 9,
+      "value": "\"message\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 799,
+      "length": 15,
+      "value": "\"expectAddress\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 843,
+      "length": 12,
+      "value": "\"credential\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 882,
+      "length": 10,
+      "value": "\"authDate\""
+    },
+    {
+      "filePath": "\/Users\/tri.huugia.nguyen\/Desktop\/skymavis\/repositories\/x-lib\/ios\/waypoint\/waypoint\/Constants.swift",
+      "kind": "StringLiteral",
+      "offset": 915,
+      "length": 6,
+      "value": "\"hash\""
+    }
+  ]
 }

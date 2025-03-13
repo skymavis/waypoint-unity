@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/waypoint-Swift.h</key>
 		<data>
-		7Hyh3yb1vkzqJ5q/osL0+PQm/M8=
+		CUq2VMeZfSyu/7cXKDe5cgTIDbo=
 		</data>
 		<key>Headers/waypoint.h</key>
 		<data>
@@ -14,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		DVryjFnTWrfa28jwDpoukQh5Zj8=
+		Xlvy3/r8T/qFZvwsJM70suS3EaY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -22,19 +22,27 @@
 		</data>
 		<key>Modules/waypoint.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		W/cqo9RYVy90+Vsu4bSa4aq2yPg=
+		QuDXm2P3wouIHFEfl0k/eJ7WE4w=
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		FSPnLbho3G+LL9smI3XgVOqBIQ4=
+		eQNHxVgSjkDmeK3bPGhybLMAvBo=
+		</data>
+		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
+		<data>
+		bpeairdD/Mh0TP8byLbXcpteUes=
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		ULmZZjlR7pRSmihr2TSYG9ifrWI=
+		GV8rdCcDJnL8WIM5GbHSFxqpV4E=
+		</data>
+		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftinterface</key>
+		<data>
+		bpeairdD/Mh0TP8byLbXcpteUes=
 		</data>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		gfyq+9xZpZnP3S8FIlv0sx2q0Yw=
+		dcYfWxLz8yMSUUSQZUqmcse4Nso=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -43,7 +51,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			32Q+9yuqcT/yDcME/mz1Z8xlYlrAfDohG7kOOE93eqE=
+			zKFEnHI4f49FS4xMlO9xfucWpTdd5YijfcQ34vYhwzQ=
 			</data>
 		</dict>
 		<key>Headers/waypoint.h</key>
@@ -64,28 +72,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			g8JtLGpYsTsy24HsoAGC3i6wVLNawHlZ4egXhrYIPsc=
+			btdOecZ/gkg3IH5ElzBYgWU/gHiBfrMw8+yCzaJD69g=
 			</data>
 		</dict>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			KnRdWE4y6t4QM5zi5JDptPdHFgJy1Tku+7GLkZS2aNM=
+			kl31W2jvAPeDG4NsGuJOdxHMeUX6GL7tnTQlP7+/IRE=
+			</data>
+		</dict>
+		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			KzXjlNxb2ruO6g5q0NHLu9FLShC5m3URrkNI3SYgiYo=
 			</data>
 		</dict>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IpptK9LSC4Dm05DY635v6g7adiVZ8K5k/xVdxpzdOqE=
+			wquk7Q3o+RG8z2fl6irVgKDebMkE8zbAP5B7oLI0usk=
+			</data>
+		</dict>
+		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftinterface</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			KzXjlNxb2ruO6g5q0NHLu9FLShC5m3URrkNI3SYgiYo=
 			</data>
 		</dict>
 		<key>Modules/waypoint.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FMogzZ321mk7XmZvHtbYdLtuvcEeNP9hQysMond6/W0=
+			RN+pqEZ/XoU0ykq1MA1LjlJeWsRVdcOoMPKwnJDCUvo=
 			</data>
 		</dict>
 	</dict>
